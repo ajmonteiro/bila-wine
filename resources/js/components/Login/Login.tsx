@@ -6,14 +6,14 @@ import Input from '../Layout/Input'
 
 export default function Login() {
     const [username, setusername] = useState<string>('')
+    const [email, setemail] = useState<string>('')
 
-    console.log(username)
     return (
         <>
             <Div className='h-screen flex justify-center items-center'>
-                <Form>
-                    <Input type='text' value={username} placeholder='Username'
-                    onChange={async (e: any) => setusername(e)} />
+                <Form className='flex flex-col'>
+                    <Input type='text' value={username} placeholder='Username' onChange={(e: any) => setusername(e)} />
+                    <Input type='email' value={email} placeholder='Email' onChange={(e: any) => setemail(e)} />
                 </Form>
             </Div>
         </>
