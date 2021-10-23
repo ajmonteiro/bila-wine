@@ -5,7 +5,10 @@ import Form from '../Layout/Form'
 import Input from '../Layout/Input'
 import Paragraph from '../Layout/Paragraph'
 
-export default function Register() {
+interface VisibleProps {
+    visible: (e: any) => any
+}
+export default function Register(props: VisibleProps) {
     const [username, setusername] = useState<any>()
     const [email, setemail] = useState<any>()
     const [password, setpassword] = useState<any>()
@@ -16,8 +19,6 @@ export default function Register() {
         form.append('name', username)
         form.append('email', email)
         form.append('password', password)
-
-        console.log(form)
     }
 
     return (
@@ -28,6 +29,10 @@ export default function Register() {
                     <Input type='email' value={email} placeholder='Email' onChange={(e: any) => setemail(e)} />
                     <Input type='password' value={password} placeholder='Password' onChange={(e: any) => setpassword(e)} />
                     <Button text='Register' onclick={(e: any) => register(e)}/>
+                    <Div className='flex'>
+                        <Paragraph text='Do you already have an account?' />
+                        <Button text='Login' onclick={(e: any) => props.visible('login')}/>
+                    </Div>
                 </Form>
             </Div>
         </>

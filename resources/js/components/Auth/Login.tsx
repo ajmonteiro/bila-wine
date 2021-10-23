@@ -6,7 +6,10 @@ import Form from '../Layout/Form'
 import Input from '../Layout/Input'
 import Paragraph from '../Layout/Paragraph'
 
-export default function Login() {
+interface VisibleProps {
+    visible: (e: any) => any
+}
+export default function Login(props: VisibleProps) {
     const [username, setusername] = useState<string>('')
     const [email, setemail] = useState<string>('')
 
@@ -19,7 +22,7 @@ export default function Login() {
                     <Button text='Submit'/>
                     <Div className='flex'>
                         <Paragraph text='No account?' />
-                        <Button text='Register' onclick={() => window.open('/register')}/>
+                        <Button text='Register' onclick={(e: any) => props.visible('register')}/>
                     </Div>
                 </Form>
             </Div>
