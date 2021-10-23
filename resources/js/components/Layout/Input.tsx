@@ -20,7 +20,7 @@ export default function Input(props: InputProps) {
     return (
         <>
             <input
-                className="border-2 m-1 rounded-full border-red-300 focus:border-red-500"
+                className="px-3 py-4 m-1 placeholder-gray-400 text-gray-600 relative bg-white bg-white rounded text-base border border-gray-400 outline-none focus:outline-none focus:ring w-full"
                 type={props.type}
                 value={value}
                 placeholder={props.placeholder}
