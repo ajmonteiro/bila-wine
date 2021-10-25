@@ -22,8 +22,9 @@ export default function Login(props: VisibleProps) {
         form.append('email', email)
         form.append('password', password)
 
-        api().get('/sanctum/csrf-cookie').then(() => {
-            api().post(url, form)
+
+        api.get('/sanctum/csrf-cookie').then(() => {
+            api.post(url, form)
             .then((res: any) => {
                 if(res.data.error) {
                     console.log(res.data.error)
