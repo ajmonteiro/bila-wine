@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { api } from '../Data/Api'
 import Button from '../Layout/Button'
 import Div from '../Layout/Div'
 import Form from '../Layout/Form'
@@ -8,6 +9,7 @@ import Paragraph from '../Layout/Paragraph'
 interface VisibleProps {
     visible: (e: any) => any
 }
+
 export default function Register(props: VisibleProps) {
     const [username, setusername] = useState<any>()
     const [email, setemail] = useState<any>()
@@ -19,6 +21,14 @@ export default function Register(props: VisibleProps) {
         form.append('name', username)
         form.append('email', email)
         form.append('password', password)
+
+        api.post(`/api/register`, form)
+        .then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        })
+
     }
 
     return (
