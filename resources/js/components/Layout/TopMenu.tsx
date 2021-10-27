@@ -1,13 +1,21 @@
 import React from 'react'
 import api from '../Data/Api'
-import Content from './Content'
-import Div from './Div'
-import Link from './Link'
-import Paragraph from './Paragraph'
+import { Div, Content, Link, Paragraph } from './Layout'
+import { getToken } from '../Data/Auth'
+import { useHistory } from 'react-router'
+import { logout } from '../Data/Auth'
 
 export default function TopMenu() {
+    const history = useHistory()
     function goLogout() {
-        api
+        api.post(`/api/logout`, { headers: { Authorization: `Bearer ${getToken()}`}
+        }).then((res) => {
+            if(res.data.user) {
+                console.log(res)
+                logout()
+                history.push('/login')
+            }
+        })
     }
     return (
         <>

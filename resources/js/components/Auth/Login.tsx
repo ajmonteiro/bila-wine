@@ -1,11 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
 import api from '../Data/Api'
-import Button from '../Layout/Button'
-import Div from '../Layout/Div'
-import Form from '../Layout/Form'
-import Input from '../Layout/Input'
-import Paragraph from '../Layout/Paragraph'
+import { Button, Div, Form, Input, Paragraph } from '../Layout/Layout'
 import { loginlocal } from '../Data/Auth'
 import { getToken } from '../Data/Auth'
 
@@ -31,6 +27,7 @@ export default function Login(props: VisibleProps) {
         api.get('/sanctum/csrf-cookie').then(() => {
             api.post(url, form)
                 .then((res: any) => {
+                    console.log(res)
                     if (res.data.user) {
                         loginlocal(res.data.token)
                         history.push(`/`)

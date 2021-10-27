@@ -24,7 +24,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/login/check', [AuthController::class, 'checkLogin']);
 
 Route::group([
-    'middleware'=>'auth:sanctum',
+    'middleware'=>['auth:sanctum'],
 ],function(){
-
+    Route::post('/logout', [AuthController::class, 'logout']);
 });

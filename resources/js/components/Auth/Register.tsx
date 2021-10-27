@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
 import { api } from '../Data/Api'
-import Button from '../Layout/Button'
-import Div from '../Layout/Div'
-import Form from '../Layout/Form'
-import Input from '../Layout/Input'
-import Paragraph from '../Layout/Paragraph'
+import { Button, Div, Form, Input, Paragraph } from '../Layout/Layout'
 import { Toast } from '../Layout/ToastSuccess'
 
 interface VisibleProps {

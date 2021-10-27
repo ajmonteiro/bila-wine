@@ -1,6 +1,6 @@
 import React from 'react'
-import Div from './Layout/Div';
-import Routes from './Router/Routes';
+import { Div } from './Layout/Layout'
+import Routes from './Router/Routes'
 
 export default function App() {
     return (
