@@ -4,6 +4,7 @@ import api from '../Data/Api'
 import { Button, Div, Form, Input, Paragraph } from '../Layout/Layout'
 import { loginlocal } from '../Data/Auth'
 import { getToken } from '../Data/Auth'
+import { ToastError } from '../Layout/Toast'
 
 interface VisibleProps {
     visible: (e: any) => any
@@ -31,6 +32,13 @@ export default function Login(props: VisibleProps) {
                     if (res.data.user) {
                         loginlocal(res.data.token)
                         history.push(`/`)
+                    }
+                }).catch((err) => {
+                    if(err.response.data.errors.email[0]) {
+                        ToastError(err.response.data.errors.email[0])
+                    }
+                    if(err.response.data.errors.password[0]) {
+                        ToastError(err.response.data.errors.password[0])
                     }
                 })
         })

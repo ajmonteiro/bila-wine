@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { api } from '../Data/Api'
 import { Button, Div, Form, Input, Paragraph } from '../Layout/Layout'
-import { Toast } from '../Layout/ToastSuccess'
+import { ToastSuccess } from '../Layout/Toast'
 
 interface VisibleProps {
     visible: (e: any) => any
@@ -21,7 +21,7 @@ export default function Register(props: VisibleProps) {
 
         api.post(`/api/register`, form)
         .then((res) => {
-            Toast()
+            ToastSuccess()
         }).catch((err) => {
             console.log(err)
         })
