@@ -26,11 +26,8 @@ export default function Login(props: VisibleProps) {
         api.get('/sanctum/csrf-cookie').then(() => {
             api.post(url, form)
             .then((res: any) => {
-                if(res.data.error) {
-                    console.log(res.data.error)
-                } else {
-                    console.log('success')
-                }
+                console.log(res)
+
             })
         })
     }
