@@ -1,10 +1,14 @@
 import React from 'react'
+import api from '../Data/Api'
 import Content from './Content'
 import Div from './Div'
 import Link from './Link'
 import Paragraph from './Paragraph'
 
 export default function TopMenu() {
+    function goLogout() {
+        api
+    }
     return (
         <>
             <Div className='bg-white shadow dark:bg-gray-800'>
@@ -22,6 +26,7 @@ export default function TopMenu() {
                             <Link path='#'>PAGINA1</Link>
                             <Link path='#'>PAGINA2</Link>
                             <Link path='#'>MEU PERFIL</Link>
+                            <Link path='#' onclick={() => goLogout()}>LOGOUT</Link>
                         </Div>
 
                         <Div className='flex justify-center md:block'>

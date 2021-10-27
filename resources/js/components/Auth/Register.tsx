@@ -5,6 +5,7 @@ import Div from '../Layout/Div'
 import Form from '../Layout/Form'
 import Input from '../Layout/Input'
 import Paragraph from '../Layout/Paragraph'
+import { Toast } from '../Layout/ToastSuccess'
 
 interface VisibleProps {
     visible: (e: any) => any
@@ -24,7 +25,7 @@ export default function Register(props: VisibleProps) {
 
         api.post(`/api/register`, form)
         .then((res) => {
-            console.log(res)
+            Toast()
         }).catch((err) => {
             console.log(err)
         })
