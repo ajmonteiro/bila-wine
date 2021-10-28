@@ -11,7 +11,6 @@ export default function TopMenu() {
         api.post(`/api/logout`, { headers: { Authorization: `Bearer ${getToken()}`}
         }).then((res) => {
             if(res.data.user) {
-                console.log(res)
                 logout()
                 history.push('/login')
             }

@@ -11,6 +11,7 @@ export default function Register(props: VisibleProps) {
     const [username, setusername] = useState<any>()
     const [email, setemail] = useState<any>()
     const [password, setpassword] = useState<any>()
+    const [image, setimage] = useState<any>()
 
     function register(e: any) {
         e.preventDefault()
@@ -18,6 +19,7 @@ export default function Register(props: VisibleProps) {
         form.append('name', username)
         form.append('email', email)
         form.append('password', password)
+        form.append('image', image)
 
         api.post(`/api/register`, form)
         .then((res) => {
@@ -35,6 +37,7 @@ export default function Register(props: VisibleProps) {
                     <Input type='text' value={username} placeholder='Username' onChange={(e: any) => setusername(e)} />
                     <Input type='email' value={email} placeholder='Email' onChange={(e: any) => setemail(e)} />
                     <Input type='password' value={password} placeholder='Password' onChange={(e: any) => setpassword(e)} />
+                    <Input type='file' value={image} onChange={(e: any) => console.log(e)} />
                     <Button text='Register' onclick={(e: any) => register(e)}/>
                     <Div className='flex'>
                         <Paragraph text='Do you already have an account?' />

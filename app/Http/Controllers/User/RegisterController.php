@@ -15,15 +15,20 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:128',
             'email' => 'required|unique:users|max:255',
-            'password' => 'required|min:5'
+            'password' => 'required|min:5',
+            'image' => 'required|mimes:png,jpg,jpeg,png,gif'
         ]);
 
         if($validator) {
+            $uploadFolder = `images/users`;
+            $image = $request->file('image');
+            $image_path = $image->store($uploadFolder, 'public');
             $user = new User;
 
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
+            $user->image = "/storage/${image_path}";
 
             $user->save();
         }

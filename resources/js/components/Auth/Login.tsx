@@ -28,7 +28,6 @@ export default function Login(props: VisibleProps) {
         api.get('/sanctum/csrf-cookie').then(() => {
             api.post(url, form)
                 .then((res: any) => {
-                    console.log(res)
                     if (res.data.user) {
                         loginlocal(res.data.token)
                         history.push(`/`)
