@@ -31,4 +31,5 @@ Route::group([
 
     // Locations
     Route::post('/location', [LocationController::class, 'create']);
+    Route::get('/locations', [LocationController::class, 'all']);
 });

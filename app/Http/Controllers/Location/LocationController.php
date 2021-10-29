@@ -25,6 +25,11 @@ class LocationController extends Controller
                 'location' => $location->id
             ], 200);
         }
+    }
 
+    public function all() {
+        return response()->json([
+            'locations' => Location::paginate(5)
+        ], 200);
     }
 }

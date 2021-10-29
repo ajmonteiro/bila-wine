@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import api from '../../Data/Api'
 import { getToken } from '../../Data/Auth'
 import { Button, Div, Form, Input, Link, Table, TableBody, TableData, TableHead, TableHeader, TableRow } from '../../Layout/Layout'
@@ -27,6 +27,21 @@ export function LocationPage() {
 }
 
 export function List() {
+    const [locations, setlocations] = useState<any>()
+
+    useEffect(() => {
+        getLocations()
+    }, [])
+
+    function getLocations(page: number = 1) {
+        api.get('/api/locations', {
+            headers: { Authorization: `Bearer ${getToken()}` }
+        }).then((res) => {
+            setlocations(res.data.locations)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
     return (
         <>
             <Div className='flex justify-center'>
@@ -36,14 +51,12 @@ export function List() {
                         <TableHeader text='Name' />
                     </TableHead>
                     <TableBody>
-                        <TableRow>
-                            <TableData content='1' />
-                            <TableData content='Até é' />
-                        </TableRow>
-                        <TableRow>
-                            <TableData content='1' />
-                            <TableData content='Até é' />
-                        </TableRow>
+                        {locations && locations.data.map((item: { id: React.Key | null | undefined; name: any }) => (
+                            <TableRow key={item.id}>
+                                <TableData content={item.id} />
+                                <TableData content={item.name} />
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
             </Div>

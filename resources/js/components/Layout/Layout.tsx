@@ -82,7 +82,7 @@ export function TableData(props: TableDataProps) {
 }
 
 interface TableProps {
-    children: React.ReactNode
+    children: React.ReactNode | React.ReactChildren
 }
 
 export function Table(props: TableProps) {
@@ -94,7 +94,7 @@ export function Table(props: TableProps) {
 }
 
 interface TableHeadProps {
-    children: React.ReactNode
+    children: React.ReactNode | React.ReactChildren
 }
 
 export function TableHead(props: TableHeadProps) {
@@ -118,7 +118,7 @@ export function TableHeader(props: TableHeaderProps) {
 }
 
 interface TableBodyProps {
-    children: React.ReactNode
+    children: React.ReactNode | React.ReactChildren
 }
 
 export function TableBody(props: TableBodyProps) {
