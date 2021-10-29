@@ -1,8 +1,8 @@
 import React from 'react'
 import cogoToast from 'cogo-toast'
 
-export const ToastSuccess = (message: string = 'Done successfully') => cogoToast.success(`${message}`, {
-    position: 'top-center',
+export const ToastSuccess = (message: string = 'Done successfully', position: any = 'top-center') => cogoToast.success(`${message}`, {
+    position: position,
     heading: 'Success',
     hideAfter: 2
 })

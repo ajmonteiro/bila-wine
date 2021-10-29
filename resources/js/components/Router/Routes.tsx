@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Link, Switch } from 'react-router-dom'
+import Admin from '../Admin/Locations/Index'
 import Index from '../Auth/Index'
 
 import Login from '../Auth/Login'
@@ -13,6 +14,7 @@ export default function Routes() {
                 <Route exact path='/login' component={Index} />
                 <Switch>
                     <Route exact path='/' component={StartApp} />
+                    <Route exact path='/admin' component={Admin} />
 
                 </Switch>
             </BrowserRouter>

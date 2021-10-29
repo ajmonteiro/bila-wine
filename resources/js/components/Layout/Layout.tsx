@@ -54,6 +54,93 @@ export function Paragraph(props: ParagraphProps) {
     )
 }
 
+
+interface TableRowProps {
+    children: React.ReactNode
+}
+
+export function TableRow(props: TableRowProps) {
+    return (
+        <>
+            <tr>
+                {props.children}
+            </tr>
+        </>
+    )
+}
+
+interface TableDataProps {
+    content: any
+}
+
+export function TableData(props: TableDataProps) {
+    return (
+        <>
+            <td className='border px-4 py-2'>{props.content}</td>
+        </>
+    )
+}
+
+interface TableProps {
+    children: React.ReactNode
+}
+
+export function Table(props: TableProps) {
+    return (
+        <>
+            <table className='table-auto'>{props.children}</table>
+        </>
+    )
+}
+
+interface TableHeadProps {
+    children: React.ReactNode
+}
+
+export function TableHead(props: TableHeadProps) {
+    return (
+        <>
+            <thead>{props.children}</thead>
+        </>
+    )
+}
+
+interface TableHeaderProps {
+    text: string
+}
+
+export function TableHeader(props: TableHeaderProps) {
+    return (
+        <>
+            <th className='px-4 py-2'>{props.text}</th>
+        </>
+    )
+}
+
+interface TableBodyProps {
+    children: React.ReactNode
+}
+
+export function TableBody(props: TableBodyProps) {
+    return (
+        <>
+            <tbody>{props.children}</tbody>
+        </>
+    )
+}
+
+interface TableFooterProps {
+    children: React.ReactNode
+}
+
+export function TableFooter(props: TableFooterProps) {
+    return (
+        <>
+            <tfoot>{props.children}</tfoot>
+        </>
+    )
+}
+
 interface ButtonProps {
     text: string,
     className?: string,
@@ -63,20 +150,28 @@ interface ButtonProps {
 export function Button(props: ButtonProps) {
     return (
         <>
-            <button className={props.className} onClick={props.onclick}>{props.text}</button>
+            <button className={props.className || 'inline-block border border-purple-500 rounded py-1 px-3 m-1 bg-purple-500 text-white'} onClick={props.onclick}>{props.text}</button>
+        </>
+    )
+}
+
+export function ButtonLarge(props: ButtonProps) {
+    return (
+        <>
+            <button className={props.className || 'inline-block border border-purple-500 rounded py-3 px-6 m-1 bg-purple-500 text-white'} onClick={props.onclick}>{props.text}</button>
         </>
     )
 }
 
 interface ContentProps {
-    children?: React.ReactChild
+    children?: React.ReactNode
 }
 
 
 export function Content(props: ContentProps) {
     return (
         <>
-            <div className='container w-full p-20 m-4 mx-auto my-16 text-center bg-white h-96 rounded-xl'>
+            <div className='container w-full pb-20 pl-20 pr-20 m-4 mx-auto my-16 text-center bg-white h-96 rounded-xl'>
                 {props.children}
             </div> 
         </>

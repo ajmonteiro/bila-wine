@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use DB;
+
 class AuthController extends Controller
 {
     public function login(Request $request)

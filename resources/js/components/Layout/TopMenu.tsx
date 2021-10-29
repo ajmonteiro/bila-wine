@@ -2,11 +2,13 @@ import React from 'react'
 import api from '../Data/Api'
 import { Div, Content, Link, Paragraph } from './Layout'
 import { getToken } from '../Data/Auth'
-import { useHistory } from 'react-router'
+import { Route, Switch, useHistory } from 'react-router'
 import { logout } from '../Data/Auth'
+import Index from '../Admin/Index'
 
 export default function TopMenu() {
     const history = useHistory()
+    
     function goLogout() {
         api.post(`/api/logout`, { headers: { Authorization: `Bearer ${getToken()}`}
         }).then((res) => {
@@ -31,7 +33,7 @@ export default function TopMenu() {
                         <Div className='flex flex-col md:flex-row md:mx-6'>
                             <Link path='#'>INICIO</Link>
                             <Link path='#'>PAGINA1</Link>
-                            <Link path='#'>PAGINA2</Link>
+                            <Link path='/admin'>ADMIN</Link>
                             <Link path='#'>MEU PERFIL</Link>
                             <Link path='#' onclick={() => goLogout()}>LOGOUT</Link>
                         </Div>
@@ -43,7 +45,9 @@ export default function TopMenu() {
                 </Div>
             </Div>
             <Content>
-                <Paragraph className='mt-20 text-gray-500 text-md' text='Content page' />
+                <Switch>
+                    <Route exact path='/admin' component={Index} />
+                </Switch>
             </Content>
         </>
     )

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\RegisterController;
+use App\Http\Controllers\Location\LocationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,4 +28,7 @@ Route::group([
     'middleware'=>['auth:sanctum'],
 ],function(){
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    // Locations
+    Route::post('/location', [LocationController::class, 'create']);
 });
