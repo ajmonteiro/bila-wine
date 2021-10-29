@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\Location\LocationController;
+use App\Http\Controllers\Cellar\CellarController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,5 +32,10 @@ Route::group([
 
     // Locations
     Route::post('/location', [LocationController::class, 'create']);
+    Route::get('/locations/paginate', [LocationController::class, 'all_paginate']);
     Route::get('/locations', [LocationController::class, 'all']);
+
+    // Cellar
+    Route::post('/cellar', [CellarController::class, 'create']);
+    Route::get('/cellars', [CellarController::class, 'all_paginate']);
 });

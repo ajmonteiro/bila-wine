@@ -13,7 +13,7 @@ export default function Admin() {
     )
 }
 
-export function LocationPage() {
+export function CellarPage() {
     const [visible, setvisible] = useState<'create' | 'list'>('list')
     return (
         <>
@@ -27,17 +27,17 @@ export function LocationPage() {
 }
 
 export function List() {
-    const [locations, setlocations] = useState<any>()
+    const [cellars, setcellars] = useState<any>()
 
     useEffect(() => {
-        getLocations()
+        getCellars()
     }, [])
 
-    function getLocations(page: number = 1) {
-        api.get('/api/locations/paginate', {
+    function getCellars(page: number = 1) {
+        api.get('/api/cellars', {
             headers: { Authorization: `Bearer ${getToken()}` }
         }).then((res) => {
-            setlocations(res.data.locations)
+            setcellars(res.data.cellars)
         }).catch((err) => {
             console.log(err)
         })
@@ -49,12 +49,18 @@ export function List() {
                     <TableHead>
                         <TableHeader text='ID' />
                         <TableHeader text='Name' />
+                        <TableHeader text='Description' />
                     </TableHead>
                     <TableBody>
-                        {locations && locations.data.map((item: { id: React.Key | null | undefined; name: any }) => (
+                        {cellars && cellars.data.map((item: { 
+                            id: React.Key | null | undefined, 
+                            title: string,
+                            description: string 
+                        }) => (
                             <TableRow key={item.id}>
                                 <TableData content={item.id} />
-                                <TableData content={item.name} />
+                                <TableData content={item.title} />
+                                <TableData content={item.description ? item.description : '---'} />
                             </TableRow>
                         ))}
                     </TableBody>
@@ -65,13 +71,35 @@ export function List() {
 }
 
 export function Create() {
-    const [name, setname] = useState<any>()
+    const [title, settitle] = useState<any>()
+    const [description, setdescription] = useState<any>()
+    const [locations, setlocations] = useState<any>()
+    const [selectedLocation, setSelectedLocation] = useState<any>()
+    const [image, setimage] = useState<any>()
+    const [price, setprice] = useState<any>()
+    useEffect(() => {
+        getLocations()
+    }, [])
+
+    function getLocations() {
+        api.get('/api/locations', { headers: { Authorization: `Bearer ${getToken()}`}
+        }).then((res) => {
+            setlocations(res.data.locations)
+        }).catch((err) => {
+            console.log(err.response)
+        })
+    }
 
     function create(e: any) {
         e.preventDefault()
         const form = new FormData()
-        form.append('name', name)
-        api.post(`/api/location`, form, {
+        form.append('title', title)
+        form.append('description', description)
+        form.append('location_id', selectedLocation)
+        form.append('image', image)
+        form.append('price', price)
+
+        api.post(`/api/cellar`, form, {
             headers: { Authorization: `Bearer ${getToken()}` }
         }).then((res) => {
             ToastSuccess('Succesfully added', 'bottom-center')
@@ -83,7 +111,15 @@ export function Create() {
         <>
             <Div className='w-50 flex flex-column justify-center items-center'>
                 <Form>
-                    <Input type='text' onChange={(e) => setname(e)} value={name} placeholder='Name' />
+                    <Input type='text' onChange={(e) => settitle(e)} value={title} placeholder='Title' />
+                    <Input type='text' onChange={(e) => setdescription(e)} value={description} placeholder='Description' />
+                    <input type='file' onChange={(e) => setimage(e.target.files)} value={image} />
+                    <Input type='text' onChange={(e) => setprice(e)} value={price} placeholder='Price' />
+                    <select onChange={(e) => setSelectedLocation(e.target.value)}>
+                        {locations && locations.map((item: { id: string | number | undefined; name: string }) => (
+                            <option key={item.id} value={item.id}>{item.name}</option>
+                        ))}
+                    </select>
                     <Button className='inline-block border border-green-500 rounded py-1 px-3 m-1 bg-green-500 text-white' text='Create' onclick={(e: any) => create(e)} />
                 </Form>
             </Div>

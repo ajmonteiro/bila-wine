@@ -19,6 +19,8 @@ class CreateCellarsTable extends Migration
             $table->foreignId('location_id')->references('id')->on('locations');
             $table->string('title');
             $table->longtext('description')->nullable();
+            $table->string('image');
+            $table->string('price');
             $table->timestamps();
         });
     }

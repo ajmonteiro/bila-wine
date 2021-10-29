@@ -29,6 +29,12 @@ class LocationController extends Controller
 
     public function all() {
         return response()->json([
+            'locations' => Location::all()
+        ], 200);
+    }
+
+    public function all_paginate() {
+        return response()->json([
             'locations' => Location::paginate(5)
         ], 200);
     }
