@@ -14,9 +14,11 @@ import {
     TableHeader,
     TableRow,
     Title,
+    Image
 } from "../../Layout/Layout";
 import { ToastError, ToastSuccess } from "../../Layout/Toast";
 import DashboardLayout from "../Layout/DashboardLayout";
+import { baseURL } from '../../Data/Api'
 
 export default function Admin() {
     return (
@@ -74,10 +76,12 @@ export function List() {
         <>
             <Div className="flex justify-center">
                 <Table>
-                    <TableHead>
+                    <TableHead className='bg-red-200' >
                         <TableHeader text="ID" />
                         <TableHeader text="Name" />
                         <TableHeader text="Description" />
+                        <TableHeader text="Price" />
+                        <TableHeader text="Image" />
                     </TableHead>
                     <TableBody>
                         {cellars &&
@@ -86,6 +90,8 @@ export function List() {
                                     id: React.Key;
                                     title: string;
                                     description: string;
+                                    image: string;
+                                    price: string
                                 }) => (
                                     <TableRow key={item.id}>
                                         <TableData content={item.id} />
@@ -97,12 +103,19 @@ export function List() {
                                                     : "---"
                                             }
                                         />
+                                        <TableData content={item.price+'€'} />
+                                        <TableData
+                                            content={<Image path={baseURL() + item.image} width={'100px'} height={'auto'} />}
+                                        />
                                     </TableRow>
                                 )
                             )}
                     </TableBody>
                 </Table>
             </Div>
+            <Div className='flex justify-center'>
+                    {/* <Paginate onChange={() => null} activePage={0} /> */}
+                </Div>
         </>
     );
 }
@@ -173,7 +186,7 @@ export function Create() {
                             />
                             <input
                                 type="file"
-                                className="rounded-lg border-transparent m-3 flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                className="rounded-lg border-transparent m-3 flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
                                 onChange={(e) => changeHandler(e)}
                             />
                             <Input
@@ -183,7 +196,7 @@ export function Create() {
                                 placeholder="Price"
                             />
                             <select
-                                className="rounded-lg border-transparent m-3 flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                className="rounded-lg border-transparent m-3 flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
                                 onChange={(e) =>
                                     setSelectedLocation(e.target.value)
                                 }

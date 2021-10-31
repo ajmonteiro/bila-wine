@@ -1,4 +1,25 @@
 import React, { useState } from "react";
+// import Pagination from "react-js-pagination";
+// require("bootstrap/less/bootstrap.less");
+// interface PaginationProps {
+//     // totalItems: 5
+//     onChange: () => any
+//     activePage: number
+// }
+
+// export function Paginate(props: PaginationProps) {
+//     return (
+//         <>
+//             <Pagination
+//                 totalItemsCount={5}
+//                 activePage={props.activePage}
+//                 onChange={() => props.onChange}
+//                 itemClass="page-item"
+//                 linkClass="page-link"
+//             />
+//         </>
+//     )
+// }
 
 interface AdminMenuItemProps {
     text: string;
@@ -21,6 +42,22 @@ export function AdminMenuItem(props: AdminMenuItemProps) {
         </>
     );
 }
+
+interface ImageProps {
+    path: string,
+    alt?: string,
+    width?: any,
+    height?: any,
+    className?: string
+}
+
+export function Image(props: ImageProps) {
+    return (
+        <>
+            <img src={props.path} alt={props.alt} width={props.width} height={props.height} className={props.className} />
+        </>
+    )
+}
 interface InputProps {
     value: any;
     placeholder?: string;
@@ -41,7 +78,7 @@ export function Input(props: InputProps) {
             <Div className="w-full">
                 <Div className="relative">
                     <input
-                        className="rounded-lg border-transparent flex-1 m-3 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                        className="rounded-lg border-transparent flex-1 m-3 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
                         type={props.type}
                         value={value}
                         placeholder={props.placeholder}
@@ -84,24 +121,28 @@ export function Paragraph(props: ParagraphProps) {
 
 interface TableRowProps {
     children: React.ReactNode;
+    className?: string;
 }
 
 export function TableRow(props: TableRowProps) {
     return (
         <>
-            <tr>{props.children}</tr>
+            <tr className={props.className}>{props.children}</tr>
         </>
     );
 }
 
 interface TableDataProps {
     content: any;
+    className?: string;
 }
 
 export function TableData(props: TableDataProps) {
     return (
         <>
-            <td className="border px-4 py-2">{props.content}</td>
+            <td className={"border px-4 py-2" + props.className}>
+                {props.content}
+            </td>
         </>
     );
 }
@@ -120,12 +161,13 @@ export function Table(props: TableProps) {
 
 interface TableHeadProps {
     children: React.ReactNode | React.ReactChildren;
+    className?: string;
 }
 
 export function TableHead(props: TableHeadProps) {
     return (
         <>
-            <thead>{props.children}</thead>
+            <thead className={props.className}>{props.children}</thead>
         </>
     );
 }
@@ -178,7 +220,7 @@ export function Button(props: ButtonProps) {
             <button
                 className={
                     props.className ||
-                    "inline-block border border-purple-500 rounded py-1 px-3 m-1 bg-purple-500 text-white"
+                    "inline-block border border-red-500 rounded py-1 px-3 m-1 bg-red-500 text-white"
                 }
                 onClick={props.onclick}
             >
@@ -194,7 +236,7 @@ export function ButtonLarge(props: ButtonProps) {
             <button
                 className={
                     props.className ||
-                    "inline-block border border-purple-500 rounded py-3 px-6 m-1 bg-purple-500 text-white"
+                    "inline-block border border-red-500 rounded py-3 px-6 m-1 bg-red-500 text-white"
                 }
                 onClick={props.onclick}
             >
@@ -211,7 +253,7 @@ interface ContentProps {
 export function Content(props: ContentProps) {
     return (
         <>
-            <div className="container w-full pb-20 pl-20 pr-20 m-4 mx-auto my-16 text-center bg-white h-96 rounded-xl">
+            <div className="w-full text-center bg-white rounded-xl">
                 {props.children}
             </div>
         </>
@@ -235,17 +277,17 @@ interface LinkProps {
     path?: string;
     className?: string;
     children?: React.ReactNode;
-    onclick?: () => any;
+    onclick?: (e: any) => any;
 }
 export function Link(props: LinkProps) {
     return (
         <>
             <a
                 href={props.path}
-                onClick={props.onclick}
+                onClick={(e: any) => props.onclick}
                 className={
                     props.className ||
-                    `my-1 text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`
+                    `my-1 text-red-700 dark:text-red-200 hover:text-red-500 dark:hover:text-red-400 md:mx-4 md:my-0`
                 }
             >
                 {props.children}
