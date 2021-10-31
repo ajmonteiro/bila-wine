@@ -3,12 +3,12 @@ import api from '../../Data/Api'
 import { getToken } from '../../Data/Auth'
 import { Button, Div, Form, Input, Link, Table, TableBody, TableData, TableHead, TableHeader, TableRow } from '../../Layout/Layout'
 import { ToastError, ToastSuccess } from '../../Layout/Toast'
-import TopMenu from '../../Layout/TopMenu'
+import DashboardLayout from '../Layout/DashboardLayout'
 
 export default function Admin() {
     return (
         <>
-            <TopMenu />
+            <DashboardLayout />
         </>
     )
 }

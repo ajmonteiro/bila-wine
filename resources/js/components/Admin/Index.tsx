@@ -7,6 +7,7 @@ export default function Index() {
     const [visible, setvisible] = useState<string>()
     return (
         <>
+        
             <ButtonLarge text='Location' onclick={() => setvisible('location')} />
             <ButtonLarge text='Cellar' onclick={() => setvisible('cellar')} />
                 {visible == 'location' && <LocationPage />}
