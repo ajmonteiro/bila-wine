@@ -10,11 +10,10 @@ use App\Models\Cellar;
 class CellarController extends Controller
 {
     public function create(Request $request) {
-        return $request;
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:128',
             'description' => 'max:3000',
-            // 'location_id' => 'required',
+            'location_id' => 'required',
             'price' => 'required',
             'image' => 'required'
         ]);

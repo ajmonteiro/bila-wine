@@ -10,8 +10,6 @@ export default function Index() {
         
             <ButtonLarge text='Location' onclick={() => setvisible('location')} />
             <ButtonLarge text='Cellar' onclick={() => setvisible('cellar')} />
-                {visible == 'location' && <LocationPage />}
-                {visible == 'cellar' && <CellarPage />}
         </>
     )
 }
