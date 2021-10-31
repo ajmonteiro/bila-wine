@@ -30,7 +30,7 @@ export default function Login(props: VisibleProps) {
                 .then((res: any) => {
                     if (res.data.user) {
                         loginlocal(res.data.token)
-                        history.push(`/`)
+                        history.push(`/`, console.log(res))
                     }
                 }).catch((err) => {
                     if(err.response.data.errors.email[0]) {

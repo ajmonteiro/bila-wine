@@ -38,4 +38,5 @@ Route::group([
     // Cellar
     Route::post('/cellar', [CellarController::class, 'create']);
     Route::get('/cellars', [CellarController::class, 'all_paginate']);
+    Route::get('/authuser', [AuthController::class, 'checkLogin']);
 });

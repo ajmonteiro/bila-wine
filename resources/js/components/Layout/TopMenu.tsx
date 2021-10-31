@@ -24,13 +24,8 @@ export default function TopMenu() {
         api.post(`/api/logout`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            console.log(res)
-            // if (res.data.user) {
-            //     logout();
-            //     history.push("/login");
-            // }
-        }).catch((err) => {
-            console.log(err)
+            logout();
+            history.push("/login");
         })
     }
     return (

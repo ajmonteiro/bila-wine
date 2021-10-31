@@ -284,7 +284,7 @@ export function Link(props: LinkProps) {
         <>
             <a
                 href={props.path}
-                onClick={(e: any) => props.onclick}
+                onClick={props.onclick}
                 className={
                     props.className ||
                     `my-1 text-red-700 dark:text-red-200 hover:text-red-500 dark:hover:text-red-400 md:mx-4 md:my-0`

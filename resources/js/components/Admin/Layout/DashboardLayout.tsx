@@ -23,7 +23,7 @@ export default function DashboardLayout() {
     return (
         <>
             <Div className="flex flex-row min-h-screen bg-gray-100 text-gray-800">
-                <Div className="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-indigo-500">
+                <Div className="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-red-500">
                     <Div className="sidebar-header flex items-center justify-center py-4">
                         <Div className="inline-flex">
                             <Paragraph

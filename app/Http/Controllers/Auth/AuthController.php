@@ -28,7 +28,10 @@ class AuthController extends Controller
         throw ValidationException::withMessages([
             'email' => ['The provided credentials are incorrect.']
         ]);
-        
+    }
+
+    public function checkLogin() {
+        return Auth::user();
     }
 
     public function logout(Request $request) {
