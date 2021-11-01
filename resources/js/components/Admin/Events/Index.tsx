@@ -19,6 +19,7 @@ import {
 import { ToastError, ToastSuccess } from "../../Layout/Toast";
 import DashboardLayout from "../Layout/DashboardLayout";
 import { baseURL } from "../../Data/Api";
+import { DeleteIcon, EditIcon } from "../../Layout/Icons";
 
 export default function Admin() {
     return (
@@ -28,13 +29,13 @@ export default function Admin() {
     );
 }
 
-export function CellarPage() {
+export function EventPage() {
     const [visible, setvisible] = useState<"create" | "list">("list");
     return (
         <>
             <Div className="flex justify-start items-center mt-3">
                 <Title
-                    title={"CELLARS"}
+                    title={"EVENTS"}
                     className="font-bold text-4xl text-gray-700"
                 />
             </Div>
@@ -43,51 +44,63 @@ export function CellarPage() {
                     onclick={() => setvisible("create")}
                     text="Create new"
                 />
-                <Button onclick={() => setvisible("list")} text="List" />
+                <Button
+                    onclick={() => setvisible("list")}
+                    text="List"
+                />
             </Div>
-            {visible == "create" ? <Create visible={setvisible} /> : <List />}
+            {visible == "create" ? <Create visible={setvisible}/> : <List />}
         </>
     );
 }
 
 export function List() {
-    const [cellars, setcellars] = useState<any>();
+    const [events, setevents] = useState<any>();
 
     useEffect(() => {
-        getCellars();
+        getEvents();
     }, []);
 
-    function getCellars(page: number = 1) {
-        api.get("/api/cellars", {
+    function getEvents(page: number = 1) {
+        api.get("/api/events/paginate", {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
             .then((res) => {
-                setcellars(res.data.cellars);
+                setevents(res.data.events);
             })
             .catch((err) => {
                 console.log(err);
             });
     }
+
+    function deleteEvent() {
+        console.log("delete");
+    }
     return (
         <>
-            <Div className="flex justify-center">
+            <Div className="flex justify-start text-center">
                 <Table>
                     <TableHead className="bg-red-200">
                         <TableHeader text="ID" />
                         <TableHeader text="Name" />
                         <TableHeader text="Description" />
                         <TableHeader text="Price" />
+                        <TableHeader text="Duration" />
+                        <TableHeader text="Person Number" />
                         <TableHeader text="Image" />
+                        <TableHeader text="Actions" colspan={2} />
                     </TableHead>
                     <TableBody>
-                        {cellars &&
-                            cellars.data.map(
+                        {events &&
+                            events.data.map(
                                 (item: {
                                     id: React.Key;
                                     title: string;
                                     description: string;
                                     image: string;
                                     price: string;
+                                    duration: string;
+                                    person_number: string;
                                 }) => (
                                     <TableRow key={item.id}>
                                         <TableData content={item.id} />
@@ -101,6 +114,12 @@ export function List() {
                                         />
                                         <TableData content={item.price + "€"} />
                                         <TableData
+                                            content={item.duration + "hours"}
+                                        />
+                                        <TableData
+                                            content={item.person_number}
+                                        />
+                                        <TableData
                                             content={
                                                 <Image
                                                     path={
@@ -110,6 +129,11 @@ export function List() {
                                                     height={"auto"}
                                                 />
                                             }
+                                        />
+                                        <TableData content={<EditIcon />} className="flex justify-center"/>
+                                        <TableData
+                                            content={<DeleteIcon />}
+                                            onclick={() => deleteEvent()}
                                         />
                                     </TableRow>
                                 )
@@ -127,26 +151,10 @@ export function List() {
 export function Create(props: any) {
     const [title, settitle] = useState<any>();
     const [description, setdescription] = useState<any>();
-    const [locations, setlocations] = useState<any>();
-    const [selectedLocation, setSelectedLocation] = useState<any>();
     const [image, setimage] = useState<any>();
     const [price, setprice] = useState<any>();
-
-    useEffect(() => {
-        getLocations();
-    }, []);
-
-    function getLocations() {
-        api.get("/api/locations", {
-            headers: { Authorization: `Bearer ${getToken()}` },
-        })
-            .then((res) => {
-                setlocations(res.data.locations);
-            })
-            .catch((err) => {
-                console.log(err.response);
-            });
-    }
+    const [duration, setduration] = useState<any>();
+    const [personnumber, setpersonnumber] = useState<any>();
 
     function changeHandler(e: any) {
         setimage(e.target.files[0]);
@@ -156,16 +164,17 @@ export function Create(props: any) {
         const form = new FormData();
         form.append("title", title);
         form.append("description", description);
-        form.append("location_id", selectedLocation);
         form.append("image", image);
         form.append("price", price);
+        form.append("duration", duration);
+        form.append("person_number", personnumber);
 
-        api.post(`/api/cellar`, form, {
+        api.post(`/api/event`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
             .then((res) => {
                 ToastSuccess("Succesfully added", "bottom-right");
-                props.visible("list");
+                props.visible('list')
             })
             .catch((err) => {
                 ToastError();
@@ -201,28 +210,20 @@ export function Create(props: any) {
                                     value={price}
                                     placeholder="Price"
                                 />
-                                <select
-                                    className="rounded-lg border-transparent m-3 flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
-                                    onChange={(e) =>
-                                        setSelectedLocation(e.target.value)
-                                    }
-                                >
-                                    <option>Select Location</option>
-                                    {locations &&
-                                        locations.map(
-                                            (item: {
-                                                id: string | number | undefined;
-                                                name: string;
-                                            }) => (
-                                                <option
-                                                    key={item.id}
-                                                    value={item.id}
-                                                >
-                                                    {item.name}
-                                                </option>
-                                            )
-                                        )}
-                                </select>
+                                <Input
+                                    type="number"
+                                    onChange={(e) => setduration(e)}
+                                    value={duration}
+                                    placeholder="Duration (in hours)"
+                                />
+                                <Input
+                                    type="number"
+                                    onChange={(e) => setpersonnumber(e)}
+                                    value={personnumber}
+                                    placeholder="Person Number"
+                                    max={10}
+                                    min={1}
+                                />
                                 <Div className="flex justify-end">
                                     <Button
                                         text="Create"

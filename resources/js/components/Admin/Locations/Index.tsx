@@ -30,20 +30,20 @@ export function LocationPage() {
     const [visible, setvisible] = useState<"create" | "list">("list");
     return (
         <>
-            <Div className="flex justify-center items-center mt-3">
+            <Div className="flex justify-start items-center mt-3">
                 <Title
                     title={"LOCATIONS"}
                     className="font-bold text-4xl text-gray-700"
                 />
             </Div>
-            <Div className="flex justify-center items-center">
+            <Div className="flex justify-start items-center">
                 <Button
                     onclick={() => setvisible("create")}
                     text="Create new"
                 />
                 <Button onclick={() => setvisible("list")} text="List" />
             </Div>
-            {visible == "create" ? <Create /> : <List />}
+            {visible == "create" ? <Create visible={setvisible}/> : <List />}
         </>
     );
 }
@@ -68,9 +68,9 @@ export function List() {
     }
     return (
         <>
-            <Div className="flex justify-center">
+            <Div className="flex justify-start text-center">
                 <Table>
-                    <TableHead>
+                    <TableHead className="bg-red-200">
                         <TableHeader text="ID" />
                         <TableHeader text="Name" />
                     </TableHead>
@@ -94,7 +94,7 @@ export function List() {
     );
 }
 
-export function Create() {
+export function Create(props: any) {
     const [name, setname] = useState<any>();
 
     function create(e: any) {
@@ -105,7 +105,8 @@ export function Create() {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
             .then((res) => {
-                ToastSuccess("Succesfully added", "bottom-center");
+                ToastSuccess("Succesfully added", "bottom-right");
+                props.visible('list')
             })
             .catch((err) => {
                 ToastError();
@@ -113,23 +114,25 @@ export function Create() {
     }
     return (
         <>
-            <Div className="bg-white rounded-lg shadow sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden">
-                <Div className="px-4 py-8 sm:px-10">
-                    <Div className="relative mt-6">
-                        <Form>
-                            <Input
-                                type="text"
-                                onChange={(e) => setname(e)}
-                                value={name}
-                                placeholder="Name"
-                            />
-                            <Div className="flex justify-center">
-                                <Button
-                                    text="Create"
-                                    onclick={(e: any) => create(e)}
+            <Div className="w-full mt-5">
+                <Div className="bg-white rounded-lg shadow">
+                    <Div className="px-4 py-8 flex justify-start sm:px-10">
+                        <Div className="w-full mt-6">
+                            <Form>
+                                <Input
+                                    type="text"
+                                    onChange={(e) => setname(e)}
+                                    value={name}
+                                    placeholder="Name"
                                 />
-                            </Div>
-                        </Form>
+                                <Div className="flex justify-end">
+                                    <Button
+                                        text="Create"
+                                        onclick={(e: any) => create(e)}
+                                    />
+                                </Div>
+                            </Form>
+                        </Div>
                     </Div>
                 </Div>
             </Div>

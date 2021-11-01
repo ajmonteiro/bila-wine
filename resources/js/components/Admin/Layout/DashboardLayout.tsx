@@ -16,6 +16,7 @@ import {
     Title,
 } from "../../Layout/Layout";
 import { CellarPage } from "../Cellars/Index";
+import { EventPage } from "../Events/Index";
 import { LocationPage } from "../Locations/Index";
 
 export default function DashboardLayout() {
@@ -23,11 +24,11 @@ export default function DashboardLayout() {
     return (
         <>
             <Div className="flex flex-row min-h-screen bg-gray-100 text-gray-800">
-                <Div className="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-red-500">
+                <Div className="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-gray-100">
                     <Div className="sidebar-header flex items-center justify-center py-4">
                         <Div className="inline-flex">
                             <Paragraph
-                                className="leading-10 text-gray-100 text-2xl font-bold ml-1 uppercase"
+                                className="leading-10 text-gray-900 text-2xl font-bold ml-1 uppercase"
                                 text="BILAWINE"
                             />
                         </Div>
@@ -49,7 +50,7 @@ export default function DashboardLayout() {
                             <li className="my-px">
                                 <Link
                                     path="#"
-                                    className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300"
+                                    className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-900"
                                     onclick={() => setvisible("cellar")}
                                 >
                                     <ClientIcon />
@@ -62,13 +63,26 @@ export default function DashboardLayout() {
                             <li className="my-px">
                                 <Link
                                     path="#"
-                                    className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
+                                    className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-900"
                                     onclick={() => setvisible("location")}
                                 >
                                     <ClientIcon />
                                     <AdminMenuItem
                                         className="ml-3"
                                         text="Locations"
+                                    />
+                                </Link>
+                            </li>
+                            <li className="my-px">
+                                <Link
+                                    path="#"
+                                    className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-900"
+                                    onclick={() => setvisible("event")}
+                                >
+                                    <ClientIcon />
+                                    <AdminMenuItem
+                                        className="ml-3"
+                                        text="Events"
                                     />
                                 </Link>
                             </li>
@@ -104,6 +118,7 @@ export default function DashboardLayout() {
                     <Div className="main-content flex flex-col flex-grow p-4">
                         {visible == "location" && <LocationPage />}
                         {visible == "cellar" && <CellarPage />}
+                        {visible == "event" && <EventPage />}
                     </Div>
                     <Div className="footer px-4 py-6">
                         <Div className="footer-content">

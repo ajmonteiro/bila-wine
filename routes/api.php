@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\Location\LocationController;
 use App\Http\Controllers\Cellar\CellarController;
+use App\Http\Controllers\Event\EventController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -35,8 +36,14 @@ Route::group([
     Route::get('/locations/paginate', [LocationController::class, 'all_paginate']);
     Route::get('/locations', [LocationController::class, 'all']);
 
-    // Cellar
+    // Cellars
     Route::post('/cellar', [CellarController::class, 'create']);
     Route::get('/cellars', [CellarController::class, 'all_paginate']);
     Route::get('/authuser', [AuthController::class, 'checkLogin']);
+
+    // Events
+    Route::post('/event', [EventController::class, 'create']);
+    Route::get('/events', [EventController::class, 'all']);
+    Route::get('/events/paginate', [EventController::class, 'all_paginate']);
+    
 });
