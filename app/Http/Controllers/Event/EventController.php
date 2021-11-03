@@ -51,4 +51,34 @@ class EventController extends Controller
             'events' => Event::all()
         ], 200);
     }
+
+    public function delete($id) {
+        $event = Event::findOrFail($id);
+
+        if(!$event) {
+            return response()->json([
+                'event' => 'This event does not exist'
+            ], 401);
+        }
+
+        $event->delete();
+
+        return response()->json([
+            'event' => $event
+        ], 200);
+    }
+
+    public function getById($id) {
+        $event = Event::where('id', $id)->get();
+        
+        if(!$event) {
+            return response()->json([
+                'event' => 'This event does not exist'
+            ], 401);
+        }
+
+        return response()->json([
+            'event' => $event
+        ], 200);
+    }
 }

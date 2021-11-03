@@ -38,4 +38,34 @@ class LocationController extends Controller
             'locations' => Location::paginate(5)
         ], 200);
     }
+
+    public function delete($id) {
+        $location = Location::findOrFail($id);
+
+        if(!$location) {
+            return response()->json([
+                'location' => 'This location does not exist'
+            ], 401);
+        }
+
+        $location->delete();
+
+        return response()->json([
+            'location' => $location
+        ], 200);
+    }
+
+    public function getById($id) {
+        $location = Location::where('id', $id)->get();
+        
+        if(!$location) {
+            return response()->json([
+                'location' => 'This location does not exist'
+            ], 401);
+        }
+
+        return response()->json([
+            'location' => $location
+        ], 200);
+    }
 }

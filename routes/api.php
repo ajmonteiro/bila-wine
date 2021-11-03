@@ -30,20 +30,26 @@ Route::group([
     'middleware'=>['auth:sanctum'],
 ],function(){
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/authuser', [AuthController::class, 'checkLogin']);
 
     // Locations
     Route::post('/location', [LocationController::class, 'create']);
     Route::get('/locations/paginate', [LocationController::class, 'all_paginate']);
     Route::get('/locations', [LocationController::class, 'all']);
+    Route::delete('/location/{id}', [LocationController::class, 'delete']);
+    Route::get('/event/{id}', [LocationController::class, 'getById']);
 
     // Cellars
     Route::post('/cellar', [CellarController::class, 'create']);
     Route::get('/cellars', [CellarController::class, 'all_paginate']);
-    Route::get('/authuser', [AuthController::class, 'checkLogin']);
+    Route::delete('/cellar/{id}', [CellarController::class, 'delete']);
+    Route::get('/cellar/{id}', [CellarController::class, 'getById']);
 
     // Events
     Route::post('/event', [EventController::class, 'create']);
     Route::get('/events', [EventController::class, 'all']);
+    Route::delete('/event/{id}', [EventController::class, 'delete']);
     Route::get('/events/paginate', [EventController::class, 'all_paginate']);
+    Route::get('/event/{id}', [EventController::class, 'getById']);
     
 });

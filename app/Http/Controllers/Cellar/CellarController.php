@@ -43,4 +43,34 @@ class CellarController extends Controller
             'cellars' => Cellar::paginate(5)
         ], 200);
     }
+
+    public function delete($id) {
+        $cellar = Cellar::findOrFail($id);
+
+        if(!$cellar) {
+            return response()->json([
+                'cellar' => 'This cellar does not exist'
+            ], 401);
+        }
+
+        $cellar->delete();
+
+        return response()->json([
+            'cellar' => $cellar
+        ], 200);
+    }
+
+    public function getById($id) {
+        $cellar = Cellar::where('id', $id)->get();
+        
+        if(!$cellar) {
+            return response()->json([
+                'cellar' => 'This cellar does not exist'
+            ], 401);
+        }
+
+        return response()->json([
+            'cellar' => $cellar
+        ], 200);
+    }
 }
