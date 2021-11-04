@@ -61,11 +61,21 @@ class LocationController extends Controller
         if(!$location) {
             return response()->json([
                 'location' => 'This location does not exist'
-            ], 401);
+            ], 204);
         }
 
         return response()->json([
             'location' => $location
         ], 200);
+    }
+
+    public function update(Request $request, $id) {
+        $location = Location::where('id', $id)->first();
+
+        if(!$location) {
+            return response()->json([
+                'location' => 'This location does not exist'
+            ], 204);
+        }
     }
 }

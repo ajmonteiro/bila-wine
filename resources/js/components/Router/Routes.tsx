@@ -11,7 +11,7 @@ export default function Routes() {
     return (
         <>
             <BrowserRouter>
-                <Route exact path='/login' component={Index} />
+                <Route exact path='/auth' component={Index} />
                 <Switch>
                     <Route exact path='/' component={StartApp} />
                     <Route exact path='/admin' component={Admin} />

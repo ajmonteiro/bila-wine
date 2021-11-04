@@ -65,6 +65,7 @@ interface InputProps {
     onChange: (e: any) => any;
     min?: number;
     max?: number
+    name?: string
 }
 
 export function Input(props: InputProps) {
@@ -78,7 +79,7 @@ export function Input(props: InputProps) {
     return (
         <>
             <Div className="w-full">
-                <Div className="relative">
+                <Div className="flex justify-center">
                     <input
                         className="rounded-lg border-transparent flex-1 m-3 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
                         type={props.type}
@@ -87,6 +88,7 @@ export function Input(props: InputProps) {
                         onChange={(e) => changeInput(e)}
                         max={props.max}
                         min={props.min}
+                        name={props.name}
                     />
                 </Div>
             </Div>

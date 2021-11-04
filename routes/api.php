@@ -37,13 +37,15 @@ Route::group([
     Route::get('/locations/paginate', [LocationController::class, 'all_paginate']);
     Route::get('/locations', [LocationController::class, 'all']);
     Route::delete('/location/{id}', [LocationController::class, 'delete']);
-    Route::get('/event/{id}', [LocationController::class, 'getById']);
+    Route::get('/location/{id}', [LocationController::class, 'getById']);
+    Route::put('/location/{id}', [LocationController::class, 'update']);
 
     // Cellars
     Route::post('/cellar', [CellarController::class, 'create']);
     Route::get('/cellars', [CellarController::class, 'all_paginate']);
     Route::delete('/cellar/{id}', [CellarController::class, 'delete']);
     Route::get('/cellar/{id}', [CellarController::class, 'getById']);
+    Route::put('/cellar/{id}', [CellarController::class, 'update']);
 
     // Events
     Route::post('/event', [EventController::class, 'create']);
@@ -51,5 +53,6 @@ Route::group([
     Route::delete('/event/{id}', [EventController::class, 'delete']);
     Route::get('/events/paginate', [EventController::class, 'all_paginate']);
     Route::get('/event/{id}', [EventController::class, 'getById']);
+    Route::put('/event/{id}', [EventController::class, 'update']);
     
 });

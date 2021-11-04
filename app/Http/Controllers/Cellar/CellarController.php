@@ -73,4 +73,14 @@ class CellarController extends Controller
             'cellar' => $cellar
         ], 200);
     }
+    
+    public function update(Request $request, $id) {
+        $cellar = Cellar::where('id', $id)->first();
+
+        if(!$cellar) {
+            return response()->json([
+                'cellar' => 'This cellar does not exist'
+            ], 204);
+        }
+    }
 }
