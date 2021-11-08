@@ -10,12 +10,6 @@ import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import HomePage from "../Home/HomePage";
 
-const navigation = [
-    { name: "Product", href: "#" },
-    { name: "Features", href: "#" },
-    { name: "Marketplace", href: "#" },
-    { name: "Company", href: "#" },
-];
 export default function TopMenu() {
     const history = useHistory();
 
@@ -25,7 +19,7 @@ export default function TopMenu() {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
             logout();
-            history.push("/auth");
+            history.push("/auth", console.log(res));
         })
     }
     return (

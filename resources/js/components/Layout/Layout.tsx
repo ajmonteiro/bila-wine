@@ -44,19 +44,25 @@ export function AdminMenuItem(props: AdminMenuItemProps) {
 }
 
 interface ImageProps {
-    path: string,
-    alt?: string,
-    width?: any,
-    height?: any,
-    className?: string
+    path: string;
+    alt?: string;
+    width?: any;
+    height?: any;
+    className?: string;
 }
 
 export function Image(props: ImageProps) {
     return (
         <>
-            <img src={props.path} alt={props.alt} width={props.width} height={props.height} className={props.className} />
+            <img
+                src={props.path}
+                alt={props.alt}
+                width={props.width}
+                height={props.height}
+                className={props.className}
+            />
         </>
-    )
+    );
 }
 interface InputProps {
     value: any;
@@ -64,8 +70,9 @@ interface InputProps {
     type: string;
     onChange: (e: any) => any;
     min?: number;
-    max?: number
-    name?: string
+    max?: number;
+    name?: string;
+    className?: string;
 }
 
 export function Input(props: InputProps) {
@@ -81,7 +88,10 @@ export function Input(props: InputProps) {
             <Div className="w-full">
                 <Div className="flex justify-center">
                     <input
-                        className="rounded-lg border-transparent flex-1 m-3 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                        className={
+                            props.className ||
+                            "rounded-lg border-transparent flex-1 m-3 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                        }
                         type={props.type}
                         value={value}
                         placeholder={props.placeholder}
@@ -141,13 +151,16 @@ export function TableRow(props: TableRowProps) {
 interface TableDataProps {
     content: any;
     className?: string;
-    onclick?: () => any
+    onclick?: () => any;
 }
 
 export function TableData(props: TableDataProps) {
     return (
         <>
-            <td className={"border px-4 py-2" + props.className} onClick={props.onclick}>
+            <td
+                className={"border px-4 py-2" + props.className}
+                onClick={props.onclick}
+            >
                 {props.content}
             </td>
         </>
@@ -156,13 +169,15 @@ export function TableData(props: TableDataProps) {
 
 interface TableProps {
     children: React.ReactNode | React.ReactChildren;
-    className?: string
+    className?: string;
 }
 
 export function Table(props: TableProps) {
     return (
         <>
-            <table className="w-full table-auto text-center">{props.children}</table>
+            <table className="w-full table-auto text-center">
+                {props.children}
+            </table>
         </>
     );
 }
@@ -182,13 +197,15 @@ export function TableHead(props: TableHeadProps) {
 
 interface TableHeaderProps {
     text: string;
-    colspan?: number
+    colspan?: number;
 }
 
 export function TableHeader(props: TableHeaderProps) {
     return (
         <>
-            <th className="px-4 py-2" colSpan={props.colspan}>{props.text}</th>
+            <th className="px-4 py-2" colSpan={props.colspan}>
+                {props.text}
+            </th>
         </>
     );
 }
@@ -272,13 +289,15 @@ export function Content(props: ContentProps) {
 interface ClassProps {
     className?: string;
     children?: React.ReactNode;
-    styles?: any
+    styles?: any;
 }
 
 export function Div(props: ClassProps) {
     return (
         <>
-            <div className={props.className} style={props.styles}>{props.children}</div>
+            <div className={props.className} style={props.styles}>
+                {props.children}
+            </div>
         </>
     );
 }

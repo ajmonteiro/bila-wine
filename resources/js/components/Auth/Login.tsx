@@ -48,75 +48,39 @@ export default function Login(props: VisibleProps) {
             {token ? (
                 history.push("/")
             ) : (
-                <Div className="relative min-h-screen flex flex-col sm:justify-center items-center bg-gray-100 ">
-                    <Div className="relative sm:max-w-sm w-full">
-                        <Div className="card bg-red-900 shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6"></Div>
-                        <Div className="card bg-red-400 shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6"></Div>
-                        <Div className="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md">
-                            <Div className="flex justify-center m-5">
-                                <Title
-                                    title={"BILAWINE"}
-                                    className="text-2xl font-bold"
-                                />
-                            </Div>
-                            <Form>
-                                <Div>
+                <Div>
+                    <Div className="w-full bg-black h-screen flex justify-center items-center">
+                            <Div className="flex items-center justify-center ">
+                                <Div className="bg-black flex flex-col w-80 border border-gray-900 rounded-lg px-8 py-10">
+                                    <Div className="flex justify-center">
+                                        <Title
+                                            className="text-white text-3xl font-bold"
+                                            title={"BILAWINE"}
+                                        />
+                                    </Div>
                                     <Input
-                                        type="email"
+                                        type="text"
                                         placeholder="E-mail"
+                                        className="border rounded-lg py-3 px-3 mt-4 bg-black border-white-600 placeholder-white-500 text-white"
                                         value={email}
                                         onChange={(e) => setemail(e)}
                                     />
-                                </Div>
-
-                                <Div className="">
                                     <Input
                                         type="password"
                                         placeholder="Password"
+                                        className="border rounded-lg py-3 px-3 mt-4 bg-black border-white-600 placeholder-white-500 text-white"
                                         value={password}
                                         onChange={(e) => setpassword(e)}
                                     />
+                                    <Button
+                                        className="border rounded-lg py-3 px-3 mt-4 bg-black border-white-900 placeholder-white-500 text-white"
+                                        text="Login"
+                                        onclick={(e: any) => login(e)}
+                                    />
                                 </Div>
-
-                                <Div className="flex">
-                                    <Div className="w-full text-right">
-                                        <a
-                                            className="underline text-sm text-gray-600 hover:text-gray-900"
-                                            href="#"
-                                        >
-                                            Forgot your password?
-                                        </a>
-                                    </Div>
-                                </Div>
-
-                                <Div className="mt-7">
-                                    <Div className="flex justify-center">
-                                        <Button
-                                            text="Submit"
-                                            onclick={(e: any) => login(e)}
-                                        />
-                                    </Div>
-                                </Div>
-                                <Div className="mt-7">
-                                    <Div className="flex justify-center items-center">
-                                        <Paragraph
-                                            className="mr-2"
-                                            text={"New user?"}
-                                        />
-                                        <Button
-                                            className="text-red-500 transition duration-500
-                                         ease-in-out  transform hover:-translate-x hover:scale-105"
-                                            text={"Register"}
-                                            onclick={(e: any) =>
-                                                props.visible("register")
-                                            }
-                                        />
-                                    </Div>
-                                </Div>
-                            </Form>
+                            </Div>
                         </Div>
                     </Div>
-                </Div>
             )}
         </>
     );

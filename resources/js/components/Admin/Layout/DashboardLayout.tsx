@@ -18,6 +18,7 @@ import {
 import { CellarPage } from "../Cellars/Index";
 import { EventPage } from "../Events/Index";
 import { LocationPage } from "../Locations/Index";
+import { ProductPage } from "../Products/Index";
 
 export default function DashboardLayout() {
     const [visible, setvisible] = useState<string>("cellar");
@@ -77,6 +78,19 @@ export default function DashboardLayout() {
                                 <Link
                                     path="#"
                                     className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-900"
+                                    onclick={() => setvisible("products")}
+                                >
+                                    <ClientIcon />
+                                    <AdminMenuItem
+                                        className="ml-3"
+                                        text="Products"
+                                    />
+                                </Link>
+                            </li>
+                            <li className="my-px">
+                                <Link
+                                    path="#"
+                                    className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-900"
                                     onclick={() => setvisible("event")}
                                 >
                                     <ClientIcon />
@@ -119,6 +133,7 @@ export default function DashboardLayout() {
                         {visible == "location" && <LocationPage />}
                         {visible == "cellar" && <CellarPage />}
                         {visible == "event" && <EventPage />}
+                        {visible == "product" && <ProductPage />}
                     </Div>
                     <Div className="footer px-4 py-6">
                         <Div className="footer-content">

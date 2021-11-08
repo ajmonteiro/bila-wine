@@ -10,7 +10,7 @@ export default function StartApp() {
 
     return (
         <>
-            {token ? <Index /> : window.open('/login', '_self') }
+            {token ? <Index /> : window.open('/auth', '_self') }
         </>
     )
 }
