@@ -7,6 +7,8 @@ use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\Location\LocationController;
 use App\Http\Controllers\Cellar\CellarController;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Product\ProductController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -55,4 +57,13 @@ Route::group([
     Route::get('/event/{id}', [EventController::class, 'getById']);
     Route::put('/event/{id}', [EventController::class, 'update']);
     
+    // Products
+    Route::post('/product', [ProductController::class, 'create']);
+    Route::get('/products/paginate', [ProductController::class, 'all_paginate']);
+    Route::get('/products', [ProductController::class, 'all']);
+
+    // Categories
+    Route::post('/category', [CategoryController::class, 'create']);
+    Route::get('/categories', [CategoryController::class, 'all']);
+    Route::get('/categories/paginate', [CategoryController::class, 'all_paginate']);
 });

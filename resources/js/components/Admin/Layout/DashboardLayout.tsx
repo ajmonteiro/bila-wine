@@ -15,6 +15,7 @@ import {
     Paragraph,
     Title,
 } from "../../Layout/Layout";
+import { CategoryPage } from "../Categories/Index";
 import { CellarPage } from "../Cellars/Index";
 import { EventPage } from "../Events/Index";
 import { LocationPage } from "../Locations/Index";
@@ -78,12 +79,25 @@ export default function DashboardLayout() {
                                 <Link
                                     path="#"
                                     className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-900"
-                                    onclick={() => setvisible("products")}
+                                    onclick={() => setvisible("product")}
                                 >
                                     <ClientIcon />
                                     <AdminMenuItem
                                         className="ml-3"
                                         text="Products"
+                                    />
+                                </Link>
+                            </li>
+                            <li className="my-px">
+                                <Link
+                                    path="#"
+                                    className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-900"
+                                    onclick={() => setvisible("category")}
+                                >
+                                    <ClientIcon />
+                                    <AdminMenuItem
+                                        className="ml-3"
+                                        text="Categories"
                                     />
                                 </Link>
                             </li>
@@ -134,6 +148,7 @@ export default function DashboardLayout() {
                         {visible == "cellar" && <CellarPage />}
                         {visible == "event" && <EventPage />}
                         {visible == "product" && <ProductPage />}
+                        {visible == "category" && <CategoryPage />}
                     </Div>
                     <Div className="footer px-4 py-6">
                         <Div className="footer-content">

@@ -143,7 +143,9 @@ interface TableRowProps {
 export function TableRow(props: TableRowProps) {
     return (
         <>
-            <tr className={props.className}>{props.children}</tr>
+            <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                {props.children}
+            </tr>
         </>
     );
 }
@@ -158,10 +160,11 @@ export function TableData(props: TableDataProps) {
     return (
         <>
             <td
-                className={"border px-4 py-2" + props.className}
+                className="py-3 px-6 text-center"
                 onClick={props.onclick}
             >
                 {props.content}
+
             </td>
         </>
     );
@@ -175,9 +178,15 @@ interface TableProps {
 export function Table(props: TableProps) {
     return (
         <>
-            <table className="w-full table-auto text-center">
-                {props.children}
-            </table>
+            <Div className="overflow-x-auto w-full">
+                <Div className="bg-gray-100 flex w-full items-center justify-center">
+                    <Div className="bg-white w-full shadow-md rounded my-6">
+                        <table className="w-full overflow-scroll">
+                            {props.children}
+                        </table>
+                    </Div>
+                </Div>
+            </Div>
         </>
     );
 }
@@ -203,7 +212,7 @@ interface TableHeaderProps {
 export function TableHeader(props: TableHeaderProps) {
     return (
         <>
-            <th className="px-4 py-2" colSpan={props.colspan}>
+            <th className="py-3 px-6 text-center" colSpan={props.colspan}>
                 {props.text}
             </th>
         </>
@@ -217,7 +226,9 @@ interface TableBodyProps {
 export function TableBody(props: TableBodyProps) {
     return (
         <>
-            <tbody>{props.children}</tbody>
+            <tbody className="text-gray-600 text-sm font-light">
+                {props.children}
+            </tbody>
         </>
     );
 }

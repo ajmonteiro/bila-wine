@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            SuperUserSeeder::class
+            SuperUserSeeder::class,
+            CategoriesSeeder::class
         ]);
     }
 }

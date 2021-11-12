@@ -80,7 +80,7 @@ export function List() {
         <>
             <Div className="flex justify-start text-center">
                 <Table>
-                    <TableHead className="bg-red-200">
+                    <TableHead>
                         <TableHeader text="ID" />
                         <TableHeader text="Name" />
                         <TableHeader text="Description" />

@@ -43,24 +43,24 @@ export function ProductPage() {
                 />
                 <Button onclick={() => setvisible("list")} text="List" />
             </Div>
-            {visible == "create" ? <Create visible={setvisible}/> : <List />}
+            {visible == "create" ? <Create visible={setvisible} /> : <List />}
         </>
     );
 }
 
 export function List() {
-    const [locations, setlocations] = useState<any>();
+    const [products, setproducts] = useState<any>();
 
     useEffect(() => {
-        getLocations();
+        getProducts();
     }, []);
 
-    function getLocations(page: number = 1) {
-        api.get("/api/locations/paginate", {
+    function getProducts(page: number = 1) {
+        api.get("/api/products/paginate", {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
             .then((res) => {
-                setlocations(res.data.locations);
+                setproducts(res.data.products);
             })
             .catch((err) => {
                 console.log(err);
@@ -70,20 +70,34 @@ export function List() {
         <>
             <Div className="flex justify-start text-center">
                 <Table>
-                    <TableHead className="bg-red-200">
+                    <TableHead>
                         <TableHeader text="ID" />
                         <TableHeader text="Name" />
+                        <TableHeader text="Category" />
+                        <TableHeader text="Description" />
+                        <TableHeader text="Big Description" />
+                        <TableHeader text="Price" />
                     </TableHead>
                     <TableBody>
-                        {locations &&
-                            locations.data.map(
+                        {products &&
+                            products.data.map(
                                 (item: {
                                     id: React.Key | null | undefined;
                                     name: any;
+                                    description: string;
+                                    big_description: string;
+                                    price: any;
+                                    category_name: string
                                 }) => (
                                     <TableRow key={item.id}>
                                         <TableData content={item.id} />
                                         <TableData content={item.name} />
+                                        <TableData content={item.category_name} />
+                                        <TableData content={item.description} />
+                                        <TableData
+                                            content={item.big_description}
+                                        />
+                                        <TableData content={item.price} />
                                     </TableRow>
                                 )
                             )}
@@ -96,17 +110,37 @@ export function List() {
 
 export function Create(props: any) {
     const [name, setname] = useState<any>();
+    const [price, setprice] = useState<any>();
+    const [description, setdescription] = useState<any>();
+    const [bigdescription, setbigdescription] = useState<any>();
+    const [categories, setcategories] = useState<any>();
+    const [idcategory, setidcategory] = useState<any>();
 
+    useEffect(() => {
+        getCategories();
+    }, []);
+    function getCategories() {
+        api.get(`/api/categories`, {
+            headers: { Authorization: `Bearer ${getToken()}` },
+        }).then((res) => {
+            console.log(res);
+            setcategories(res.data.categories);
+        });
+    }
     function create(e: any) {
         e.preventDefault();
         const form = new FormData();
         form.append("name", name);
-        api.post(`/api/location`, form, {
+        form.append("description", description);
+        form.append("bigdescription", bigdescription);
+        form.append("price", price);
+        form.append("id_category", idcategory);
+        api.post(`/api/product`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
             .then((res) => {
                 ToastSuccess("Succesfully added", "bottom-right");
-                props.visible('list')
+                props.visible("list");
             })
             .catch((err) => {
                 ToastError();
@@ -125,6 +159,46 @@ export function Create(props: any) {
                                     value={name}
                                     placeholder="Name"
                                 />
+                                <Input
+                                    type="text"
+                                    onChange={(e) => setdescription(e)}
+                                    value={description}
+                                    placeholder="Description"
+                                />
+                                <Input
+                                    type="text"
+                                    onChange={(e) => setbigdescription(e)}
+                                    value={bigdescription}
+                                    placeholder="Big description"
+                                />
+                                <Input
+                                    className="rounded-lg border-transparent flex-1 m-3 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                                    type="text"
+                                    onChange={(e) => setprice(e)}
+                                    value={price}
+                                    placeholder="Price"
+                                />
+                                <select
+                                    className="rounded-lg border-transparent m-3 flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                                    onChange={(e) =>
+                                        setidcategory(e.target.value)
+                                    }
+                                >
+                                    {categories &&
+                                        categories.map(
+                                            (item: {
+                                                id: number;
+                                                name: string;
+                                            }) => (
+                                                <option
+                                                    key={item.id}
+                                                    value={item.id}
+                                                >
+                                                    {item.name}
+                                                </option>
+                                            )
+                                        )}
+                                </select>
                                 <Div className="flex justify-end">
                                     <Button
                                         text="Create"

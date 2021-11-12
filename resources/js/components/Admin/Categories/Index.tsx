@@ -14,9 +14,11 @@ import {
     TableHeader,
     TableRow,
     Title,
+    Image,
 } from "../../Layout/Layout";
 import { ToastError, ToastSuccess } from "../../Layout/Toast";
 import DashboardLayout from "../Layout/DashboardLayout";
+import { baseURL } from "../../Data/Api";
 
 export default function Admin() {
     return (
@@ -26,13 +28,13 @@ export default function Admin() {
     );
 }
 
-export function LocationPage() {
+export function CategoryPage() {
     const [visible, setvisible] = useState<"create" | "list">("list");
     return (
         <>
             <Div className="flex justify-start items-center mt-3">
                 <Title
-                    title={"LOCATIONS"}
+                    title={"CATEGORIES"}
                     className="font-bold text-4xl text-gray-700"
                 />
             </Div>
@@ -43,24 +45,24 @@ export function LocationPage() {
                 />
                 <Button onclick={() => setvisible("list")} text="List" />
             </Div>
-            {visible == "create" ? <Create visible={setvisible}/> : <List />}
+            {visible == "create" ? <Create visible={setvisible} /> : <List />}
         </>
     );
 }
 
 export function List() {
-    const [locations, setlocations] = useState<any>();
+    const [categories, setcategories] = useState<any>();
 
     useEffect(() => {
-        getLocations();
+        getCategories();
     }, []);
 
-    function getLocations(page: number = 1) {
-        api.get("/api/locations/paginate", {
+    function getCategories(page: number = 1) {
+        api.get("/api/categories/paginate", {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
             .then((res) => {
-                setlocations(res.data.locations);
+                setcategories(res.data.categories);
             })
             .catch((err) => {
                 console.log(err);
@@ -68,18 +70,18 @@ export function List() {
     }
     return (
         <>
-            <Div className="flex justify-start text-center">
+            <Div className="flex justify-center">
                 <Table>
                     <TableHead>
                         <TableHeader text="ID" />
                         <TableHeader text="Name" />
                     </TableHead>
                     <TableBody>
-                        {locations &&
-                            locations.data.map(
+                        {categories &&
+                            categories.data.map(
                                 (item: {
-                                    id: React.Key | null | undefined;
-                                    name: any;
+                                    id: React.Key;
+                                    name: string;
                                 }) => (
                                     <TableRow key={item.id}>
                                         <TableData content={item.id} />
@@ -89,6 +91,9 @@ export function List() {
                             )}
                     </TableBody>
                 </Table>
+            </Div>
+            <Div className="flex justify-center">
+                {/* <Paginate onChange={() => null} activePage={0} /> */}
             </Div>
         </>
     );
@@ -101,12 +106,13 @@ export function Create(props: any) {
         e.preventDefault();
         const form = new FormData();
         form.append("name", name);
-        api.post(`/api/location`, form, {
+
+        api.post(`/api/category`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
             .then((res) => {
                 ToastSuccess("Succesfully added", "bottom-right");
-                props.visible('list')
+                props.visible("list");
             })
             .catch((err) => {
                 ToastError();
@@ -123,7 +129,7 @@ export function Create(props: any) {
                                     type="text"
                                     onChange={(e) => setname(e)}
                                     value={name}
-                                    placeholder="Name"
+                                    placeholder="Title"
                                 />
                                 <Div className="flex justify-end">
                                     <Button

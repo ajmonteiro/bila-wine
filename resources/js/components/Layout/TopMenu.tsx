@@ -44,6 +44,7 @@ export default function TopMenu() {
                             <Link path="">PAGINA1</Link>
                             <Link path="">MEU PERFIL</Link>
                             <Link path="/admin">ADMIN</Link>
+                            <Link path="/chat">LIVE CHAT</Link>
                             <Link path="" onclick={(e: any) => goLogout(e)}>
                                 LOGOUT
                             </Link>
