@@ -4,6 +4,7 @@ import Header from "../Layout/Header";
 import { Div, Title, Image } from "../Layout/Layout";
 import Events from "./Events";
 import Phrase from "./Phrase";
+import Products from "./Products";
 
 export default function HomePage() {
     return (
@@ -24,7 +25,7 @@ export default function HomePage() {
                 <Events />
             </Div>
             <Div className="mt-10">
-                <h1>OAL</h1>
+                <Products />
             </Div>
         </>
     );

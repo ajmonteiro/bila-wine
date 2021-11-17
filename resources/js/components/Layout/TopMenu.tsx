@@ -9,6 +9,7 @@ import Header from "./Header";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import HomePage from "../Home/HomePage";
+import { CartIcon } from "./Icons";
 
 export default function TopMenu() {
     const history = useHistory();
@@ -45,9 +46,13 @@ export default function TopMenu() {
                             <Link path="">MEU PERFIL</Link>
                             <Link path="/admin">ADMIN</Link>
                             <Link path="/chat">LIVE CHAT</Link>
+                            <Link path="/cart">
+                                <CartIcon />
+                            </Link>
                             <Link path="" onclick={(e: any) => goLogout(e)}>
                                 LOGOUT
                             </Link>
+                            
                         </Div>
 
                         <Div className="flex justify-center md:block"></Div>

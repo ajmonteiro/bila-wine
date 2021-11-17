@@ -115,6 +115,11 @@ export function Create(props: any) {
     const [bigdescription, setbigdescription] = useState<any>();
     const [categories, setcategories] = useState<any>();
     const [idcategory, setidcategory] = useState<any>();
+    const [image, setimage] = useState<any>();
+
+    function changeHandler(e: any) {
+        setimage(e.target.files[0]);
+    }
 
     useEffect(() => {
         getCategories();
@@ -135,6 +140,8 @@ export function Create(props: any) {
         form.append("bigdescription", bigdescription);
         form.append("price", price);
         form.append("id_category", idcategory);
+        form.append("image", image);
+    
         api.post(`/api/product`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
@@ -199,6 +206,11 @@ export function Create(props: any) {
                                             )
                                         )}
                                 </select>
+                                <input
+                                    type="file"
+                                    className="rounded-lg border-transparent m-3 flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                                    onChange={(e) => changeHandler(e)}
+                                />  
                                 <Div className="flex justify-end">
                                     <Button
                                         text="Create"

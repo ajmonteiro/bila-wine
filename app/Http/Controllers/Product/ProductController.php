@@ -16,16 +16,21 @@ class ProductController extends Controller
             'description' => 'required|max:128',
             'bigdescription' => 'required|max:3000',
             'price' => 'required',
+            'image' => 'required',
             'id_category' => 'required'
         ]);
 
         if($validator) {
+            $uploadFolder = `images/products`;
+            $image = $request->file('image');
+            $image_path = $image->store($uploadFolder, 'public');
             $product = new Product();
 
             $product->name = $request->name;
             $product->description = $request->description;
             $product->big_description = $request->bigdescription;
             $product->price = $request->price;
+            $product->image = "/storage/${image_path}";
             $product->id_category = $request->id_category;
 
             $product->save();
