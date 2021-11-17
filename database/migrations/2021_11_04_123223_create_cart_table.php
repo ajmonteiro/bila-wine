@@ -14,7 +14,10 @@ class CreateCartTable extends Migration
     public function up()
     {
         Schema::create('cart', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
+            $table->foreignId('id_user')->constrained('users')->onDelete('cascade');
+            $table->foreignId('id_product')->constrained('products')->onDelete('cascade');
             $table->timestamps();
         });
     }

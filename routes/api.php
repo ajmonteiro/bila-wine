@@ -9,6 +9,7 @@ use App\Http\Controllers\Cellar\CellarController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Cart\CartController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -66,4 +67,8 @@ Route::group([
     Route::post('/category', [CategoryController::class, 'create']);
     Route::get('/categories', [CategoryController::class, 'all']);
     Route::get('/categories/paginate', [CategoryController::class, 'all_paginate']);
+
+    // Cart
+    Route::post('/cart', [CartController::class, 'add']);
+    Route::get('/cart/{id}', [CartController::class, 'getCartFromUser']);
 });

@@ -17,8 +17,16 @@ export default function Products() {
         });
     }
 
-    function handleAddToCart(e: any, id: number) {
-            
+    function handleAddToCart(e: any, id: any) {
+        const form = new FormData
+        form.append('id_product', id)
+
+        api.post(`/api/cart`, form, { headers: { Authorization: `Bearer ${getToken()}`}
+        }).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err.response)
+        })
     }
 
     return (
