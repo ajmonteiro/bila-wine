@@ -1,6 +1,6 @@
 import React from "react";
 import api from "../Data/Api";
-import { Div, Content, Link, Paragraph } from "./Layout";
+import { Div, Content, Link, Paragraph, Image } from "./Layout";
 import { getToken } from "../Data/Auth";
 import { Route, Switch, useHistory } from "react-router";
 import { logout } from "../Data/Auth";
@@ -9,53 +9,81 @@ import Header from "./Header";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import HomePage from "../Home/HomePage";
-import { CartIcon } from "./Icons";
+import { CartIcon, ProfileIcon } from "./Icons";
 
 export default function TopMenu() {
     const history = useHistory();
 
     function goLogout(e: any) {
-        e.preventDefault()
+        e.preventDefault();
         api.post(`/api/logout`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
             logout();
             history.push("/auth", console.log(res));
-        })
+        });
     }
     return (
         <>
-            <Div className="bg-white shadow">
-                <Div className="container px-6 py-3 mx-auto md:flex h-20 md:justify-between md:items-center">
-                    <Div className="flex items-center justify-between">
-                        <Div>
+            <Div className="flex flex-wrap place-items-center">
+                <Div className="relative mx-auto">
+                    <Div className="flex justify-between bg-gray-900 text-white w-screen">
+                        <Div className="px-5 xl:px-12 py-6 flex w-full items-center">
                             <Link
-                                className="text-xl font-bold text-red-800
-                                md:text-2xl hover:text-red-700 dark:hover:text-gray-300"
+                                className="text-3xl font-bold font-heading"
                                 path="#"
                             >
-                                BILAWINE
+                                <Image
+                                    className="h-9"
+                                    path="logo.png"
+                                    alt="logo"
+                                />
                             </Link>
+                            <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
+                                <li>
+                                    <Link
+                                        className="hover:text-gray-200"
+                                        path="/"
+                                    >
+                                        Inicio
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        className="hover:text-gray-200"
+                                        path="/admin"
+                                    >
+                                        ADMIN
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        className="hover:text-gray-200"
+                                        path="/chat"
+                                    >
+                                        LIVE CHAT
+                                    </Link>
+                                </li>
+                            </ul>
+                            <Div className="hidden xl:flex items-center space-x-5 items-center">
+                                <Link
+                                    className="hover:text-gray-200"
+                                    path="#"
+                                ></Link>
+                                <a
+                                    className="flex items-center hover:text-gray-200"
+                                    href="/cart"
+                                >
+                                    <CartIcon />
+                                </a>
+                                <a
+                                    className="flex items-center hover:text-gray-200"
+                                    href="#"
+                                >
+                                   <ProfileIcon />
+                                </a>
+                            </Div>
                         </Div>
-                    </Div>
-
-                    <Div className="items-center md:flex">
-                        <Div className="flex flex-col md:flex-row md:mx-6">
-                            <Link path="/">INICIO</Link>
-                            <Link path="">PAGINA1</Link>
-                            <Link path="">MEU PERFIL</Link>
-                            <Link path="/admin">ADMIN</Link>
-                            <Link path="/chat">LIVE CHAT</Link>
-                            <Link path="/cart">
-                                <CartIcon />
-                            </Link>
-                            <Link path="" onclick={(e: any) => goLogout(e)}>
-                                LOGOUT
-                            </Link>
-                            
-                        </Div>
-
-                        <Div className="flex justify-center md:block"></Div>
                     </Div>
                 </Div>
             </Div>

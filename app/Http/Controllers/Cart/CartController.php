@@ -40,7 +40,6 @@ class CartController extends Controller
         $cart = Cart::where('id_user', Auth()->user()->id)
         ->join('products', 'products.id', '=', 'cart.id_product')
         ->join('categories', 'categories.id', '=', 'products.id_category')
-        ->distinct('id_product')
         ->select([
             'cart.id as id',
             'cart.id_product as id_product',
@@ -52,9 +51,16 @@ class CartController extends Controller
             'categories.name as category_name'
         ])
         ->get();
+        
+        $total = 0;
+
+        foreach($cart as $c) {
+            $total += $c->price;
+        }
 
         return response()->json([
-            'cart' => $cart
+            'cart' => $cart,
+            'total' => $total
         ], 200);
     }
 }

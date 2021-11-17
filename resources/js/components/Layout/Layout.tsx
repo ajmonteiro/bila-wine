@@ -143,9 +143,7 @@ interface TableRowProps {
 export function TableRow(props: TableRowProps) {
     return (
         <>
-            <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                {props.children}
-            </tr>
+            <tr>{props.children}</tr>
         </>
     );
 }
@@ -153,18 +151,15 @@ export function TableRow(props: TableRowProps) {
 interface TableDataProps {
     content: any;
     className?: string;
+    colSpan?: number
     onclick?: () => any;
 }
 
 export function TableData(props: TableDataProps) {
     return (
         <>
-            <td
-                className="py-3 px-6 text-center"
-                onClick={props.onclick}
-            >
+            <td colSpan={props.colSpan} className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700" onClick={props.onclick}>
                 {props.content}
-
             </td>
         </>
     );
@@ -178,15 +173,9 @@ interface TableProps {
 export function Table(props: TableProps) {
     return (
         <>
-            <Div className="overflow-x-auto w-full">
-                <Div className="bg-gray-100 flex w-full items-center justify-center">
-                    <Div className="bg-white w-full shadow-md rounded my-6">
-                        <table className="w-full overflow-scroll">
-                            {props.children}
-                        </table>
-                    </Div>
-                </Div>
-            </Div>
+            <table className="items-center bg-transparent w-full border-collapse ">
+                {props.children}
+            </table>
         </>
     );
 }
@@ -207,12 +196,16 @@ export function TableHead(props: TableHeadProps) {
 interface TableHeaderProps {
     text: string;
     colspan?: number;
+    className?: string;
 }
 
 export function TableHeader(props: TableHeaderProps) {
     return (
         <>
-            <th className="py-3 px-6 text-center" colSpan={props.colspan}>
+            <th
+                className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                colSpan={props.colspan}
+            >
                 {props.text}
             </th>
         </>
@@ -234,13 +227,14 @@ export function TableBody(props: TableBodyProps) {
 }
 
 interface TableFooterProps {
+    className?: string
     children: React.ReactNode;
 }
 
 export function TableFooter(props: TableFooterProps) {
     return (
         <>
-            <tfoot>{props.children}</tfoot>
+            <tfoot className={props.className}>{props.children}</tfoot>
         </>
     );
 }
