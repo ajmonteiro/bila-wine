@@ -30,13 +30,13 @@ export function ProductPage() {
     const [visible, setvisible] = useState<"create" | "list">("list");
     return (
         <>
-            <Div className="flex justify-start items-center mt-3">
+            <Div className="flex justify-center items-center mt-3">
                 <Title
                     title={"PRODUCTS"}
                     className="font-bold text-4xl text-gray-700"
                 />
             </Div>
-            <Div className="flex justify-start items-center">
+            <Div className="flex justify-center items-center mt-3">
                 <Button
                     onclick={() => setvisible("create")}
                     text="Create new"
@@ -68,42 +68,38 @@ export function List() {
     }
     return (
         <>
-            <Div className="flex justify-start text-center">
-                <Table>
-                    <TableHead>
-                        <TableHeader text="ID" />
-                        <TableHeader text="Name" />
-                        <TableHeader text="Category" />
-                        <TableHeader text="Description" />
-                        <TableHeader text="Big Description" />
-                        <TableHeader text="Price" />
-                    </TableHead>
-                    <TableBody>
-                        {products &&
-                            products.data.map(
-                                (item: {
-                                    id: React.Key | null | undefined;
-                                    name: any;
-                                    description: string;
-                                    big_description: string;
-                                    price: any;
-                                    category_name: string
-                                }) => (
-                                    <TableRow key={item.id}>
-                                        <TableData content={item.id} />
-                                        <TableData content={item.name} />
-                                        <TableData content={item.category_name} />
-                                        <TableData content={item.description} />
-                                        <TableData
-                                            content={item.big_description}
-                                        />
-                                        <TableData content={item.price} />
-                                    </TableRow>
-                                )
-                            )}
-                    </TableBody>
-                </Table>
-            </Div>
+            <Table>
+                <TableHead>
+                    <TableHeader text="ID" />
+                    <TableHeader text="Name" />
+                    <TableHeader text="Category" />
+                    <TableHeader text="Description" />
+                    <TableHeader text="Big Description" />
+                    <TableHeader text="Price" />
+                </TableHead>
+                <TableBody>
+                    {products &&
+                        products.data.map(
+                            (item: {
+                                id: React.Key | null | undefined;
+                                name: any;
+                                description: string;
+                                big_description: string;
+                                price: any;
+                                category_name: string;
+                            }) => (
+                                <TableRow key={item.id}>
+                                    <TableData content={item.id} />
+                                    <TableData content={item.name} />
+                                    <TableData content={item.category_name} />
+                                    <TableData content={item.description} />
+                                    <TableData content={item.big_description} />
+                                    <TableData content={item.price} />
+                                </TableRow>
+                            )
+                        )}
+                </TableBody>
+            </Table>
         </>
     );
 }
@@ -141,7 +137,7 @@ export function Create(props: any) {
         form.append("price", price);
         form.append("id_category", idcategory);
         form.append("image", image);
-    
+
         api.post(`/api/product`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
@@ -210,7 +206,7 @@ export function Create(props: any) {
                                     type="file"
                                     className="rounded-lg border-transparent m-3 flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
                                     onChange={(e) => changeHandler(e)}
-                                />  
+                                />
                                 <Div className="flex justify-end">
                                     <Button
                                         text="Create"

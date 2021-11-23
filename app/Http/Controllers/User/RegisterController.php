@@ -36,6 +36,6 @@ class RegisterController extends Controller
         return response()->json([
             'user' => $user->id
         ], 200);
-
     }
+
 }

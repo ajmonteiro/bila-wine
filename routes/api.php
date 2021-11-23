@@ -62,7 +62,7 @@ Route::group([
     Route::post('/product', [ProductController::class, 'create']);
     Route::get('/products/paginate', [ProductController::class, 'all_paginate']);
     Route::get('/products', [ProductController::class, 'all']);
-
+    Route::get('/product/{id}', [ProductController::class, 'getById']);
     // Categories
     Route::post('/category', [CategoryController::class, 'create']);
     Route::get('/categories', [CategoryController::class, 'all']);
@@ -70,5 +70,6 @@ Route::group([
 
     // Cart
     Route::post('/cart', [CartController::class, 'add']);
-    Route::get('/cart/{id}', [CartController::class, 'getCartFromUser']);
+    Route::get('/cart', [CartController::class, 'getCartFromUser']);
+    Route::delete('/cart/{id}', [CartController::class, 'delete']);
 });

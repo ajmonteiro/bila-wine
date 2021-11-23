@@ -36,7 +36,7 @@ class CartController extends Controller
      * @param id - id_user
      * 
      */
-    public function getCartFromUser($id) {
+    public function getCartFromUser() {
         $cart = Cart::where('id_user', Auth()->user()->id)
         ->join('products', 'products.id', '=', 'cart.id_product')
         ->join('categories', 'categories.id', '=', 'products.id_category')
@@ -61,6 +61,16 @@ class CartController extends Controller
         return response()->json([
             'cart' => $cart,
             'total' => $total
+        ], 200);
+    }
+
+    public function delete($id) {
+        $cart = Cart::findOrFail($id);
+
+        $cart->delete();
+
+        return response()->json([
+            'cart' => $cart
         ], 200);
     }
 }

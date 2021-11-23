@@ -32,18 +32,20 @@ export function CellarPage() {
     const [visible, setvisible] = useState<"create" | "list">("list");
     return (
         <>
-            <Div className="flex justify-start items-center mt-3">
+            <Div className="flex justify-center items-center mt-3">
                 <Title
                     title={"CELLARS"}
                     className="font-bold text-4xl text-gray-700"
                 />
             </Div>
-            <Div className="flex justify-start items-center">
-                <Button
-                    onclick={() => setvisible("create")}
-                    text="Create new"
-                />
-                <Button onclick={() => setvisible("list")} text="List" />
+            <Div className="flex justify-center">
+                <Div className="flex justify-start items-center">
+                    <Button
+                        onclick={() => setvisible("create")}
+                        text="Create new"
+                    />
+                    <Button onclick={() => setvisible("list")} text="List" />
+                </Div>
             </Div>
             {visible == "create" ? <Create visible={setvisible} /> : <List />}
         </>
@@ -70,53 +72,49 @@ export function List() {
     }
     return (
         <>
-            <Div className="flex justify-center">
-                <Table>
-                    <TableHead>
-                        <TableHeader text="ID" />
-                        <TableHeader text="Name" />
-                        <TableHeader text="Description" />
-                        <TableHeader text="Price" />
-                        <TableHeader text="Image" />
-                    </TableHead>
-                    <TableBody>
-                        {cellars &&
-                            cellars.data.map(
-                                (item: {
-                                    id: React.Key;
-                                    title: string;
-                                    description: string;
-                                    image: string;
-                                    price: string;
-                                }) => (
-                                    <TableRow key={item.id}>
-                                        <TableData content={item.id} />
-                                        <TableData content={item.title} />
-                                        <TableData
-                                            content={
-                                                item.description
-                                                    ? item.description
-                                                    : "---"
-                                            }
-                                        />
-                                        <TableData content={item.price + "€"} />
-                                        <TableData
-                                            content={
-                                                <Image
-                                                    path={
-                                                        baseURL() + item.image
-                                                    }
-                                                    width={"100px"}
-                                                    height={"auto"}
-                                                />
-                                            }
-                                        />
-                                    </TableRow>
-                                )
-                            )}
-                    </TableBody>
-                </Table>
-            </Div>
+            <Table>
+                <TableHead>
+                    <TableHeader text="ID" />
+                    <TableHeader text="Name" />
+                    <TableHeader text="Description" />
+                    <TableHeader text="Price" />
+                    <TableHeader text="Image" />
+                </TableHead>
+                <TableBody>
+                    {cellars &&
+                        cellars.data.map(
+                            (item: {
+                                id: React.Key;
+                                title: string;
+                                description: string;
+                                image: string;
+                                price: string;
+                            }) => (
+                                <TableRow key={item.id}>
+                                    <TableData content={item.id} />
+                                    <TableData content={item.title} />
+                                    <TableData
+                                        content={
+                                            item.description
+                                                ? item.description
+                                                : "---"
+                                        }
+                                    />
+                                    <TableData content={item.price + "€"} />
+                                    <TableData
+                                        content={
+                                            <Image
+                                                path={baseURL() + item.image}
+                                                width={"100px"}
+                                                height={"auto"}
+                                            />
+                                        }
+                                    />
+                                </TableRow>
+                            )
+                        )}
+                </TableBody>
+            </Table>
             <Div className="flex justify-center">
                 {/* <Paginate onChange={() => null} activePage={0} /> */}
             </Div>
@@ -173,7 +171,7 @@ export function Create(props: any) {
     }
     return (
         <>
-            <Div className="w-full mt-5">
+            <Div className="w-full">
                 <Div className="bg-white rounded-lg shadow">
                     <Div className="px-4 py-8 flex justify-start sm:px-10">
                         <Div className="w-full mt-6">

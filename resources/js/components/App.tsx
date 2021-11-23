@@ -5,7 +5,7 @@ import Routes from './Router/Routes'
 export default function App() {
     return (
         <>
-            <Div className='h-screen'>
+            <Div className='h-screen overflow-x-hidden'>
                 <Routes />
             </Div>
         </>

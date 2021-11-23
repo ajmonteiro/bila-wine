@@ -62,4 +62,19 @@ class ProductController extends Controller
             'products' => Product::all()
         ], 200);
     }
+
+    
+
+    /**
+     * 
+     * @param id id_product
+     * @return array product
+     */
+    public function getById($id) {
+        $product = Product::where('id', $id)->get()[0];
+
+        return response()->json([
+            'product' => $product
+        ], 200);
+    }
 }

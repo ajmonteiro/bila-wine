@@ -40,10 +40,9 @@ export function CartPage() {
 
     /**
      * @returns @array_products
-     * @id - id_user
      */
     function getCartFromUser() {
-        api.get(`/api/cart/{id}`, {
+        api.get(`/api/cart`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
             console.log(res);
@@ -52,60 +51,75 @@ export function CartPage() {
             settotal(res.data.total);
         });
     }
+
+    function handleDelete(e: any, id: number) {
+        console.log(id);
+        api.delete(`/api/cart/${id}`, {
+            headers: { Authorization: `Bearer ${getToken()}` },
+        }).then((res) => {
+            getCartFromUser();
+        });
+    }
     return (
         <>
             {totalItems && (
-                <section className="py-1 bg-blueGray-50">
-                    <Div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
-                        <Div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
-                            <Div className="block w-full overflow-x-auto">
-                                <Table className="items-center bg-transparent w-full border-collapse ">
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableHeader text={"PRODUTO"} />
-                                            <TableHeader text={"REMOVER"} />
-                                            <TableHeader text={"PREÇO"} />
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {products?.map(
-                                            (item: {
-                                                id:
-                                                    | React.Key
-                                                    | null
-                                                    | undefined;
-                                                name: any;
-                                                price: any;
-                                            }) => (
-                                                <TableRow key={item.id}>
-                                                    <TableData
-                                                        content={item.name}
-                                                    />
-                                                    <TableData
-                                                        content={<DeleteIcon />}
-                                                    />
-                                                    <TableData
-                                                        content={
-                                                            item.price + "€"
-                                                        }
-                                                    />
-                                                </TableRow>
-                                            )
-                                        )}
-                                    </TableBody>
-                                    <TableFooter>
-                                        <TableRow>
-                                            <TableData content={<Title className="text-xl" title={`Preço total: ${total}€`}/>} />
-
-                                        </TableRow>
-                                    </TableFooter>
-                                    
-
-                                </Table>
-                            </Div>
-                        </Div>
-                    </Div>
-                </section>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableHeader text={"#"} />
+                                <TableHeader text={"PRODUTO"} />
+                                <TableHeader text={"REMOVER"} />
+                                <TableHeader text={"PREÇO"} />
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {products?.map(
+                                (item: {
+                                    id: any;
+                                    name: any;
+                                    price: any;
+                                    image: any;
+                                }) => (
+                                    <TableRow key={item.id}>
+                                        <TableData
+                                            content={
+                                                <Image
+                                                    path={
+                                                        baseURL() + item.image
+                                                    }
+                                                    width={"100"}
+                                                />
+                                            }
+                                        />
+                                        <TableData content={item.name} />
+                                        <TableData
+                                            content={
+                                                <DeleteIcon
+                                                    className="cursor-pointer"
+                                                    onclick={(e: any) =>
+                                                        handleDelete(e, item.id)
+                                                    }
+                                                />
+                                            }
+                                        />
+                                        <TableData content={item.price + "€"} />
+                                    </TableRow>
+                                )
+                            )}
+                        </TableBody>
+                        <TableFooter>
+                            <TableRow>
+                                <TableData
+                                    content={
+                                        <Title
+                                            className="text-xl"
+                                            title={`Preço total: ${total}€`}
+                                        />
+                                    }
+                                />
+                            </TableRow>
+                        </TableFooter>
+                    </Table>
             )}
         </>
     );

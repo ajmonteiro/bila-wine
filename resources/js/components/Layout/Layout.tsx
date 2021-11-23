@@ -151,14 +151,18 @@ export function TableRow(props: TableRowProps) {
 interface TableDataProps {
     content: any;
     className?: string;
-    colSpan?: number
+    colSpan?: number;
     onclick?: () => any;
 }
 
 export function TableData(props: TableDataProps) {
     return (
         <>
-            <td colSpan={props.colSpan} className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700" onClick={props.onclick}>
+            <td
+                colSpan={props.colSpan}
+                className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700"
+                onClick={props.onclick}
+            >
                 {props.content}
             </td>
         </>
@@ -173,9 +177,17 @@ interface TableProps {
 export function Table(props: TableProps) {
     return (
         <>
-            <table className="items-center bg-transparent w-full border-collapse ">
-                {props.children}
-            </table>
+            <section className="py-1 bg-blueGray-50">
+                <Div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
+                    <Div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
+                        <Div className="block w-full overflow-x-auto">
+                            <table className="items-center bg-transparent w-full border-collapse">
+                                {props.children}
+                            </table>
+                        </Div>
+                    </Div>
+                </Div>
+            </section>
         </>
     );
 }
@@ -227,7 +239,7 @@ export function TableBody(props: TableBodyProps) {
 }
 
 interface TableFooterProps {
-    className?: string
+    className?: string;
     children: React.ReactNode;
 }
 
@@ -295,12 +307,13 @@ interface ClassProps {
     className?: string;
     children?: React.ReactNode;
     styles?: any;
+    onclick?: (e: any) =>any
 }
 
 export function Div(props: ClassProps) {
     return (
         <>
-            <div className={props.className} style={props.styles}>
+            <div className={props.className} style={props.styles} onClick={props.onclick}>
                 {props.children}
             </div>
         </>

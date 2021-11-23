@@ -33,13 +33,13 @@ export function EventPage() {
     const [visible, setvisible] = useState<"create" | "list">("list");
     return (
         <>
-            <Div className="flex justify-start items-center mt-3">
+            <Div className="flex justify-center items-center mt-3">
                 <Title
                     title={"EVENTS"}
                     className="font-bold text-4xl text-gray-700"
                 />
             </Div>
-            <Div className="flex justify-start items-center">
+            <Div className="flex justify-center items-center mt-3">
                 <Button
                     onclick={() => setvisible("create")}
                     text="Create new"
@@ -78,7 +78,6 @@ export function List() {
     }
     return (
         <>
-            <Div className="flex justify-start text-center">
                 <Table>
                     <TableHead>
                         <TableHeader text="ID" />
@@ -140,7 +139,6 @@ export function List() {
                             )}
                     </TableBody>
                 </Table>
-            </Div>
             <Div className="flex justify-center">
                 {/* <Paginate onChange={() => null} activePage={0} /> */}
             </Div>
