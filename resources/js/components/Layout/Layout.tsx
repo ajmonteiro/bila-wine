@@ -161,7 +161,7 @@ export function TableData(props: TableDataProps) {
         <>
             <td
                 colSpan={props.colSpan}
-                className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700"
+                className="border-t-0 px-6 align-middle overflow-hidden border-l-0 border-r-0 text-xs p-4 text-left text-blueGray-700"
                 onClick={props.onclick}
             >
                 {props.content}

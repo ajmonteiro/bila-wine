@@ -11,6 +11,7 @@ use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Order\OrderController;
+use App\Http\Controllers\StripeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -78,5 +79,10 @@ Route::group([
     // Order
     Route::post('/order', [OrderController::class, 'create']);
     Route::get('/order/{id}', [OrderController::class, 'getOrderById']);
+    Route::post('/pay', [OrderController::class, 'payInvoice']);
+    Route::get('/order/state/{id}', [OrderController::class, 'updateState']);
+
+    // Stripe
+    Route::post('/stripe', [StripeController::class, 'pay']);
 
 });

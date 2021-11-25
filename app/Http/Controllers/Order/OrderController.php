@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Models\Order;
+use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Invoice;
 use DB;
 
 class OrderController extends Controller
@@ -24,7 +26,7 @@ class OrderController extends Controller
             'saved' => $request->saved
         ]);
 
-        $products = Product::where('name', 'PRODUTO 1')->pluck('id');
+        $products = Cart::where('id_user', Auth()->user()->id)->pluck('id_product');
         $product_array = $products;
         $i = 0;
         $product = [];
@@ -44,6 +46,7 @@ class OrderController extends Controller
 
         $order = new Order;
         $order->id_user = Auth()->user()->id;
+        $order->id_invoice = rand(0, 10000000);
         $order->id_secret = Str::random(40);
         $order->info = $info;
         $order->products = $product_array;
@@ -65,6 +68,29 @@ class OrderController extends Controller
      */
     public function getOrderById($id) {
         $order = Order::where('id', $id)->first();
+        $products = json_decode($order->products);
+        $all_products = [];
+        $i = 0;
+        $total = 0;
+        foreach($products as $product) {
+            $p = Product::where('id', $product)->get()[0];
+            $total += $p->price;
+            $all_products[$i] = $p;
+            
+            $i++;
+        }
+
+        $order->all_products = $all_products;
+        $order->total = $total;
+        return response()->json([
+            'order' => $order
+        ], 200);
+    }
+
+    public function updateState($id) {
+        $order = Order::where('id', $id)->update([
+            'state' => 1
+        ]);
 
         return response()->json([
             'order' => $order

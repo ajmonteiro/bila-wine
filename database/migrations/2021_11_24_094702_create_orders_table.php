@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('id_secret')->nullable();
             $table->longText('info');
             $table->longText('products');
-            $table->boolean('state');
+            $table->boolean('state')->default(0);
             $table->float('total_price');
             $table->timestamps();
         });
