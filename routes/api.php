@@ -10,6 +10,7 @@ use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Cart\CartController;
+use App\Http\Controllers\Order\OrderController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -72,4 +73,10 @@ Route::group([
     Route::post('/cart', [CartController::class, 'add']);
     Route::get('/cart', [CartController::class, 'getCartFromUser']);
     Route::delete('/cart/{id}', [CartController::class, 'delete']);
+    Route::delete('/cart', [CartController::class, 'deleteUserCart']);
+
+    // Order
+    Route::post('/order', [OrderController::class, 'create']);
+    Route::get('/order/{id}', [OrderController::class, 'getOrderById']);
+
 });

@@ -150,9 +150,10 @@ export function TableRow(props: TableRowProps) {
 
 interface TableDataProps {
     content: any;
-    className?: string;
-    colSpan?: number;
+    className?: any;
+    colSpan?: any;
     onclick?: () => any;
+
 }
 
 export function TableData(props: TableDataProps) {
@@ -172,6 +173,8 @@ export function TableData(props: TableDataProps) {
 interface TableProps {
     children: React.ReactNode | React.ReactChildren;
     className?: string;
+    cellPadding?: any
+    cellSpacing?: any
 }
 
 export function Table(props: TableProps) {
@@ -181,7 +184,7 @@ export function Table(props: TableProps) {
                 <Div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
                     <Div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
                         <Div className="block w-full overflow-x-auto">
-                            <table className="items-center bg-transparent w-full border-collapse">
+                            <table className="items-center bg-transparent w-full border-collapse" cellSpacing={props.cellSpacing} cellPadding={props.cellPadding}>
                                 {props.children}
                             </table>
                         </Div>

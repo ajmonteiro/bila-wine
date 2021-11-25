@@ -8,6 +8,7 @@ import Register from "../Auth/Register";
 import Cart from "../Cart/Index";
 import Chat from "../Chat/Chat";
 import NotFound from "../Layout/NotFound";
+import OrderDetail from "../Order/Detail";
 import ProductId from "../Product/Index";
 import StartApp from "../StartApp";
 
@@ -22,6 +23,7 @@ export default function Routes() {
                     <Route exact path="/chat" component={Chat} />
                     <Route exact path="/cart" component={Cart} />
                     <Route exact path="/product/:id" component={ProductId} />
+                    <Route exact path="/order/:id" component={OrderDetail} />
 
                     <Route path="*" exact={true} component={NotFound} />
                 </Switch>

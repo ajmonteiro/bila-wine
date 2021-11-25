@@ -73,4 +73,18 @@ class CartController extends Controller
             'cart' => $cart
         ], 200);
     }
+
+    /**
+     * 
+     * delete all cart from user after making order
+     * @return boolean
+     * 
+     */
+    public function deleteUserCart() {
+        $cart = Cart::where('id_user', Auth()->user()->id)->delete();
+
+        return response()->json([
+            'cart' => $cart
+        ], 200);
+    }
 }
