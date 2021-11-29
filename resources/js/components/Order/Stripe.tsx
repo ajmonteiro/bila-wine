@@ -22,7 +22,7 @@ export default function Stripe(props: StripeProps) {
         );
         const form = new FormData();
 
-        form.append(`id_order`, id);
+        form.append(`id_secret`, id);
         form.append(`price`, props.price);
         form.append(`name`, `Produtos`);
 

@@ -10,7 +10,7 @@ class StripeController extends Controller
 {
     public function pay(Request $request)
     {
-        $id_order_secret = Order::where('id', $request->id_order)->pluck('id_secret')[0];
+        $id_order_secret = $request->id_secret;
 
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
@@ -28,7 +28,7 @@ class StripeController extends Controller
             'quantity' => 1,
           ]],
           'mode' => 'payment',
-          'success_url' =>env("APP_URL").'/order/success/' . $id_order_secret.'/',
+          'success_url' =>env("APP_URL").'order/success/' . $request->id_secret .'/',
           'cancel_url' =>env("APP_URL").'/order_cancel.php?orderId='. $request->id_order,
 
         ]);

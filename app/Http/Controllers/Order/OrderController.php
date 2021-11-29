@@ -56,7 +56,7 @@ class OrderController extends Controller
         $order->save();
 
         return response()->json([
-            'order' => $order->id
+            'order' => $order->id_secret
         ], 200);
     }
 
@@ -67,7 +67,7 @@ class OrderController extends Controller
      * 
      */
     public function getOrderById($id) {
-        $order = Order::where('id', $id)->first();
+        $order = Order::where('id_secret', $id)->first();
         $products = json_decode($order->products);
         $all_products = [];
         $i = 0;
