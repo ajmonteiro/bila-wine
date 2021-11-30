@@ -1,47 +1,126 @@
-import React from "react";
-import { baseURL } from "../../Data/Api";
+import React, { useState, useEffect } from "react";
+import api, { baseURL } from "../../Data/Api";
+import { getToken } from "../../Data/Auth";
 import Header from "../../Layout/Header";
 import { Div, Link, Title } from "../../Layout/Layout";
 
 export default function Dashboard() {
+    const [usersCount, setUsersCount] = useState<any>();
+    const [productsCount, setProductsCount] = useState<any>();
+    const [ordersCount, setOrdersCount] = useState<any>();
+    const [income, setIncome] = useState<any>();
+    const [userEmail, setUserEmail] = useState<any>();
+    const [userName, setUserName] = useState<any>();
+    const [products, setProducts] = useState<any>();
+    const [active, setActive] = useState<any>();
+    const [next, setNext] = useState<any>();
+
+    useEffect(() => {
+        getDashboardInfo();
+        getProducts();
+        loadActive();
+    }, []);
+    function getDashboardInfo() {
+        api.get(`/api/dashboard`, {
+            headers: { Authorization: `Bearer ${getToken()}` },
+        }).then((res) => {
+            setUserEmail(res.data.user.email);
+            setUserName(res.data.user.name);
+            setUsersCount(res.data.users);
+            setProductsCount(res.data.products);
+            setOrdersCount(res.data.orders);
+            setIncome(res.data.income);
+        });
+    }
+
+    function getProducts(page = 1) {
+        api.get(`/api/products/paginate?page=${page}`, {
+            headers: { Authorization: `Bearer ${getToken()}` },
+        }).then((res) => {
+            setProducts(res.data.products);
+        });
+    }
+
+    async function loadActive() {
+        setActive(
+            document
+                .getElementsByClassName(`first-item`)[0]
+                .classList.add("active")
+        );
+    }
+
+    async function changeActive(e: any) {
+        setActive(
+            document
+                .getElementsByClassName(`active`)[0]
+                .classList.remove("active")
+        );
+        setNext(
+            document.getElementById(e.currentTarget.id)?.classList.add("active")
+        );
+    }
+
     return (
         <>
             <input type="checkbox" id="nav-toggle" />
             <Div className="sidebar">
                 <Div className="sidebar-brand">
-                    <h1 className="text-3xl"><span className="lab la-accusoft"></span><span>BILAWINE</span></h1>
+                    <h1 className="text-3xl">
+                        <span className="lab la-accusoft"></span>
+                        <span>BILAWINE</span>
+                    </h1>
                 </Div>
                 <Div className="sidebar-menu">
                     <ul>
                         <li>
-                            <Link path={"#"} className="active">
+                            <Div
+                                id="1"
+                                className="list-item cursor-pointer first-item"
+                                onclick={(e: any) => changeActive(e)}
+                            >
                                 <span className="las la-igloo"></span>
                                 <span>Dashboard</span>
-                            </Link>
+                            </Div>
                         </li>
                         <li>
-                            <Link path={"#"}>
+                            <Div
+                                id="2"
+                                className="list-item cursor-pointer"
+                                onclick={(e: any) => changeActive(e)}
+                            >
                                 <span className="las la-dolly"></span>
                                 <span>Produtos</span>
-                            </Link>
+                            </Div>
                         </li>
                         <li>
-                            <Link path={"#"}>
+                            <Div
+                                id="3"
+                                className="list-item cursor-pointer"
+                                onclick={(e: any) => changeActive(e)}
+                            >
                                 <span className="las la-archive"></span>
                                 <span>Categorias</span>
-                            </Link>
+                            </Div>
                         </li>
                         <li>
-                            <Link path={"#"}>
+                            <Div
+                                id="4"
+                                className="list-item cursor-pointer"
+                                onclick={(e: any) => changeActive(e)}
+                            >
                                 <span className="las la-barcode"></span>
                                 <span>Adegas</span>
-                            </Link>
+                            </Div>
                         </li>
                         <li>
-                            <Link path={"#"}>
+                            <Div
+                                id="5"
+                                className="list-item cursor-pointer"
+                                onclick={(e: any) => changeActive(e)}
+                            >
                                 <span className="las la-map"></span>
                                 <span>Localizações</span>
-                            </Link>
+                            </Div>
                         </li>
                     </ul>
                 </Div>
@@ -50,7 +129,7 @@ export default function Dashboard() {
                 <header className="header-header">
                     <h2 className="text-3xl">
                         <label htmlFor="nav-toggle">
-                            <span className="las la-bars"></span>
+                            <span className="las la-bars cursor-pointer"></span>
                         </label>
                         Dashboard
                     </h2>
@@ -66,8 +145,8 @@ export default function Dashboard() {
                             alt=""
                         />
                         <Div>
-                            <h4>John Doe</h4>
-                            <small>Super admin</small>
+                            <h4>{userName}</h4>
+                            <small>{userEmail}</small>
                         </Div>
                     </Div>
                 </header>
@@ -75,7 +154,7 @@ export default function Dashboard() {
                     <Div className="cards">
                         <Div className="card-single">
                             <Div>
-                                <h1 className="text-3xl">54</h1>
+                                <h1 className="text-3xl">{usersCount}</h1>
                                 <span>Utilizadores</span>
                             </Div>
                             <Div>
@@ -84,7 +163,7 @@ export default function Dashboard() {
                         </Div>
                         <Div className="card-single">
                             <Div>
-                                <h1 className="text-3xl">54</h1>
+                                <h1 className="text-3xl">{productsCount}</h1>
                                 <span>Produtos</span>
                             </Div>
                             <Div>
@@ -93,7 +172,7 @@ export default function Dashboard() {
                         </Div>
                         <Div className="card-single">
                             <Div>
-                                <h1 className="text-3xl">54</h1>
+                                <h1 className="text-3xl">{ordersCount}</h1>
                                 <span>Orders</span>
                             </Div>
                             <Div>
@@ -102,7 +181,7 @@ export default function Dashboard() {
                         </Div>
                         <Div className="card-single">
                             <Div>
-                                <h1 className="text-3xl">6€</h1>
+                                <h1 className="text-3xl">{income}€</h1>
                                 <span>Income</span>
                             </Div>
                             <Div>
@@ -127,18 +206,22 @@ export default function Dashboard() {
                                                 <tr>
                                                     <td>#</td>
                                                     <td>Título</td>
-                                                    <td>Status</td>
+                                                    <td>Preço</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Titulo 1</td>
-                                                    <td>
-                                                        <span className="status"></span>
-                                                        Em stock
-                                                    </td>
-                                                </tr>
+                                                {products?.data.map(
+                                                    (item: any) => (
+                                                        <tr key={item.id}>
+                                                            <td>{item.id}</td>
+                                                            <td>{item.name}</td>
+                                                            <td>
+                                                                {item.price +
+                                                                    "€"}
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                )}
                                             </tbody>
                                         </table>
                                     </Div>

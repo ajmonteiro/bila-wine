@@ -12,6 +12,7 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\Dashboard\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,6 +38,9 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/authuser', [AuthController::class, 'checkLogin']);
 
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'getDashboardInfo']);
+
     // Locations
     Route::post('/location', [LocationController::class, 'create']);
     Route::get('/locations/paginate', [LocationController::class, 'all_paginate']);
@@ -59,7 +63,7 @@ Route::group([
     Route::get('/events/paginate', [EventController::class, 'all_paginate']);
     Route::get('/event/{id}', [EventController::class, 'getById']);
     Route::put('/event/{id}', [EventController::class, 'update']);
-    
+
     // Products
     Route::post('/product', [ProductController::class, 'create']);
     Route::get('/products/paginate', [ProductController::class, 'all_paginate']);

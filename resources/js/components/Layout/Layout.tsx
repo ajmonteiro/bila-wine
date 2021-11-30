@@ -311,12 +311,13 @@ interface ClassProps {
     children?: React.ReactNode;
     styles?: any;
     onclick?: (e: any) =>any
+    id?: any
 }
 
 export function Div(props: ClassProps) {
     return (
         <>
-            <div className={props.className} style={props.styles} onClick={props.onclick}>
+            <div id={props.id} className={props.className} style={props.styles} onClick={props.onclick}>
                 {props.children}
             </div>
         </>
