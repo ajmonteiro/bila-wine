@@ -22,8 +22,8 @@ export default function Routes() {
                     <Route exact path="/" component={StartApp} />
                     <Route exact path="/admin" component={DashboardLayout} />
                     <Route exact path="/chat" component={Chat} />
-                    <Route exact path="/cart" component={Cart} />
-                    <Route exact path="/product/:id" component={ProductId} />
+                    <Route exact path="/carrinho" component={Cart} />
+                    <Route exact path="/produto/:id" component={ProductId} />
                     <Route exact path="/order/:id" component={OrderDetail} />
                     <Route exact path="/order/success/:id" component={SuccessPay} />
 

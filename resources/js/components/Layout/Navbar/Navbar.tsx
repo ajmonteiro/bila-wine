@@ -20,7 +20,7 @@ export function Menu() {
         <>
             <Div className="top-nav">
                 <nav>
-                    <Div className="logo">BILAWINE</Div>
+                    <Div className="logo"><a href="/">BILAWINE</a></Div>
                     <Div className="right-nav">
                         <ul>
                             <li>
@@ -36,7 +36,10 @@ export function Menu() {
                                 <a href="#">Contactos</a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="/admin">Administrador</a>
+                            </li>
+                            <li>
+                                <a href="/carrinho">
                                     <CartIcon onclick={() => goCart()} />
                                 </a>
                             </li>
@@ -55,16 +58,16 @@ export function Menu() {
                     </Div>
                     <ul>
                         <li>
-                            <a href="#">Produtos</a>
+                            <a href="/produtos">Produtos</a>
                         </li>
                         <li>
-                            <a href="#">Eventos</a>
+                            <a href="/eventos">Eventos</a>
                         </li>
                         <li>
-                            <a href="#">Presentes</a>
+                            <a href="/presentes">Presentes</a>
                         </li>
                         <li>
-                            <a href="#">Contactos</a>
+                            <a href="/contactos">Contactos</a>
                         </li>
                     </ul>
                 </Div>

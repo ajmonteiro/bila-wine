@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { baseURL } from "../Data/Api";
 // import Pagination from "react-js-pagination";
 // require("bootstrap/less/bootstrap.less");
 // interface PaginationProps {
@@ -73,6 +74,34 @@ interface InputProps {
     max?: number;
     name?: string;
     className?: string;
+}
+
+interface CardProps {
+    title: any,
+    text: any,
+    path: any
+}
+
+export function Card(props: CardProps) {
+    return (
+        <>
+            <div className="max-w-sm rounded overflow-hidden shadow-lg m-5">
+                <img
+                    className="w-full"
+                    src={props.path}
+                    alt="Sunset in the mountains"
+                />
+                <div className="px-6 py-4">
+                    <div className="font-bold text-xl mb-2">
+                        {props.title}
+                    </div>
+                    <p className="text-gray-700 text-base">
+                        {props.text}
+                    </p>
+                </div>
+            </div>
+        </>
+    );
 }
 
 export function Input(props: InputProps) {
@@ -153,7 +182,6 @@ interface TableDataProps {
     className?: any;
     colSpan?: any;
     onclick?: () => any;
-
 }
 
 export function TableData(props: TableDataProps) {
@@ -173,8 +201,8 @@ export function TableData(props: TableDataProps) {
 interface TableProps {
     children: React.ReactNode | React.ReactChildren;
     className?: string;
-    cellPadding?: any
-    cellSpacing?: any
+    cellPadding?: any;
+    cellSpacing?: any;
 }
 
 export function Table(props: TableProps) {
@@ -184,7 +212,11 @@ export function Table(props: TableProps) {
                 <Div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
                     <Div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
                         <Div className="block w-full overflow-x-auto">
-                            <table className="items-center bg-transparent w-full border-collapse" cellSpacing={props.cellSpacing} cellPadding={props.cellPadding}>
+                            <table
+                                className="items-center bg-transparent w-full border-collapse"
+                                cellSpacing={props.cellSpacing}
+                                cellPadding={props.cellPadding}
+                            >
                                 {props.children}
                             </table>
                         </Div>
@@ -310,14 +342,19 @@ interface ClassProps {
     className?: string;
     children?: React.ReactNode;
     styles?: any;
-    onclick?: (e: any) =>any
-    id?: any
+    onclick?: (e: any) => any;
+    id?: any;
 }
 
 export function Div(props: ClassProps) {
     return (
         <>
-            <div id={props.id} className={props.className} style={props.styles} onClick={props.onclick}>
+            <div
+                id={props.id}
+                className={props.className}
+                style={props.styles}
+                onClick={props.onclick}
+            >
                 {props.children}
             </div>
         </>
