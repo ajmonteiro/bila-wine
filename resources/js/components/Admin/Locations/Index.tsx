@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../../Data/Api";
+import api, { baseURL } from "../../Data/Api";
 import { getToken } from "../../Data/Auth";
 import {
     Button,
@@ -16,95 +16,34 @@ import {
     Title,
 } from "../../Layout/Layout";
 import { ToastError, ToastSuccess } from "../../Layout/Toast";
-import DashboardLayout from "../Layout/DashboardLayout";
 
-export default function Admin() {
-    return (
-        <>
-            <DashboardLayout />
-        </>
-    );
-}
+export default function Location() {
+    const [Locations, setLocations] = useState<any>();
+    const [name, setName] = useState<any>();
 
-export function LocationPage() {
-    const [visible, setvisible] = useState<"create" | "list">("list");
-    return (
-        <>
-            <Div className="flex justify-center items-center mt-3">
-                <Title
-                    title={"LOCATIONS"}
-                    className="font-bold text-4xl text-gray-700"
-                />
-            </Div>
-            <Div className="flex justify-center items-center mt-3">
-                <Button
-                    onclick={() => setvisible("create")}
-                    text="Create new"
-                />
-                <Button onclick={() => setvisible("list")} text="List" />
-            </Div>
-            {visible == "create" ? <Create visible={setvisible}/> : <List />}
-        </>
-    );
-}
-
-export function List() {
-    const [locations, setlocations] = useState<any>();
+    function getLocations(page = 1) {
+        api.get(`/api/locations/paginate?page=${page}`, {
+            headers: { Authorization: `Bearer ${getToken()}` },
+        }).then((res) => {
+            setLocations(res.data.locations);
+        });
+    }
 
     useEffect(() => {
         getLocations();
     }, []);
 
-    function getLocations(page: number = 1) {
-        api.get("/api/locations/paginate", {
-            headers: { Authorization: `Bearer ${getToken()}` },
-        })
-            .then((res) => {
-                setlocations(res.data.locations);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
-    return (
-        <>
-                <Table>
-                    <TableHead>
-                        <TableHeader text="ID" />
-                        <TableHeader text="Name" />
-                    </TableHead>
-                    <TableBody>
-                        {locations &&
-                            locations.data.map(
-                                (item: {
-                                    id: React.Key | null | undefined;
-                                    name: any;
-                                }) => (
-                                    <TableRow key={item.id}>
-                                        <TableData content={item.id} />
-                                        <TableData content={item.name} />
-                                    </TableRow>
-                                )
-                            )}
-                    </TableBody>
-                </Table>
-        </>
-    );
-}
-
-export function Create(props: any) {
-    const [name, setname] = useState<any>();
-
     function create(e: any) {
         e.preventDefault();
         const form = new FormData();
         form.append("name", name);
+
         api.post(`/api/location`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
             .then((res) => {
+                getLocations();
                 ToastSuccess("Succesfully added", "bottom-right");
-                props.visible('list')
             })
             .catch((err) => {
                 ToastError();
@@ -112,28 +51,65 @@ export function Create(props: any) {
     }
     return (
         <>
-            <Div className="w-full mt-5">
-                <Div className="bg-white rounded-lg shadow">
-                    <Div className="px-4 py-8 flex justify-start sm:px-10">
-                        <Div className="w-full mt-6">
-                            <Form>
-                                <Input
-                                    type="text"
-                                    onChange={(e) => setname(e)}
-                                    value={name}
-                                    placeholder="Name"
-                                />
-                                <Div className="flex justify-end">
-                                    <Button
-                                        text="Create"
-                                        onclick={(e: any) => create(e)}
+            <main>
+                <Div className="recent-grid">
+                    <Div className="products">
+                        <Div className="card">
+                            <Div className="card-header">
+                                <h2 className="text-2xl">
+                                    Adicionar localização
+                                </h2>
+                            </Div>
+                            <Div className="card-body">
+                                <Div>
+                                    <Input
+                                        placeholder={"Nome"}
+                                        value={name}
+                                        type={"text"}
+                                        onChange={(e) => setName(e)}
                                     />
                                 </Div>
-                            </Form>
+                                <Div className="mt-5 flex justify-end">
+                                    <button onClick={(e) => create(e)}>
+                                        Criar
+                                    </button>
+                                </Div>
+                            </Div>
+                        </Div>
+                    </Div>
+                    <Div className="users">
+                        <Div className="card">
+                            <Div className="card-header">
+                                <h2 className="text-2xl">Localizações recentes</h2>
+                            </Div>
+                            <Div className="card-body">
+                                <Div className="customer">
+                                    <Div className="info">
+                                        <table className="table-responsive w-full">
+                                            <thead>
+                                                <tr>
+                                                    <td>#</td>
+                                                    <td>Nome</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {Locations?.data.map(
+                                                    (item: any) => (
+                                                        <tr key={item.id}>
+                                                            <td>{item.id}</td>
+                                                            <td>{item.name}</td>
+                                                        </tr>
+                                                    )
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </Div>
+                                </Div>
+                            </Div>
                         </Div>
                     </Div>
                 </Div>
-            </Div>
+            </main>
         </>
     );
 }

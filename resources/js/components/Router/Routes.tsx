@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
-import Admin from "../Admin/Locations/Index";
+import DashboardLayout from "../Admin/Layout/DashboardLayout";
 import Index from "../Auth/Index";
 
 import Login from "../Auth/Login";
@@ -20,7 +20,7 @@ export default function Routes() {
                 <Switch>
                     <Route exact path="/auth" component={Index} />
                     <Route exact path="/" component={StartApp} />
-                    <Route exact path="/admin" component={Admin} />
+                    <Route exact path="/admin" component={DashboardLayout} />
                     <Route exact path="/chat" component={Chat} />
                     <Route exact path="/cart" component={Cart} />
                     <Route exact path="/product/:id" component={ProductId} />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../../Data/Api";
+import api, { baseURL } from "../../Data/Api";
 import { getToken } from "../../Data/Auth";
 import {
     Button,
@@ -14,149 +14,35 @@ import {
     TableHeader,
     TableRow,
     Title,
-    Image,
 } from "../../Layout/Layout";
 import { ToastError, ToastSuccess } from "../../Layout/Toast";
 import DashboardLayout from "../Layout/DashboardLayout";
-import { baseURL } from "../../Data/Api";
-import { DeleteIcon, EditIcon } from "../../Layout/Icons";
 
-export default function Admin() {
-    return (
-        <>
-            <DashboardLayout />
-        </>
-    );
-}
+export default function Events() {
+    const [Eventos, setEventos] = useState<any>();
+    const [title, setTitle] = useState<any>();
+    const [description, setDescription] = useState<any>();
+    const [image, setImage] = useState<any>();
+    const [price, setPrice] = useState<any>();
+    const [duration, setDuration] = useState<any>();
+    const [personNumber, setPersonNumber] = useState<any>();
 
-export function EventPage() {
-    const [visible, setvisible] = useState<"create" | "list">("list");
-    return (
-        <>
-            <Div className="flex justify-center items-center mt-3">
-                <Title
-                    title={"EVENTS"}
-                    className="font-bold text-4xl text-gray-700"
-                />
-            </Div>
-            <Div className="flex justify-center items-center mt-3">
-                <Button
-                    onclick={() => setvisible("create")}
-                    text="Create new"
-                />
-                <Button
-                    onclick={() => setvisible("list")}
-                    text="List"
-                />
-            </Div>
-            {visible == "create" ? <Create visible={setvisible}/> : <List />}
-        </>
-    );
-}
-
-export function List() {
-    const [events, setevents] = useState<any>();
-
-    useEffect(() => {
-        getEvents();
-    }, []);
-
-    function getEvents(page: number = 1) {
-        api.get("/api/events/paginate", {
+    function getEventos(page = 1) {
+        api.get(`/api/events/paginate?page=${page}`, {
             headers: { Authorization: `Bearer ${getToken()}` },
-        })
-            .then((res) => {
-                setevents(res.data.events);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        }).then((res) => {
+            setEventos(res.data.events);
+        });
     }
-
-    function deleteEvent() {
-        console.log("delete");
-    }
-    return (
-        <>
-                <Table>
-                    <TableHead>
-                        <TableHeader text="ID" />
-                        <TableHeader text="Name" />
-                        <TableHeader text="Description" />
-                        <TableHeader text="Price" />
-                        <TableHeader text="Duration" />
-                        <TableHeader text="Person Number" />
-                        <TableHeader text="Image" />
-                        <TableHeader text="Actions" colspan={2} />
-                    </TableHead>
-                    <TableBody>
-                        {events &&
-                            events.data.map(
-                                (item: {
-                                    id: React.Key;
-                                    title: string;
-                                    description: string;
-                                    image: string;
-                                    price: string;
-                                    duration: string;
-                                    person_number: string;
-                                }) => (
-                                    <TableRow key={item.id}>
-                                        <TableData content={item.id} />
-                                        <TableData content={item.title} />
-                                        <TableData
-                                            content={
-                                                item.description
-                                                    ? item.description
-                                                    : "---"
-                                            }
-                                        />
-                                        <TableData content={item.price + "€"} />
-                                        <TableData
-                                            content={item.duration + "hours"}
-                                        />
-                                        <TableData
-                                            content={item.person_number}
-                                        />
-                                        <TableData
-                                            content={
-                                                <Image
-                                                    path={
-                                                        baseURL() + item.image
-                                                    }
-                                                    width={"100px"}
-                                                    height={"auto"}
-                                                />
-                                            }
-                                        />
-                                        <TableData content={<EditIcon />} className="flex justify-center"/>
-                                        <TableData
-                                            content={<DeleteIcon />}
-                                            onclick={() => deleteEvent()}
-                                        />
-                                    </TableRow>
-                                )
-                            )}
-                    </TableBody>
-                </Table>
-            <Div className="flex justify-center">
-                {/* <Paginate onChange={() => null} activePage={0} /> */}
-            </Div>
-        </>
-    );
-}
-
-export function Create(props: any) {
-    const [title, settitle] = useState<any>();
-    const [description, setdescription] = useState<any>();
-    const [image, setimage] = useState<any>();
-    const [price, setprice] = useState<any>();
-    const [duration, setduration] = useState<any>();
-    const [personnumber, setpersonnumber] = useState<any>();
 
     function changeHandler(e: any) {
-        setimage(e.target.files[0]);
+        setImage(e.target.files[0]);
     }
+
+    useEffect(() => {
+        getEventos();
+    }, []);
+
     function create(e: any) {
         e.preventDefault();
         const form = new FormData();
@@ -165,74 +51,120 @@ export function Create(props: any) {
         form.append("image", image);
         form.append("price", price);
         form.append("duration", duration);
-        form.append("person_number", personnumber);
-
+        form.append("person_number", personNumber);
+    
         api.post(`/api/event`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
             .then((res) => {
                 ToastSuccess("Succesfully added", "bottom-right");
-                props.visible('list')
+                getEventos();
             })
             .catch((err) => {
                 ToastError();
             });
     }
+    
     return (
         <>
-            <Div className="w-full mt-5">
-                <Div className="bg-white rounded-lg shadow">
-                    <Div className="px-4 py-8 flex justify-start sm:px-10">
-                        <Div className="w-full mt-6">
-                            <Form>
-                                <Input
-                                    type="text"
-                                    onChange={(e) => settitle(e)}
-                                    value={title}
-                                    placeholder="Title"
-                                />
-                                <Input
-                                    type="text"
-                                    onChange={(e) => setdescription(e)}
-                                    value={description}
-                                    placeholder="Description"
-                                />
-                                <input
-                                    type="file"
-                                    className="rounded-lg border-transparent m-3 flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
-                                    onChange={(e) => changeHandler(e)}
-                                />
-                                <Input
-                                    type="text"
-                                    onChange={(e) => setprice(e)}
-                                    value={price}
-                                    placeholder="Price"
-                                />
-                                <Input
-                                    type="number"
-                                    onChange={(e) => setduration(e)}
-                                    value={duration}
-                                    placeholder="Duration (in hours)"
-                                />
-                                <Input
-                                    type="number"
-                                    onChange={(e) => setpersonnumber(e)}
-                                    value={personnumber}
-                                    placeholder="Person Number"
-                                    max={10}
-                                    min={1}
-                                />
-                                <Div className="flex justify-end">
-                                    <Button
-                                        text="Create"
-                                        onclick={(e: any) => create(e)}
+            <main>
+                <Div className="recent-grid">
+                    <Div className="products">
+                        <Div className="card">
+                            <Div className="card-header">
+                                <h2 className="text-2xl">Adicionar evento</h2>
+                            </Div>
+                            <Div className="card-body">
+                                <Div>
+                                    <Input
+                                        placeholder={"Nome"}
+                                        value={title}
+                                        type={"text"}
+                                        onChange={(e) => setTitle(e)}
                                     />
                                 </Div>
-                            </Form>
+                                <Div>
+                                    <Input
+                                        placeholder={"Descrição"}
+                                        value={description}
+                                        type={"text"}
+                                        onChange={(e) => setDescription(e)}
+                                    />
+                                </Div>
+                                <Div>
+                                    <Input
+                                        placeholder={"Preço"}
+                                        value={price}
+                                        type={"text"}
+                                        onChange={(e) => setPrice(e)}
+                                    />
+                                </Div>
+                                <Div>
+                                    <Input
+                                        placeholder={"Número de pessoas"}
+                                        value={personNumber}
+                                        type={"text"}
+                                        onChange={(e) => setPersonNumber(e)}
+                                    />
+                                </Div>
+                                <Div>
+                                    <Input
+                                        placeholder={"Duração"}
+                                        value={duration}
+                                        type={"text"}
+                                        onChange={(e) => setDuration(e)}
+                                    />
+                                </Div>
+                                <Div>
+                                    <input type="file" onChange={(e) => changeHandler(e)}/>
+                                </Div>
+                               
+                                <Div className="mt-5 flex justify-end">
+                                    <button onClick={(e) => create(e)}>
+                                        Criar
+                                    </button>
+                                </Div>
+                            </Div>
+                        </Div>
+                    </Div>
+                    <Div className="users">
+                        <Div className="card">
+                            <Div className="card-header">
+                                <h2 className="text-2xl">Adegas recentes</h2>
+                            </Div>
+                            <Div className="card-body">
+                                <Div className="customer">
+                                    <Div className="info">
+                                        <table className="table-responsive w-full">
+                                            <thead>
+                                                <tr>
+                                                    <td>#</td>
+                                                    <td>Nome</td>
+                                                    <td>Preço</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {Eventos?.data.map(
+                                                    (item: any) => (
+                                                        <tr key={item.id}>
+                                                            <td>{item.id}</td>
+                                                            <td>{item.title}</td>
+                                                            <td>
+                                                                {item.price +
+                                                                    "€"}
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </Div>
+                                </Div>
+                            </Div>
                         </Div>
                     </Div>
                 </Div>
-            </Div>
+            </main>
         </>
     );
 }

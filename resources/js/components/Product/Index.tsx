@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import api, { baseURL } from "../Data/Api";
 import { getToken } from "../Data/Auth";
 import { Button, Div, Paragraph, Title } from "../Layout/Layout";
-import TopMenu from "../Layout/TopMenu";
+import TopMenu from "../Layout/Menu";
 
 export default function ProductId() {
     const [product, setproduct] = useState<any>();

@@ -40,6 +40,7 @@ Route::group([
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'getDashboardInfo']);
+    Route::get('/recentusers', [DashboardController::class, 'getRecentUsers']);
 
     // Locations
     Route::post('/location', [LocationController::class, 'create']);

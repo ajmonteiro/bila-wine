@@ -1,43 +1,32 @@
 import React, { useState, useEffect } from "react";
 import api, { baseURL } from "../../Data/Api";
 import { getToken } from "../../Data/Auth";
+import Products from "../Products/Index";
 import Header from "../../Layout/Header";
 import { Div, Link, Title } from "../../Layout/Layout";
+import Categories from "../Categories/Index";
+import Adegas from "../Cellars/Index";
+import Location from "../Locations/Index";
+import Events from "../Events/Index";
 
 export default function Dashboard() {
-    const [usersCount, setUsersCount] = useState<any>();
-    const [productsCount, setProductsCount] = useState<any>();
-    const [ordersCount, setOrdersCount] = useState<any>();
-    const [income, setIncome] = useState<any>();
-    const [userEmail, setUserEmail] = useState<any>();
-    const [userName, setUserName] = useState<any>();
-    const [products, setProducts] = useState<any>();
     const [active, setActive] = useState<any>();
     const [next, setNext] = useState<any>();
+    const [userEmail, setUserEmail] = useState<any>();
+    const [userName, setUserName] = useState<any>();
+    const [visible, setvisible] = useState<any>("dashboard");
 
     useEffect(() => {
-        getDashboardInfo();
-        getProducts();
         loadActive();
+        getDashboardInfo();
     }, []);
+
     function getDashboardInfo() {
         api.get(`/api/dashboard`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
             setUserEmail(res.data.user.email);
             setUserName(res.data.user.name);
-            setUsersCount(res.data.users);
-            setProductsCount(res.data.products);
-            setOrdersCount(res.data.orders);
-            setIncome(res.data.income);
-        });
-    }
-
-    function getProducts(page = 1) {
-        api.get(`/api/products/paginate?page=${page}`, {
-            headers: { Authorization: `Bearer ${getToken()}` },
-        }).then((res) => {
-            setProducts(res.data.products);
         });
     }
 
@@ -76,7 +65,9 @@ export default function Dashboard() {
                             <Div
                                 id="1"
                                 className="list-item cursor-pointer first-item"
-                                onclick={(e: any) => changeActive(e)}
+                                onclick={(e: any) => {
+                                    changeActive(e), setvisible("dashboard");
+                                }}
                             >
                                 <span className="las la-igloo"></span>
                                 <span>Dashboard</span>
@@ -86,7 +77,9 @@ export default function Dashboard() {
                             <Div
                                 id="2"
                                 className="list-item cursor-pointer"
-                                onclick={(e: any) => changeActive(e)}
+                                onclick={(e: any) => {
+                                    changeActive(e), setvisible("products");
+                                }}
                             >
                                 <span className="las la-dolly"></span>
                                 <span>Produtos</span>
@@ -96,7 +89,9 @@ export default function Dashboard() {
                             <Div
                                 id="3"
                                 className="list-item cursor-pointer"
-                                onclick={(e: any) => changeActive(e)}
+                                onclick={(e: any) => {
+                                    changeActive(e), setvisible("categories");
+                                }}
                             >
                                 <span className="las la-archive"></span>
                                 <span>Categorias</span>
@@ -106,7 +101,9 @@ export default function Dashboard() {
                             <Div
                                 id="4"
                                 className="list-item cursor-pointer"
-                                onclick={(e: any) => changeActive(e)}
+                                onclick={(e: any) => {
+                                    changeActive(e), setvisible("adegas");
+                                }}
                             >
                                 <span className="las la-barcode"></span>
                                 <span>Adegas</span>
@@ -116,10 +113,24 @@ export default function Dashboard() {
                             <Div
                                 id="5"
                                 className="list-item cursor-pointer"
-                                onclick={(e: any) => changeActive(e)}
+                                onclick={(e: any) => {
+                                    changeActive(e), setvisible("locations");
+                                }}
                             >
                                 <span className="las la-map"></span>
                                 <span>Localizações</span>
+                            </Div>
+                        </li>
+                        <li>
+                            <Div
+                                id="6"
+                                className="list-item cursor-pointer"
+                                onclick={(e: any) => {
+                                    changeActive(e), setvisible("events");
+                                }}
+                            >
+                                <span className="las la-calendar"></span>
+                                <span>Eventos</span>
                             </Div>
                         </li>
                     </ul>
@@ -131,7 +142,12 @@ export default function Dashboard() {
                         <label htmlFor="nav-toggle">
                             <span className="las la-bars cursor-pointer"></span>
                         </label>
-                        Dashboard
+                        {visible == "dashboard" && "Dashboard"}
+                        {visible == "products" && "Produtos"}
+                        {visible == "categories" && "Categorias"}
+                        {visible == "adegas" && "Adegas"}
+                        {visible == "locations" && "Localizações"}
+                        {visible == "events" && "Eventos"}
                     </h2>
                     <Div className="search-wrapper">
                         <span className="las la-search"></span>
@@ -150,93 +166,141 @@ export default function Dashboard() {
                         </Div>
                     </Div>
                 </header>
-                <main>
-                    <Div className="cards">
-                        <Div className="card-single">
-                            <Div>
-                                <h1 className="text-3xl">{usersCount}</h1>
-                                <span>Utilizadores</span>
-                            </Div>
-                            <Div>
-                                <span className="las la-users"></span>
-                            </Div>
+                {visible == "dashboard" && <DefaultGrid />}
+                {visible == "products" && <Products />}
+                {visible == "categories" && <Categories />}
+                {visible == "adegas" && <Adegas />}
+                {visible == "locations" && <Location />}
+                {visible == "events" && <Events />}
+            </Div>
+        </>
+    );
+}
+
+export function DefaultGrid() {
+    const [usersCount, setUsersCount] = useState<any>();
+    const [productsCount, setProductsCount] = useState<any>();
+    const [ordersCount, setOrdersCount] = useState<any>();
+    const [income, setIncome] = useState<any>();
+    const [userEmail, setUserEmail] = useState<any>();
+    const [userName, setUserName] = useState<any>();
+    const [products, setProducts] = useState<any>();
+    const [users, setUsers] = useState<any>();
+
+    useEffect(() => {
+        getDashboardInfo();
+        getProducts();
+        getRecentUsers();
+    }, []);
+
+    function getDashboardInfo() {
+        api.get(`/api/dashboard`, {
+            headers: { Authorization: `Bearer ${getToken()}` },
+        }).then((res) => {
+            setUserEmail(res.data.user.email);
+            setUserName(res.data.user.name);
+            setUsersCount(res.data.users);
+            setProductsCount(res.data.products);
+            setOrdersCount(res.data.orders);
+            setIncome(res.data.income);
+        });
+    }
+
+    function getProducts(page = 1) {
+        api.get(`/api/products/paginate?page=${page}`, {
+            headers: { Authorization: `Bearer ${getToken()}` },
+        }).then((res) => {
+            setProducts(res.data.products);
+        });
+    }
+
+    function getRecentUsers() {
+        api.get(`/api/recentusers`, {
+            headers: { Authorization: `Bearer ${getToken()}` },
+        }).then((res) => {
+            setUsers(res.data.users);
+        });
+    }
+    return (
+        <>
+            <main>
+                <Div className="cards">
+                    <Div className="card-single">
+                        <Div>
+                            <h1 className="text-3xl">{usersCount}</h1>
+                            <span>Utilizadores</span>
                         </Div>
-                        <Div className="card-single">
-                            <Div>
-                                <h1 className="text-3xl">{productsCount}</h1>
-                                <span>Produtos</span>
-                            </Div>
-                            <Div>
-                                <span className="las la-dolly"></span>
-                            </Div>
+                        <Div>
+                            <span className="las la-users"></span>
                         </Div>
-                        <Div className="card-single">
-                            <Div>
-                                <h1 className="text-3xl">{ordersCount}</h1>
-                                <span>Orders</span>
-                            </Div>
-                            <Div>
-                                <span className="las la-shopping-bag"></span>
-                            </Div>
+                    </Div>
+                    <Div className="card-single">
+                        <Div>
+                            <h1 className="text-3xl">{productsCount}</h1>
+                            <span>Produtos</span>
                         </Div>
-                        <Div className="card-single">
-                            <Div>
-                                <h1 className="text-3xl">{income}€</h1>
-                                <span>Income</span>
+                        <Div>
+                            <span className="las la-dolly"></span>
+                        </Div>
+                    </Div>
+                    <Div className="card-single">
+                        <Div>
+                            <h1 className="text-3xl">{ordersCount}</h1>
+                            <span>Orders</span>
+                        </Div>
+                        <Div>
+                            <span className="las la-shopping-bag"></span>
+                        </Div>
+                    </Div>
+                    <Div className="card-single">
+                        <Div>
+                            <h1 className="text-3xl">{income}€</h1>
+                            <span>Income</span>
+                        </Div>
+                        <Div>
+                            <span className="lab la-google-wallet"></span>
+                        </Div>
+                    </Div>
+                </Div>
+                <Div className="recent-grid mt-10">
+                    <Div className="products">
+                        <Div className="card">
+                            <Div className="card-header">
+                                <h2 className="text-2xl">Produtos recentes</h2>
+                                <button>Ver todos</button>
                             </Div>
-                            <Div>
-                                <span className="lab la-google-wallet"></span>
+                            <Div className="card-body">
+                                <Div className="table-responsive">
+                                    <table width="100%">
+                                        <thead>
+                                            <tr>
+                                                <td>#</td>
+                                                <td>Título</td>
+                                                <td>Preço</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {products?.data.map((item: any) => (
+                                                <tr key={item.id}>
+                                                    <td>{item.id}</td>
+                                                    <td>{item.name}</td>
+                                                    <td>{item.price + "€"}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </Div>
                             </Div>
                         </Div>
                     </Div>
-
-                    <Div className="recent-grid">
-                        <Div className="products">
-                            <Div className="card">
-                                <Div className="card-header">
-                                    <h2 className="text-2xl">
-                                        Produtos recentes
-                                    </h2>
-                                    <button>Ver todos</button>
-                                </Div>
-                                <Div className="card-body">
-                                    <Div className="table-responsive">
-                                        <table width="100%">
-                                            <thead>
-                                                <tr>
-                                                    <td>#</td>
-                                                    <td>Título</td>
-                                                    <td>Preço</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {products?.data.map(
-                                                    (item: any) => (
-                                                        <tr key={item.id}>
-                                                            <td>{item.id}</td>
-                                                            <td>{item.name}</td>
-                                                            <td>
-                                                                {item.price +
-                                                                    "€"}
-                                                            </td>
-                                                        </tr>
-                                                    )
-                                                )}
-                                            </tbody>
-                                        </table>
-                                    </Div>
-                                </Div>
+                    <Div className="users">
+                        <Div className="card">
+                            <Div className="card-header">
+                                <h2 className="text-2xl">Utilizador novos</h2>
+                                <button>Ver todos</button>
                             </Div>
-                        </Div>
-                        <Div className="users">
-                            <Div className="card">
-                                <Div className="card-header">
-                                    <h2 className="text-2xl">
-                                        Utilizador novos
-                                    </h2>
-                                    <button>Ver todos</button>
-                                </Div>
-                                <Div className="card-body">
+                            <Div className="card-body">
+                                {users?.map((user: any) => (
                                     <Div className="customer">
                                         <Div className="info">
                                             <img
@@ -249,23 +313,18 @@ export default function Dashboard() {
                                             />
                                             <Div>
                                                 <h4 className="text-xl">
-                                                    Lewis S. Cunningham
+                                                    {user.name}
                                                 </h4>
-                                                <small>CEO Expert</small>
+                                                <small>{user.email}</small>
                                             </Div>
                                         </Div>
-                                        <Div className="contact">
-                                            <span className="las la-user-circle"></span>
-                                            <span className="las la-comment"></span>
-                                            <span className="las la-phone"></span>
-                                        </Div>
                                     </Div>
-                                </Div>
+                                ))}
                             </Div>
                         </Div>
                     </Div>
-                </main>
-            </Div>
+                </Div>
+            </main>
         </>
     );
 }

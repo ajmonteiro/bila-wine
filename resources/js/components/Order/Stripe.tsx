@@ -18,7 +18,7 @@ export default function Stripe(props: StripeProps) {
     async function payStripe(e: any) {
         e.preventDefault();
         const stripePromise = await loadStripe(
-            ""
+            "pk_test_51JzpIVGcdbf6fNPGqE5OiArWf9yVh2B0dxhg4HiL4U79O0gLzFjBdetMFjtGXy3FawrlAvuGuvW9J9YehLaYI0l300yVhstZrs"
         );
         const form = new FormData();
 

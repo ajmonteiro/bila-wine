@@ -24,4 +24,12 @@ class DashboardController extends Controller
             'user' => Auth()->user()
         ], 200);
     }
+
+    protected function getRecentUsers() {
+        $users = User::orderBy('id', 'desc')->take(5)->get();
+
+        return response()->json([
+            'users' => $users
+        ], 200);
+    }
 }

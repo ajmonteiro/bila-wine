@@ -193,7 +193,6 @@ main {
 }
 
 .recent-grid {
-    margin-top: 3.5rem;
     display: grid;
     grid-gap: 2rem;
     grid-template-columns: 63% auto;
@@ -220,6 +219,16 @@ main {
     border-radius: 10px;
     color: #fff;
     font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--main-color);
+}
+
+.card-body button {
+    background: var(--main-color);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.8rem;
+    margin-right: 0.8rem;
     padding: 0.5rem 1rem;
     border: 1px solid var(--main-color);
 }

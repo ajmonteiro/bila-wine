@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../../Data/Api";
+import api, { baseURL } from "../../Data/Api";
 import { getToken } from "../../Data/Auth";
 import {
     Button,
@@ -14,91 +14,25 @@ import {
     TableHeader,
     TableRow,
     Title,
-    Image,
 } from "../../Layout/Layout";
 import { ToastError, ToastSuccess } from "../../Layout/Toast";
 import DashboardLayout from "../Layout/DashboardLayout";
-import { baseURL } from "../../Data/Api";
 
-export default function Admin() {
-    return (
-        <>
-            <DashboardLayout />
-        </>
-    );
-}
+export default function Categories() {
+    const [Categories, setCategories] = useState<any>();
+    const [name, setName] = useState<any>();
 
-export function CategoryPage() {
-    const [visible, setvisible] = useState<"create" | "list">("list");
-    return (
-        <>
-            <Div className="flex justify-center items-center mt-3">
-                <Title
-                    title={"CATEGORIES"}
-                    className="font-bold text-4xl text-gray-700"
-                />
-            </Div>
-            <Div className="flex justify-center items-center mt-3">
-                <Button
-                    onclick={() => setvisible("create")}
-                    text="Create new"
-                />
-                <Button onclick={() => setvisible("list")} text="List" />
-            </Div>
-            {visible == "create" ? <Create visible={setvisible} /> : <List />}
-        </>
-    );
-}
-
-export function List() {
-    const [categories, setcategories] = useState<any>();
+    function getCategories(page = 1) {
+        api.get(`/api/categories/paginate?page=${page}`, {
+            headers: { Authorization: `Bearer ${getToken()}` },
+        }).then((res) => {
+            setCategories(res.data.categories);
+        });
+    }
 
     useEffect(() => {
         getCategories();
     }, []);
-
-    function getCategories(page: number = 1) {
-        api.get("/api/categories/paginate", {
-            headers: { Authorization: `Bearer ${getToken()}` },
-        })
-            .then((res) => {
-                setcategories(res.data.categories);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
-    return (
-        <>
-                <Table>
-                    <TableHead>
-                        <TableHeader text="ID" />
-                        <TableHeader text="Name" />
-                    </TableHead>
-                    <TableBody>
-                        {categories &&
-                            categories.data.map(
-                                (item: {
-                                    id: React.Key;
-                                    name: string;
-                                }) => (
-                                    <TableRow key={item.id}>
-                                        <TableData content={item.id} />
-                                        <TableData content={item.name} />
-                                    </TableRow>
-                                )
-                            )}
-                    </TableBody>
-                </Table>
-            <Div className="flex justify-center">
-                {/* <Paginate onChange={() => null} activePage={0} /> */}
-            </Div>
-        </>
-    );
-}
-
-export function Create(props: any) {
-    const [name, setname] = useState<any>();
 
     function create(e: any) {
         e.preventDefault();
@@ -109,8 +43,8 @@ export function Create(props: any) {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
             .then((res) => {
+                getCategories();
                 ToastSuccess("Succesfully added", "bottom-right");
-                props.visible("list");
             })
             .catch((err) => {
                 ToastError();
@@ -118,28 +52,65 @@ export function Create(props: any) {
     }
     return (
         <>
-            <Div className="w-full mt-5">
-                <Div className="bg-white rounded-lg shadow">
-                    <Div className="px-4 py-8 flex justify-start sm:px-10">
-                        <Div className="w-full mt-6">
-                            <Form>
-                                <Input
-                                    type="text"
-                                    onChange={(e) => setname(e)}
-                                    value={name}
-                                    placeholder="Title"
-                                />
-                                <Div className="flex justify-end">
-                                    <Button
-                                        text="Create"
-                                        onclick={(e: any) => create(e)}
+            <main>
+                <Div className="recent-grid">
+                    <Div className="products">
+                        <Div className="card">
+                            <Div className="card-header">
+                                <h2 className="text-2xl">
+                                    Adicionar categoria
+                                </h2>
+                            </Div>
+                            <Div className="card-body">
+                                <Div>
+                                    <Input
+                                        placeholder={"Nome"}
+                                        value={name}
+                                        type={"text"}
+                                        onChange={(e) => setName(e)}
                                     />
                                 </Div>
-                            </Form>
+                                <Div className="mt-5 flex justify-end">
+                                    <button onClick={(e) => create(e)}>
+                                        Criar
+                                    </button>
+                                </Div>
+                            </Div>
+                        </Div>
+                    </Div>
+                    <Div className="users">
+                        <Div className="card">
+                            <Div className="card-header">
+                                <h2 className="text-2xl">Produtos recentes</h2>
+                            </Div>
+                            <Div className="card-body">
+                                <Div className="customer">
+                                    <Div className="info">
+                                        <table className="table-responsive w-full">
+                                            <thead>
+                                                <tr>
+                                                    <td>#</td>
+                                                    <td>Nome</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {Categories?.data.map(
+                                                    (item: any) => (
+                                                        <tr key={item.id}>
+                                                            <td>{item.id}</td>
+                                                            <td>{item.name}</td>
+                                                        </tr>
+                                                    )
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </Div>
+                                </Div>
+                            </Div>
                         </Div>
                     </Div>
                 </Div>
-            </Div>
+            </main>
         </>
     );
 }

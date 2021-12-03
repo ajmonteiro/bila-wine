@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MessageIcon } from "../Layout/Icons";
 import { Div, Title } from "../Layout/Layout";
-import TopMenu from "../Layout/TopMenu";
+import TopMenu from "../Layout/Menu";
 
 export default function Chat() {
     return (

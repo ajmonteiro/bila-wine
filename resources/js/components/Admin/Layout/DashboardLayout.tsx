@@ -17,15 +17,9 @@ import {
     Title,
     Button,
 } from "../../Layout/Layout";
-import { CategoryPage } from "../Categories/Index";
-import { CellarPage } from "../Cellars/Index";
-import { EventPage } from "../Events/Index";
-import { LocationPage } from "../Locations/Index";
-import { ProductPage } from "../Products/Index";
 import Dashboard from "./Dashboard";
 
 export default function DashboardLayout() {
-    const [visible, setvisible] = useState<string>("cellar");
     return (
         <>
         <Dashboard />

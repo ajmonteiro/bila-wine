@@ -19,7 +19,7 @@ import {
     TableData,
     TableFooter,
 } from "../Layout/Layout";
-import TopMenu from "../Layout/TopMenu";
+import TopMenu from "../Layout/Menu";
 
 export default function Cart() {
     const [visible, setvisible] = useState<"cart" | "billing">("cart");

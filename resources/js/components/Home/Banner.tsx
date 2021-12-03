@@ -4,16 +4,17 @@ import { Button, Div } from "../Layout/Layout";
 export default function Banner() {
     return (
         <>
-            <Div className="w-full relative">
-                <Div className="w-full h-full top-0 left-0 absolute bg-gradient-to-br from-yellow-400 via-red-500 opacity-70"></Div>
-                <Div className="w-full h-full flex flex-col absolute top-0 left-0 justify-center items-center z-30">
-                    <Div className="text-6xl font-bold text-white xs:text-xl">
-                        MEGA BLACK WEEK
-                    </Div>
-                    <Div className="text-2xl text-white xs:text-xs  ">
+            <Div className="w-full z-0 px-6 mt-10">
+                <Div className="relative rounded-lg bg-red-700 mx-auto flex flex-col items-center pt-12 sm:pt-24 pb-24 sm:pb-24 md:pb-24 lg:pb-24 xl:pb-24">
+                    <Div className="w-11/12 sm:w-2/3 mb-5 sm:mb-10">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center text-white font-bold leading-tight">
+                            BILAWINE
+                        </h1>
+                        <p className="text-center text-white font-bold leading-tight">
+                            O melhor dos vinhos
+                        </p>
                     </Div>
                 </Div>
-                <div className="w-full h-96 bg-center bg-cover" style={{ backgroundImage: `url(https://www.youramalficoast.com/assets/images/public/trips/big/wine-tasting_1518174566.jpg)`}}></div>
             </Div>
         </>
     );

@@ -1,6 +1,6 @@
 import React from "react";
 import { Div, Title } from "../Layout/Layout";
-import TopMenu from "../Layout/TopMenu";
+import TopMenu from "../Layout/Menu";
 
 export default function SuccessPay() {
     return (
