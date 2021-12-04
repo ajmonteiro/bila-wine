@@ -145,7 +145,7 @@ export default function Adegas() {
                     <Div className="users">
                         <Div className="card">
                             <Div className="card-header">
-                                <h2 className="text-2xl">Adegas recentes</h2>
+                                <h2 className="text-2xl">Adegas</h2>
                             </Div>
                             <Div className="card-body">
                                 <Div className="customer">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -31,7 +32,13 @@ class AuthController extends Controller
     }
 
     public function checkLogin() {
-        return Auth::user();
+        $role = DB::table('user_role')->where('id_user', Auth::user()->id)
+            ->join('roles', 'roles.id', '=', 'user_role.id_role')
+            ->pluck('roles.name');
+        return response()->json([
+            'role' => $role,
+            'user' => Auth::user()
+        ], 200);
     }
 
     public function logout(Request $request) {

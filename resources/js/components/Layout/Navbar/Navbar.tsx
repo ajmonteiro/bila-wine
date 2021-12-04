@@ -36,9 +36,6 @@ export function Menu() {
                                 <a href="#">Contactos</a>
                             </li>
                             <li>
-                                <a href="/admin">Administrador</a>
-                            </li>
-                            <li>
                                 <a href="/carrinho">
                                     <CartIcon onclick={() => goCart()} />
                                 </a>

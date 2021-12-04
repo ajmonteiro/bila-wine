@@ -80,7 +80,7 @@ export default function Location() {
                     <Div className="users">
                         <Div className="card">
                             <Div className="card-header">
-                                <h2 className="text-2xl">Localizações recentes</h2>
+                                <h2 className="text-2xl">Localizações</h2>
                             </Div>
                             <Div className="card-body">
                                 <Div className="customer">

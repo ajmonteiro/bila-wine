@@ -32,9 +32,28 @@ class StripeController extends Controller
           'cancel_url' => env("APP_URL").'/order/error/'. $request->id_order,
 
         ]);
-        
-
         return json_encode(['id' => $checkout_session->id]);
+    }
+
+
+    /**
+     * 
+     * @param id id_secret
+     * @return array
+     * 
+     */
+    public function getReceipt() {
+      $stripe = new \Stripe\StripeClient(
+        'sk_test_51JzpIVGcdbf6fNPGujk0C5DDQEkaoVwPVEkqaCTIjcAo7CFcel1OqYxjq9uvCkkGxk6BUlz0k1nESqTXFCmhXyKQ00WTXrJMxY'
+      );
+
+      return response()->json([
+        'stripe' =>  $stripe->invoices->retrieve(
+          'cus_Ki1AG8Yg8lXwu9',
+          []
+        )
+      ], 200);
+      
     }
 
    

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 class SuperUserSeeder extends Seeder
@@ -15,12 +16,14 @@ class SuperUserSeeder extends Seeder
      */
     public function run()
     {
-        User::insert([
-            'id' => 1,
-            'name' => 'ajmonteiro',
-            'email' => 'ajmonteiro@aautad.pt',
-            'password' => Hash::make('password'),
-            'image' => 'image.jpg'
-        ]);             
+        $role_admin = Role::where('name', 'Admin')->first();
+
+        $user = new User();
+        $user->name = "ajmonteiro";
+        $user->email = "ajmonteiro@gmail.com";
+        $user->password = Hash::make('password');
+        $user->image = 'image.jpg';
+        $user->save();
+        $user->roles()->attach($role_admin);
     }
 }

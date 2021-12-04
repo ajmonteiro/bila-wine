@@ -31,13 +31,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/login/check', [AuthController::class, 'checkLogin']);
-
 Route::group([
     'middleware'=>['auth:sanctum'],
 ],function(){
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/authuser', [AuthController::class, 'checkLogin']);
-
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'getDashboardInfo']);
     Route::get('/recentusers', [DashboardController::class, 'getRecentUsers']);
@@ -89,5 +87,6 @@ Route::group([
 
     // Stripe
     Route::post('/stripe', [StripeController::class, 'pay']);
+    Route::get('/getstripe', [StripeController::class, 'getReceipt']);
 
 });

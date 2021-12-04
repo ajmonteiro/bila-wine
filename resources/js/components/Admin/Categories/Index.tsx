@@ -81,7 +81,7 @@ export default function Categories() {
                     <Div className="users">
                         <Div className="card">
                             <Div className="card-header">
-                                <h2 className="text-2xl">Produtos recentes</h2>
+                                <h2 className="text-2xl">Categorias</h2>
                             </Div>
                             <Div className="card-body">
                                 <Div className="customer">
