@@ -39,7 +39,7 @@ class ProductController extends Controller
                 'product' => $product->id
             ], 200);
         }
-    }    
+    }
 
     public function all_paginate() {
         $product = DB::table('products')->join('categories', 'categories.id', '=', 'products.id_category')
@@ -49,8 +49,9 @@ class ProductController extends Controller
             'products.description as description',
             'products.big_description as big_description',
             'products.price as price',
+            'products.image as image',
             'categories.name as category_name'
-        ])->paginate(5);
+        ])->paginate(4);
 
         return response()->json([
             'products' => $product
@@ -63,10 +64,10 @@ class ProductController extends Controller
         ], 200);
     }
 
-    
+
 
     /**
-     * 
+     *
      * @param id id_product
      * @return array product
      */

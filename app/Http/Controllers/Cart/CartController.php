@@ -9,6 +9,10 @@ use App\Models\Cart;
 
 class CartController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function add(Request $request) {
         $validator = Validator::make($request->all(), [
             'id_product' => 'required',
@@ -20,7 +24,7 @@ class CartController extends Controller
             $cart->id_user = Auth()->user()->id;
 
             $cart->save();
-            
+
             return response()->json([
                 'cart_id' => $cart->id
             ], 200);
@@ -32,9 +36,7 @@ class CartController extends Controller
     }
 
     /**
-     * 
-     * @param id - id_user
-     * 
+     * @return \Illuminate\Http\JsonResponse
      */
     public function getCartFromUser() {
         $cart = Cart::where('id_user', Auth()->user()->id)
@@ -51,7 +53,7 @@ class CartController extends Controller
             'categories.name as category_name'
         ])
         ->get();
-        
+
         $total = 0;
 
         foreach($cart as $c) {
@@ -64,6 +66,10 @@ class CartController extends Controller
         ], 200);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete($id) {
         $cart = Cart::findOrFail($id);
 
@@ -75,10 +81,7 @@ class CartController extends Controller
     }
 
     /**
-     * 
-     * delete all cart from user after making order
-     * @return boolean
-     * 
+     * @return \Illuminate\Http\JsonResponse
      */
     public function deleteUserCart() {
         $cart = Cart::where('id_user', Auth()->user()->id)->delete();

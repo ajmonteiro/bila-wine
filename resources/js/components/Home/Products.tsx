@@ -11,7 +11,7 @@ export default function Products() {
     }, []);
 
     function getProducts() {
-        api.get(`/api/products`, {
+        api.get(`/api/products/paginate`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
             setproducts(res.data.products);
@@ -35,11 +35,12 @@ export default function Products() {
     }
 
     function changePage(e: any, id: any) {
-        window.open(`/product/${id}`, `_self`)
+        window.open(`/produto/${id}`, `_self`)
     }
 
     return (
         <>
+            {products &&
             <Div className="bg-white overflow-x-hidden">
                 <Div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
                     <Title
@@ -47,7 +48,7 @@ export default function Products() {
                         title={"Produtos"}
                     />
                     <Div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                        {products?.map(
+                        {products?.data.map(
                             (item: {
                                 id: any;
                                 image: any;
@@ -97,7 +98,7 @@ export default function Products() {
                         )}
                     </Div>
                 </Div>
-            </Div>
+            </Div>}
         </>
     );
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Div, Title } from "./Layout";
+import TopMenu from "./Menu";
 
 export default function NotFound() {
 
@@ -8,54 +9,21 @@ export default function NotFound() {
     }
     return (
         <>
-            <Div className="relative min-h-screen flex items-center justify-center bg-red-900 overflow-hidden">
-                <Div className="grid-background absolute inset-0 p-2 grid grid-cols-12 gap-2 transform -skew-y-12 scale-150">
-                    <Div className="col-span-2 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-5 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-1 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-4 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-5 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-3 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-2 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-2 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-4 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-7 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-1 bg-red-800 rounded animate-pulse"></Div>
-
-                    <Div className="col-span-4 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-2 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-2 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-2 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-2 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-2 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-5 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-1 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-4 bg-red-800 rounded animate-pulse"></Div>
-
-                    <Div className="col-span-4 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-7 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-1 bg-red-800 rounded animate-pulse"></Div>
-
-                    <Div className="col-span-5 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-1 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-3 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-3 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-2 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-5 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-1 bg-red-800 rounded animate-pulse"></Div>
-                    <Div className="col-span-4 bg-red-800 rounded animate-pulse"></Div>
-                </Div>
-
-                <Div className="relative">
-                    <Title
-                        title="404"
-                        className="text-white text-4xl md:text-8xl font-bold flex flex-row items-center"
-                    />
-                    <Div className="flex justify-center">
-                        <Button text={"Voltar"} onclick={() => changePage()} />
-                    </Div>
-                </Div>
-            </Div>
+            <TopMenu />
+           <Div className={"flex flex-col justify-center items-center text-center mt-24"}>
+               <Div>
+                   <h1 className={"text-6xl font-bold"}>Oops...</h1>
+               </Div>
+               <Div className={"font-semibold mt-10"}>
+                   <p>Não conseguimos encontrar esta página.</p>
+               </Div>
+               <Div>
+                   <hr className="w-96 mt-10"/>
+               </Div>
+               <Div className={"mt-10 button-404"}>
+                   <button onClick={() => changePage()}>Voltar</button>
+               </Div>
+           </Div>
         </>
     );
 }

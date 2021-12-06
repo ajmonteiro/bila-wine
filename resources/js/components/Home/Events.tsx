@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api, { baseURL } from "../Data/Api";
 import { getToken } from "../Data/Auth";
-import { Button, Div, Image, Link, Paragraph } from "../Layout/Layout";
+import {Button, Div, Image, Link, Paragraph, Title} from "../Layout/Layout";
 
 export default function Events() {
     const [events, setevents] = useState<any>();
@@ -18,6 +18,9 @@ export default function Events() {
     return (
         <>
             {events && (
+                <Div>
+                <Title className="text-2xl font-extrabold mt-5 tracking-tight text-gray-900"
+                       title={"À procura de eventos?"} />
                 <Div className="max-w-2xl mx-auto py-16 px-4 sm:py-5 sm:px-6 lg:max-w-7xl lg:px-8">
                     <Div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                         {events?.map(
@@ -52,6 +55,7 @@ export default function Events() {
                             )
                         )}
                     </Div>
+                </Div>
                 </Div>
             )}
         </>

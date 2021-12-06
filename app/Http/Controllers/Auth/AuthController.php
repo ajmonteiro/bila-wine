@@ -12,6 +12,11 @@ use DB;
 
 class AuthController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ValidationException
+     */
     public function login(Request $request)
     {
         $request->validate([
@@ -31,6 +36,9 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function checkLogin() {
         $role = DB::table('user_role')->where('id_user', Auth::user()->id)
             ->join('roles', 'roles.id', '=', 'user_role.id_role')
@@ -41,11 +49,28 @@ class AuthController extends Controller
         ], 200);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logout(Request $request) {
         $user = DB::table('personal_access_tokens')->where('tokenable_id', Auth::user()->id)->delete();
 
         return response()->json([
             'user' => $user
+        ], 200);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function role() {
+        $role = DB::table('user_role')->where('id_user', Auth::user()->id)
+            ->join('roles', 'roles.id', '=', 'user_role.id_role')
+            ->pluck('roles.name')[0];
+
+        return response()->json([
+            'role' => $role
         ], 200);
     }
 }

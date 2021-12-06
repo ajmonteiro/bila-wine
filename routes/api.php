@@ -24,6 +24,12 @@ use App\Http\Controllers\Dashboard\DashboardController;
 |
 */
 
+Route::group([
+    'middleware'=>['roles:admin'],
+],function(){
+
+});
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -36,6 +42,8 @@ Route::group([
 ],function(){
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/authuser', [AuthController::class, 'checkLogin']);
+    Route::get('/role', [AuthController::class, 'role']);
+
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'getDashboardInfo']);
     Route::get('/recentusers', [DashboardController::class, 'getRecentUsers']);

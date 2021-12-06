@@ -7,6 +7,7 @@ import Banner from "./Banner";
 import Events from "./Events";
 import LookingFor from "./LookingFor";
 import Products from "./Products";
+import Footer from "../Layout/Footer";
 
 export default function HomePage() {
     return (
@@ -43,6 +44,7 @@ export default function HomePage() {
 
             <LookingFor />
             <Products />
+            <Footer />
         </>
     );
 }

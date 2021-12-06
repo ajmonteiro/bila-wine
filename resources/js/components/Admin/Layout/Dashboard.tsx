@@ -301,7 +301,7 @@ export function DefaultGrid() {
                             </Div>
                             <Div className="card-body">
                                 {users?.map((user: any) => (
-                                    <Div className="customer">
+                                    <Div className="customer" key={user.id}>
                                         <Div className="info">
                                             <img
                                                 src={
