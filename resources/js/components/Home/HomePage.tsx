@@ -8,13 +8,14 @@ import Events from "./Events";
 import LookingFor from "./LookingFor";
 import Products from "./Products";
 import Footer from "../Layout/Footer";
+import Newsletter from "./Newsletter";
 
 export default function HomePage() {
     return (
         <>
-            <Banner />
+            <Banner text="O melhor dos vinhos" title="BILA WINE" />
             <Div className="flex justify-center m-10">
-                <Div className=" card-grid">
+                <Div className="card-grid">
                     <Card
                         path={
                             baseURL() +
@@ -44,6 +45,7 @@ export default function HomePage() {
 
             <LookingFor />
             <Products />
+            <Newsletter />
             <Footer />
         </>
     );

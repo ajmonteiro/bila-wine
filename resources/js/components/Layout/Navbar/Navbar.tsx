@@ -24,16 +24,16 @@ export function Menu() {
                     <Div className="right-nav">
                         <ul>
                             <li>
-                                <a href="#">Produtos</a>
+                                <a href="/produtos">Produtos</a>
                             </li>
                             <li>
-                                <a href="#">Eventos</a>
+                                <a href="/eventos">Eventos</a>
                             </li>
                             <li>
-                                <a href="#">Presentes</a>
+                                <a href="/presentes">Presentes</a>
                             </li>
                             <li>
-                                <a href="#">Contactos</a>
+                                <a href="/contactos">Contactos</a>
                             </li>
                             <li>
                                 <a href="/carrinho">

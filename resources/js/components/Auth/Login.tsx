@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
-import api from "../Data/Api";
-import { Button, Div, Form, Input, Paragraph, Title } from "../Layout/Layout";
+import api, { baseURL } from "../Data/Api";
+import {
+    Button,
+    Div,
+    Form,
+    Input,
+    Link,
+    Paragraph,
+    Title,
+} from "../Layout/Layout";
 import { loginlocal } from "../Data/Auth";
 import { getToken } from "../Data/Auth";
 import { ToastError } from "../Layout/Toast";
@@ -48,13 +56,44 @@ export default function Login(props: VisibleProps) {
             {token ? (
                 history.push("/")
             ) : (
-                <Div className={'login-page'}>
-                    <Div className={'login-card'}>
-                        <Div className={'login-header'}>
-                            <img src={''} alt={''} />
-                        </Div>
-                        <Div className={'login-body'}>
-
+                <Div className={"login-page"}>
+                    <Div className={"login-div"}>
+                        <Div className={"login-card"}>
+                            <Div className={"login-header"}>
+                                <img src={baseURL() + '/storage/logo.png'} width="200"/>
+                            </Div>
+                            <Div className={"login-body"}>
+                                <Div className={"input-div"}>
+                                    <Div>
+                                        <Input
+                                            placeholder={"E-mail"}
+                                            className={"input-login"}
+                                            value={email}
+                                            type={"text"}
+                                            onChange={(e) => setemail(e)}
+                                        />
+                                    </Div>
+                                </Div>
+                                <Div className={"input-div"}>
+                                    <Div>
+                                        <Input
+                                            placeholder={"Palavra-passe"}
+                                            className={"input-login"}
+                                            value={password}
+                                            type={"password"}
+                                            onChange={(e) => setpassword(e)}
+                                        />
+                                    </Div>
+                                </Div>
+                                <Link path="/" className={"login-link"}>
+                                    Esqueceu-se da palavra-passe?
+                                </Link>
+                                <Button
+                                    text={"Entrar"}
+                                    className={"login-button"}
+                                    onclick={(e) => login(e)}
+                                />
+                            </Div>
                         </Div>
                     </Div>
                 </Div>

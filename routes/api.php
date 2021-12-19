@@ -13,6 +13,10 @@ use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Newsletter\NewsletterController;
+use App\Http\Controllers\Gift\GiftController;
+use App\Http\Controllers\Email\EmailController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -87,11 +91,21 @@ Route::group([
     Route::delete('/cart/{id}', [CartController::class, 'delete']);
     Route::delete('/cart', [CartController::class, 'deleteUserCart']);
 
+    // Newsletter
+    Route::post('/newsletter', [NewsletterController::class, 'create']);
+
+    // Gift
+    Route::post('/gift', [GiftController::class, 'create']);
+    Route::get('/gifts/paginate', [GiftController::class, 'all_paginate']);
+
     // Order
     Route::post('/order', [OrderController::class, 'create']);
     Route::get('/order/{id}', [OrderController::class, 'getOrderById']);
     Route::post('/pay', [OrderController::class, 'payInvoice']);
     Route::get('/order/state/{id}', [OrderController::class, 'updateState']);
+
+    // Email interaction
+    Route::post('contact_us', [EmailController::class, 'contactUs']);
 
     // Stripe
     Route::post('/stripe', [StripeController::class, 'pay']);

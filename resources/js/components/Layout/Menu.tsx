@@ -11,7 +11,9 @@ import HomePage from "../Home/HomePage";
 import { CartIcon, ProfileIcon } from "./Icons";
 import DashboardLayout from "../Admin/Layout/DashboardLayout";
 import Navbar from "./Navbar/Navbar";
-import Products from "../Home/Products";
+import Products from "../Products/Index";
+import Events from "../Events/Index";
+import Gifts from "../Gifts/Index";
 
 export default function TopMenu() {
     const history = useHistory();
@@ -33,6 +35,9 @@ export default function TopMenu() {
             <Content>
                 <Switch>
                     <Route exact path="/" component={HomePage} />
+                    {/* <Route exact path="/produtos" component={Products} />
+                    <Route exact path="/eventos" component={Events} />
+                    <Route exact path="/presentes" component={Gifts} /> */}
                     <Route exact path="/admin" component={DashboardLayout} />
                 </Switch>
             </Content>

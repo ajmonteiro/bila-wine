@@ -31,7 +31,7 @@ export default function Events() {
                                 description: any;
                                 price: any;
                             }) => (
-                                <Div className="group relative" key={item.id}>
+                                <Div className="group relative item" key={item.id}>
                                     <Div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
                                         <img
                                             src={baseURL() + item.image}

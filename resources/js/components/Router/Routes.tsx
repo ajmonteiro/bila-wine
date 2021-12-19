@@ -15,6 +15,10 @@ import StartApp from "../StartApp";
 import api from "../Data/Api";
 import {getToken} from "../Data/Auth";
 import {AxiosResponse} from "axios";
+import Products from "../Products/Index";
+import Events from "../Events/Index";
+import Gifts from "../Gifts/Index";
+import Contacts from "../Contacts/Index";
 
 export default function Routes() {
     const [hasAdminRole, setHasAdminRole] = useState<any>();
@@ -50,6 +54,10 @@ export default function Routes() {
                     <Route exact path="/produto/:id" component={ProductId} />
                     <Route exact path="/order/:id" component={OrderDetail} />
                     <Route exact path="/order/success/:id" component={SuccessPay} />
+                    <Route exact path="/produtos" component={Products} />
+                    <Route exact path="/eventos" component={Events} />
+                    <Route exact path="/presentes" component={Gifts} />
+                    <Route exact path="/contactos" component={Contacts} />
 
                     <Route path="*" exact={true} component={NotFound} />
                 </Switch>

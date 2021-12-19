@@ -88,8 +88,8 @@ class OrderController extends Controller
     }
 
     public function updateState($id) {
-        $order = Order::where('id', $id)->update([
-            'state' => 1
+        $order = Order::where('id_secret', $id)->update([
+            'state' => '1'
         ]);
 
         return response()->json([

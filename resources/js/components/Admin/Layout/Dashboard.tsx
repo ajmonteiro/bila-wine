@@ -8,6 +8,8 @@ import Categories from "../Categories/Index";
 import Adegas from "../Cellars/Index";
 import Location from "../Locations/Index";
 import Events from "../Events/Index";
+import Newsletters from "../Newsletters/Index";
+import Gifts from "../Gifts/Index";
 
 export default function Dashboard() {
     const [active, setActive] = useState<any>();
@@ -133,6 +135,30 @@ export default function Dashboard() {
                                 <span>Eventos</span>
                             </Div>
                         </li>
+                        <li>
+                            <Div
+                                id="7"
+                                className="list-item cursor-pointer"
+                                onclick={(e: any) => {
+                                    changeActive(e), setvisible("newsletter");
+                                }}
+                            >
+                                <span className="las la-newspaper"></span>
+                                <span>Newsletter</span>
+                            </Div>
+                        </li>
+                        <li>
+                            <Div
+                                id="8"
+                                className="list-item cursor-pointer"
+                                onclick={(e: any) => {
+                                    changeActive(e), setvisible("gift");
+                                }}
+                            >
+                                <span className="las la-newspaper"></span>
+                                <span>Presentes</span>
+                            </Div>
+                        </li>
                     </ul>
                 </Div>
             </Div>
@@ -148,6 +174,8 @@ export default function Dashboard() {
                         {visible == "adegas" && "Adegas"}
                         {visible == "locations" && "Localizações"}
                         {visible == "events" && "Eventos"}
+                        {visible == "newsletter" && "Newsletter"}
+                        {visible == "gift" && "Presentes"}
                     </h2>
                     <Div className="search-wrapper">
                         <span className="las la-search"></span>
@@ -172,6 +200,8 @@ export default function Dashboard() {
                 {visible == "adegas" && <Adegas />}
                 {visible == "locations" && <Location />}
                 {visible == "events" && <Events />}
+                {visible == "newsletter" && <Newsletters />}
+                {visible == "gift" && <Gifts />}
             </Div>
         </>
     );
