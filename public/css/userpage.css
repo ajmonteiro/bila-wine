@@ -1,0 +1,154 @@
+.userpage-grid {
+    display: grid;
+    padding: 2rem;
+    grid-template-columns: 30% 70%;
+    grid-gap: 1rem;
+    height: calc(100vh - 150px);
+}
+
+.userpage-grid div {
+}
+
+.userpage-list-menu .sub-items ul li span {
+    margin-left: 35px;
+    font-weight: 500;
+}
+
+.userpage-list-menu ul {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+
+.userpage-list-menu ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    background-color: #F8F8F9;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.userpage-list-menu ul li:hover {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.userpage-list-menu ul li:hover div span {
+    color: red;
+}
+
+.userpage-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.order-text {
+    font-weight: 600;
+}
+
+.user-details-button {
+    background-color: #F8F8F9;
+    color: red;
+    border: 1px solid red;
+    font-weight: 300;
+    padding: 10px 20px;
+    text-transform: uppercase;
+}
+
+.user-details-button:hover {
+    color: #F8F8F9;
+    background-color: red;
+}
+
+.user-d-container {
+    padding: 0.5rem;
+}
+
+.last-order .div-up {
+    background-color: #F8F8F9;
+    border-right: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+
+.last-order div {
+    padding: 15px 20px;
+}
+
+.user-details-b {
+    display: flex;
+    justify-content: end;
+    border: 1px solid #ddd;
+}
+
+@media screen and (max-width: 950px) {
+    .userpage-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+
+
+.grid-info-orders {
+    text-transform: uppercase;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+@media screen and (max-width: 867px) {
+    .grid-info-orders {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+.grid-info-orders div {
+    display: flex;
+    max-width: 100%;
+    margin: 1rem;
+    height: 300px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+.grid-info-orders div span {
+    width: 75%;
+    margin: 5px;
+}
+
+.grid-info-orders div i {
+    margin-bottom: 40px;
+    color: red;
+}
+
+.userdata-div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border: 1px solid #ddd;
+}
+
+.userdata-div div {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.userdata-div div input {
+    border: 1px solid black;
+    padding: 10px 20px;
+    outline: none;
+}
+
+.userdata-div div input:focus {
+    box-shadow: 2px 1px 1px black;
+}
+
+@media screen and (max-width: 1166px) {
+    .userdata-div {
+        grid-template-columns: repeat(1, 1fr);
+        margin-bottom: 1px
+    }
+}

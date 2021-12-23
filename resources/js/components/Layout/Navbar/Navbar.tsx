@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { baseURL } from "../../Data/Api";
-import { CartIcon, DeleteIcon } from "../Icons";
+import { CartIcon, DeleteIcon, UserIcon } from "../Icons";
 import { Div, Title } from "../Layout";
 
 export default function Navbar() {
@@ -38,6 +38,11 @@ export function Menu() {
                             <li>
                                 <a href="/carrinho">
                                     <CartIcon onclick={() => goCart()} />
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/utilizador">
+                                    <UserIcon onclick={() => goCart()} />
                                 </a>
                             </li>
                         </ul>

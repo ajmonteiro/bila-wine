@@ -17,6 +17,7 @@
         <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
         <link href="{{ asset('css/login.css') }}" rel="stylesheet">
         <link href="{{ asset('css/newsletter.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/userpage.css') }}" rel="stylesheet">
 
         <style>
             body {

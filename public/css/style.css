@@ -2,6 +2,23 @@
     --main-color: #f42004;
 }
 
+
+.svg-icon {
+    width: 1em;
+    height: 1em;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+    fill: #4691f6;
+}
+
+.svg-icon circle {
+    stroke: #4691f6;
+    stroke-width: 1;
+}
+
 .button-404 {
     background: var(--main-color);
     border-radius: 10px;
@@ -123,7 +140,7 @@
 }
 
 .background-banner {
-    background: url("../storage/background-banner.jpg");
+    background: url("../storage/fV2uf3UbFIByF51ylODhRBOjYb8DtgdNpLphlVQC.jpg");
     background-position: center left;
     background-size: cover;
 }

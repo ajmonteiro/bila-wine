@@ -92,6 +92,18 @@ export const CartIcon = (props: CartProps) => {
         </>
     );
 };
+
+interface UserProps {
+    onclick: () => void;
+}
+
+export const UserIcon = (props: UserProps) => {
+    return (
+        <>
+           <span className="font-bold text-2xl"><i className="lar la-user"></i></span>
+        </>
+    );
+};
 export const MessageIcon = () => {
     return (
         <>
