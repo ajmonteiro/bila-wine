@@ -1,5 +1,5 @@
 :root {
-    --main-color: #f42004;
+    --main-color: #a45459;
 }
 
 
@@ -33,7 +33,7 @@
     margin: auto;
     margin-top: 10px;
     padding: 30px;
-    border: 1px solid rgb(107, 37, 37);
+    border: 1px solid #a45459;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     font-size: 16px;
     line-height: 24px;
@@ -140,7 +140,7 @@
 }
 
 .background-banner {
-    background: url("../storage/fV2uf3UbFIByF51ylODhRBOjYb8DtgdNpLphlVQC.jpg");
+    background: url("../storage/background-image.jpg");
     background-position: center left;
     background-size: cover;
 }
@@ -251,7 +251,7 @@
 }
 .btn-chat i {
     color: #fff;
-    background: #ff0800;
+    background: #a45459;
     padding: 8px 8px 8px;
     display: block;
     font-size: 18px;
@@ -385,7 +385,7 @@
 .product-self-info h3 {
     font-size: .9rem;
     color: #333;
-    margin-bottom: .6rem; 
+    margin-bottom: .6rem;
 }
 
 .product-price {
@@ -406,4 +406,8 @@
 .product-btn .products-btn i {
     font-size: 1.25rem;
     margin-right: .3rem;
+}
+
+button {
+    background-color: #a45459;
 }

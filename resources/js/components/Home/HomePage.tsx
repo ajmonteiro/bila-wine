@@ -19,7 +19,7 @@ export default function HomePage() {
                     <Card
                         path={
                             baseURL() +
-                            "/storage/fV2uf3UbFIByF51ylODhRBOjYb8DtgdNpLphlVQC.jpg"
+                            "/storage/pexels-pixabay-434311.jpg"
                         }
                         text={"Vinho até 50% de desconto"}
                         title={"As nossas grandes promoções"}
@@ -27,7 +27,7 @@ export default function HomePage() {
                     <Card
                         path={
                             baseURL() +
-                            "/storage/fV2uf3UbFIByF51ylODhRBOjYb8DtgdNpLphlVQC.jpg"
+                            "/storage/pexels-pixabay-434311.jpg"
                         }
                         text={"Compra a preço baixo para quem mais amas"}
                         title={"Presentes a menos de 50€"}
@@ -35,7 +35,7 @@ export default function HomePage() {
                     <Card
                         path={
                             baseURL() +
-                            "/storage/fV2uf3UbFIByF51ylODhRBOjYb8DtgdNpLphlVQC.jpg"
+                            "/storage/pexels-pixabay-434311.jpg"
                         }
                         text={"Celebra com carinho especial e um grande vinho"}
                         title={"Vinho - presentes"}

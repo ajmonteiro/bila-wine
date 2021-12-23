@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Content, Div } from '../Layout/Layout'
 import Navbar from '../Layout/Navbar/Navbar'
+import Favorites from './Favorites';
 import LastOrder from './LastOrder'
 import UserData, { UpdatePwd } from './UserData';
+import UserOrders from './UserOrders';
 
 export default function User() {
     const [dataVisible, setDataVisible] = useState<any>(false);
@@ -16,7 +18,7 @@ export default function User() {
                         <h2 className='text-red-600 font-bold text-xl ml-3 cursor-pointer' onClick={() => setContentVisible('default')}>Área de cliente</h2>
                         <ul className="mt-10">
                             <Div>
-                                <li>
+                                <li onClick={() => setContentVisible('myorders')}>
                                     <Div>
                                         <i className="las la-shopping-bag"></i>
                                         <span className="userpage-list-item ml-5">As minhas encomendas</span>
@@ -39,7 +41,7 @@ export default function User() {
                                         <li><span>Preferências de Comunicação</span></li>
                                     </ul>
                                 </Div>}
-                                <li>
+                                <li onClick={() => setContentVisible('favorites')}>
                                     <Div>
                                         <i className="lar la-heart"></i>
                                         <span className="userpage-list-item ml-5">Os meus favoritos</span>
@@ -62,6 +64,8 @@ export default function User() {
                         {contentVisible == 'default' && <LastOrder />}
                         {contentVisible == 'userdata' && <UserData />}
                         {contentVisible == 'pwd' && <UpdatePwd />}
+                        {contentVisible == 'favorites' && <Favorites />}
+                        {contentVisible == 'myorders' && <UserOrders />}
                     </Div>
                 </Div>
             </Div>

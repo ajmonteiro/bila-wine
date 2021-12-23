@@ -6,7 +6,6 @@ import { Div, Title } from "../Layout";
 export default function Navbar() {
     return (
         <>
-            <ShippingFree />
             <Menu />
         </>
     );
@@ -14,77 +13,127 @@ export default function Navbar() {
 
 export function Menu() {
     function goCart() {
-        window.open(`/cart`, `_self`)
+        window.open(`/carrinho`, `_self`);
+    }
+    function goPage() {
+        window.open(`/`, `_self`);
+    }
+    const [visible, setVisible] = useState<any>(false);
+    const [searchInputsVisible, setSearchInputsVisible] = useState<any>(false);
+    const [searchInput, setSearchInput] = useState<any>("");
+    const [userDropdown, setUserDropDown] = useState<any>(false);
+    function handleSearchView(value: any) {
+        setSearchInput(value);
+        setTimeout(() => {
+            setSearchInputsVisible(true);
+        }, 1000);
+    }
+
+    function sendToClientArea() {
+        window.open(`/utilizador`, `_self`);
     }
     return (
         <>
             <Div className="top-nav">
-                <nav>
-                    <Div className="logo"><a href="/">BILAWINE</a></Div>
-                    <Div className="right-nav">
-                        <ul>
-                            <li>
-                                <a href="/produtos">Produtos</a>
-                            </li>
-                            <li>
-                                <a href="/eventos">Eventos</a>
-                            </li>
-                            <li>
-                                <a href="/presentes">Presentes</a>
-                            </li>
-                            <li>
-                                <a href="/contactos">Contactos</a>
-                            </li>
-                            <li>
-                                <a href="/carrinho">
-                                    <CartIcon onclick={() => goCart()} />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/utilizador">
-                                    <UserIcon onclick={() => goCart()} />
-                                </a>
-                            </li>
-                        </ul>
-                        <Div className="mobile-btn">
-                            <Div></Div>
-                            <Div></Div>
-                            <Div></Div>
-                        </Div>
+                <Div className="top-nav-grid">
+                    <Div
+                        className="bila-wine-top cursor-pointer"
+                        onclick={() => goPage()}
+                    >
+                        <span>BILAWINE</span>
                     </Div>
-                </nav>
-                <Div className="mobile-links">
-                    <Div className="search">
-                        <input type="text" placeholder="search" />
-                        <img src="/assets/search.svg" alt="search icon" />
+                    <Div className="search-input cursor-pointer">
+                        <input
+                            type="text"
+                            className="input-search"
+                            value={searchInput}
+                            onChange={(e) => {
+                                handleSearchView(e.target.value);
+                            }}
+                            placeholder="O que estás à procura?"
+                        />
                     </Div>
-                    <ul>
-                        <li>
-                            <a href="/produtos">Produtos</a>
-                        </li>
-                        <li>
-                            <a href="/eventos">Eventos</a>
-                        </li>
-                        <li>
-                            <a href="/presentes">Presentes</a>
-                        </li>
-                        <li>
-                            <a href="/contactos">Contactos</a>
-                        </li>
-                    </ul>
+                    <Div className="carrinho cursor-pointer">
+                        <CartIcon onclick={() => goCart()} />
+                    </Div>
                 </Div>
             </Div>
-        </>
-    );
-}
-
-export function ShippingFree() {
-    return (
-        <>
-            <Div className="shipping-section">
-                <span>
-                    Envio grátis <i>acima de 40€</i>
-                </span>
+            {searchInputsVisible && searchInput != "" && (
+                <Div className="search-results">
+                    <Div className="list-search">
+                        <ul>
+                            <li>
+                                <span>Search result 1</span>
+                                <i className="las la-angle-right"></i>
+                            </li>
+                            <li>
+                                <span>Search result 1</span>
+                                <i className="las la-angle-right"></i>
+                            </li>
+                            <li>
+                                <span>Search result 1</span>
+                                <i className="las la-angle-right"></i>
+                            </li>
+                            <li>
+                                <span>Search result 1</span>
+                                <i className="las la-angle-right"></i>
+                            </li>
+                        </ul>
+                    </Div>
+                </Div>
+            )}
+            <Div className="bottom-nav">
+                <Div className="bottom-nav-container">
+                    <ul className="bottom-nav-grid">
+                        <Div>
+                            <li>PRODUTOS</li>
+                        </Div>
+                        <Div>
+                            <li>EVENTOS</li>
+                        </Div>
+                        <Div>
+                            <li>PRESENTES</li>
+                        </Div>
+                        <Div>
+                            <li>EMPRESAS</li>
+                        </Div>
+                        <Div className="noborder">
+                            <li>CONTACTOS</li>
+                        </Div>
+                        <Div className="spacer user-bottom-nav-low">
+                            <Div
+                                className="flex flex-row noborder dropdown-m"
+                                onclick={(e) => setUserDropDown(!userDropdown)}
+                            >
+                                <li>OLA AMÉRICO</li>
+                                <i className="las la-angle-down"></i>
+                            </Div>
+                            {userDropdown && (
+                                <nav className="noborder dropdown-content">
+                                    <li onClick={() => sendToClientArea()}>
+                                        ÁREA CLIENTE
+                                    </li>
+                                    <li>TERMINAR SESSÃO</li>
+                                </nav>
+                            )}
+                        </Div>
+                        <Div className="user-bottom-nav">
+                            <Div className="flex flex-row noborder dropdown-m"
+                            onclick={(e) => setUserDropDown(!userDropdown)}>
+                                <li>OLA AMÉRICO</li>
+                                <i className="las la-angle-down"></i>
+                            </Div>
+                            {userDropdown && (
+                                <nav className="noborder dropdown-content">
+                                    <li onClick={() => sendToClientArea()}>
+                                        ÁREA CLIENTE
+                                    </li>
+                                    <li>TERMINAR SESSÃO</li>
+                                </nav>
+                            )}
+                        </Div>
+                    </ul>
+                </Div>
             </Div>
         </>
     );

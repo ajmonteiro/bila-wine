@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Div } from "../Layout/Layout";
+import { Button, Div } from "../Layout/Layout";
 
 export default function LastOrder() {
     return (
@@ -20,7 +20,7 @@ export default function LastOrder() {
                         </Div>
                     </Div>
                     <Div className="user-details-b">
-                        <button className="user-details-button">VER DETALHES</button>
+                        <Button text="VER DETALHES" />
                     </Div>
                 </Div>
                 <Div className="grid-info-orders">

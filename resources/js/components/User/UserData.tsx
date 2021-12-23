@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Div } from "../Layout/Layout";
+import { Button, Div } from "../Layout/Layout";
 
 export default function UserData() {
     return (
@@ -29,9 +29,7 @@ export default function UserData() {
                         />
                     </Div>
                     <Div>
-                        <button className="user-details-button">
-                            Guardar alterações
-                        </button>
+                        <Button text="GUARDAR ALTERAÇÕES" />
                     </Div>
                 </Div>
             </Div>
@@ -62,9 +60,8 @@ export function UpdatePwd() {
                         <input type="password" />
                     </Div>
                     <Div>
-                        <button className="user-details-button">
-                            Guardar nova palavra-passe
-                        </button>
+                        <Button text="GUARDAR NOVA PALAVRA-PASSE" />
+
                     </Div>
                 </Div>
             </Div>

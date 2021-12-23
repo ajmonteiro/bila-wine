@@ -298,7 +298,7 @@ export function Button(props: ButtonProps) {
             <button
                 className={
                     props.className ||
-                    "inline-block border border-red-500 rounded py-1 px-3 m-1 bg-red-500 text-white"
+                    "inline-block border rounded py-1 px-3 m-1 text-white"
                 }
                 onClick={props.onclick}
             >

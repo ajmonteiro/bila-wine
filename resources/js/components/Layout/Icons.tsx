@@ -77,7 +77,7 @@ export const CartIcon = (props: CartProps) => {
             <svg
                 onClick={props.onclick}
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="h-6 w-6 mt-2"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
