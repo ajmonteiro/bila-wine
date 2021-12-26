@@ -20,6 +20,7 @@ import Events from "../Events/Index";
 import Gifts from "../Gifts/Index";
 import Contacts from "../Contacts/Index";
 import User from "../User/Index";
+import Faqs from "../Faqs/Index";
 
 export default function Routes() {
     const [hasAdminRole, setHasAdminRole] = useState<any>();
@@ -60,6 +61,7 @@ export default function Routes() {
                     <Route exact path="/presentes" component={Gifts} />
                     <Route exact path="/contactos" component={Contacts} />
                     <Route exact path="/utilizador" component={User} />
+                    <Route exact path="/faqs" component={Faqs} />
 
                     <Route path="*" exact={true} component={NotFound} />
                 </Switch>

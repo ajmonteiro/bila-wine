@@ -411,3 +411,51 @@
 button {
     background-color: #a45459;
 }
+
+.faqs {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+}
+
+.faqs-grid {
+    width: 60%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.faqs-grid div:hover {
+    background-color: white;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.faqs-grid div:hover span {
+    color: #a45459;
+    transition: .3s;
+}
+
+.faqs-grid div {
+    background-color: #F8F8F9;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faqs-grid div span {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+@media screen and (max-width: 600px) {
+    .faqs {
+        margin-top: 0;
+    }
+    .faqs-grid {
+        width: 100%;
+    }
+}

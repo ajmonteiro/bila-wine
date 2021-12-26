@@ -69,73 +69,46 @@ export function CartPage(props: any) {
 
     return (
         <>
-            {totalItems != 0 ? (
-                <Div>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableHeader text={"#"} />
-                                <TableHeader text={"PRODUTO"} />
-                                <TableHeader text={"REMOVER"} />
-                                <TableHeader text={"PREÇO"} />
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {products?.map(
-                                (item: {
-                                    id: any;
-                                    name: any;
-                                    price: any;
-                                    image: any;
-                                }) => (
-                                    <TableRow key={item.id}>
-                                        <TableData
-                                            content={
-                                                <Image
-                                                    path={
-                                                        baseURL() + item.image
-                                                    }
-                                                    width={"100"}
-                                                />
-                                            }
-                                        />
-                                        <TableData content={item.name} />
-                                        <TableData
-                                            content={
-                                                <DeleteIcon
-                                                    className="cursor-pointer"
-                                                    onclick={(e: any) =>
-                                                        handleDelete(e, item.id)
-                                                    }
-                                                />
-                                            }
-                                        />
-                                        <TableData content={item.price + "€"} />
-                                    </TableRow>
-                                )
-                            )}
-                        </TableBody>
-                        <TableFooter>
-                            <TableRow>
-                                <TableData
-                                    content={
-                                        <Title
-                                            className="text-xl"
-                                            title={`Preço total: ${total}€`}
-                                        />
-                                    }
-                                />
-                            </TableRow>
-                        </TableFooter>
-                    </Table>
-                    <Div className="flex justify-center">
-                        <Button
-                            text={"Avançar"}
-                            onclick={(e: any) => props.visible("billing")}
-                        />
+            <Div className="cart-page">
+                <Div className="cart-container">
+                    <span className="text-xl font-bold">O meu carrinho</span>
+                    <Div className="cart-grid">
+                        {products?.map((item: any) => (
+                            <>
+                                <Div className="cart-grid-div">
+                                    <Div key={item.id}>
+                                        <Div>
+                                            <img src={baseURL() + item.image} />
+                                        </Div>
+                                        <Div className="content">
+                                            <span>{item.name}</span>
+                                            <p>{item.description}</p>
+                                        </Div>
+                                    </Div>
+                                    <Div
+                                        onclick={(e) =>
+                                            handleDelete(e, item.id)
+                                        }
+                                    >
+                                        <i
+                                            className="las la-trash"
+                                            style={{
+                                                cursor: "pointer",
+                                            }}
+                                        ></i>
+                                    </Div>
+                                    <Div className="price">
+                                        <span>€{item.price}</span>
+                                    </Div>
+                                </Div>
+                            </>
+                        ))}
+                    </Div>
+                    <Div className="flex justify-end mt-2">
+                        <Button text={"AVANÇAR"} onclick={() => props.visible('billing')}/>
                     </Div>
                 </Div>
-            ) : <NoResultsFound title={"Sem resultados"} text={"Não foram encontrados resultados"} />}
+            </Div>
         </>
     );
 }
@@ -144,7 +117,6 @@ export function Billing(props: any) {
     const [products, setProducts] = useState<any>();
     const [totalItems, setTotalItems] = useState<any>();
     const [total, settotal] = useState<any>();
-
 
     // billing address info
     const [firstName, setFirstName] = useState<any>();
@@ -183,24 +155,25 @@ export function Billing(props: any) {
     }
 
     function handleOrder() {
-        const form = new FormData
-        form.append('first_name', firstName)
-        form.append('last_name', lastName)
-        form.append('email', email)
-        form.append('address', address)
-        form.append('postal_code', postalCode)
-        form.append('city', city)
-        form.append('notes', notes)
-        form.append('saved', saved)
-        form.append('total_price', total)
+        const form = new FormData();
+        form.append("first_name", firstName);
+        form.append("last_name", lastName);
+        form.append("email", email);
+        form.append("address", address);
+        form.append("postal_code", postalCode);
+        form.append("city", city);
+        form.append("notes", notes);
+        form.append("saved", saved);
+        form.append("total_price", total);
 
-        api.post(`/api/order`, form, { headers: { Authorization: `Bearer ${getToken()}`}
+        api.post(`/api/order`, form, {
+            headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            api.delete(`/api/cart`, { headers: { Authorization: `Bearer ${getToken()}`}
-            }).then((res) => {
-            })
-            window.open(`/order/${res.data.order}`)
-        })
+            api.delete(`/api/cart`, {
+                headers: { Authorization: `Bearer ${getToken()}` },
+            }).then((res) => {});
+            window.open(`/order/${res.data.order}`);
+        });
     }
 
     return (
@@ -223,7 +196,10 @@ export function Billing(props: any) {
                                     <Input
                                         type="text"
                                         placeholder={"Primeiro Nome"}
-                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" value={firstName} onChange={(e)=> setFirstName(e)} />
+                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                        value={firstName}
+                                        onChange={(e) => setFirstName(e)}
+                                    />
                                 </Div>
                                 <Div className="w-full lg:w-1/2 ">
                                     <label
@@ -235,7 +211,10 @@ export function Billing(props: any) {
                                     <Input
                                         type="text"
                                         placeholder={"Último Nome"}
-                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" value={lastName} onChange={(e)=> setlastName(e)} />
+                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                        value={lastName}
+                                        onChange={(e) => setlastName(e)}
+                                    />
                                 </Div>
                             </Div>
                             <Div className="mt-4">
@@ -249,7 +228,10 @@ export function Billing(props: any) {
                                     <Input
                                         type="text"
                                         placeholder={"E-mail"}
-                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" value={email} onChange={(e)=> setEmail(e)} />
+                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                        value={email}
+                                        onChange={(e) => setEmail(e)}
+                                    />
                                 </Div>
                             </Div>
                             <Div className="mt-4">
@@ -264,7 +246,9 @@ export function Billing(props: any) {
                                         className="w-full px-4 py-3 text-xs border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
                                         name="Address"
                                         placeholder="Address"
-                                        onChange={(e) => setAddress(e.target.value)}
+                                        onChange={(e) =>
+                                            setAddress(e.target.value)
+                                        }
                                     ></textarea>
                                 </Div>
                             </Div>
@@ -279,7 +263,10 @@ export function Billing(props: any) {
                                     <Input
                                         type="text"
                                         placeholder={"Cidade"}
-                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" value={city} onChange={(e)=> setCity(e)} />
+                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                        value={city}
+                                        onChange={(e) => setCity(e)}
+                                    />
                                 </Div>
                                 <Div className="w-full lg:w-1/2 ">
                                     <label
@@ -291,7 +278,10 @@ export function Billing(props: any) {
                                     <Input
                                         type="text"
                                         placeholder={"Código postal"}
-                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" value={postalCode} onChange={(e)=> setPostalCode(e)} />
+                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                        value={postalCode}
+                                        onChange={(e) => setPostalCode(e)}
+                                    />
                                 </Div>
                             </Div>
                             <Div className="flex items-center mt-4">
@@ -300,7 +290,9 @@ export function Billing(props: any) {
                                         type="checkbox"
                                         className="w-5 h-5 border border-gray-300 rounded focus:outline-none focus:ring-1"
                                         value={saved}
-                                        onChange={(e) => isSaved(e.target.value)}
+                                        onChange={(e) =>
+                                            isSaved(e.target.value)
+                                        }
                                     />
                                     <span className="ml-2">
                                         Guardar a informação
@@ -323,7 +315,11 @@ export function Billing(props: any) {
                                 ></textarea>
                             </Div>
                             <Div className="mt-4">
-                                <Button text={"Processar"} onclick={() => handleOrder()} className="w-full px-6 py-2 text-blue-200 bg-blue-600 hover:bg-blue-900" />
+                                <Button
+                                    text={"Processar"}
+                                    onclick={() => handleOrder()}
+                                    className="w-full px-6 py-2 text-blue-200 bg-blue-600 hover:bg-blue-900"
+                                />
                             </Div>
                         </Div>
                     </Div>
@@ -364,7 +360,9 @@ export function Billing(props: any) {
                             </Div>
                         </Div>
                         <Div className="flex p-4 mt-4">
-                            <h2 className="text-xl font-bold">ITEMS {totalItems}</h2>
+                            <h2 className="text-xl font-bold">
+                                ITEMS {totalItems}
+                            </h2>
                         </Div>
                         <Div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
                             Total<span className="ml-2">{total}</span>
