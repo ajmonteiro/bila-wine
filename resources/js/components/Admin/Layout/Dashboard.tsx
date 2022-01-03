@@ -10,6 +10,7 @@ import Location from "../Locations/Index";
 import Events from "../Events/Index";
 import Newsletters from "../Newsletters/Index";
 import Gifts from "../Gifts/Index";
+import BannerHome from "../BannerHome/Index";
 
 export default function Dashboard() {
     const [active, setActive] = useState<any>();
@@ -159,6 +160,18 @@ export default function Dashboard() {
                                 <span>Presentes</span>
                             </Div>
                         </li>
+                        <li>
+                            <Div
+                                id="9"
+                                className="list-item cursor-pointer"
+                                onclick={(e: any) => {
+                                    changeActive(e), setvisible("banners");
+                                }}
+                            >
+                                <span className="las la-newspaper"></span>
+                                <span>Banners</span>
+                            </Div>
+                        </li>
                     </ul>
                 </Div>
             </Div>
@@ -176,6 +189,7 @@ export default function Dashboard() {
                         {visible == "events" && "Eventos"}
                         {visible == "newsletter" && "Newsletter"}
                         {visible == "gift" && "Presentes"}
+                        {visible == "banners" && "Banners Pag. Principal"}
                     </h2>
                     <Div className="search-wrapper">
                         <span className="las la-search"></span>
@@ -202,6 +216,7 @@ export default function Dashboard() {
                 {visible == "events" && <Events />}
                 {visible == "newsletter" && <Newsletters />}
                 {visible == "gift" && <Gifts />}
+                {visible == "banners" && <BannerHome />}
             </Div>
         </>
     );
@@ -232,7 +247,7 @@ export function DefaultGrid() {
             setUsersCount(res.data.users);
             setProductsCount(res.data.products);
             setOrdersCount(res.data.orders);
-            setIncome(res.data.income);
+            setIncome(res.data.income.toFixed(0));
         });
     }
 

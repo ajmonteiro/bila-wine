@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { baseURL } from "../../Data/Api";
+import { useHistory } from "react-router-dom";
+import api, { baseURL } from "../../Data/Api";
+import { getToken, logout } from "../../Data/Auth";
 import { CartIcon, DeleteIcon, UserIcon } from "../Icons";
 import { Div, Title } from "../Layout";
 
@@ -22,6 +24,7 @@ export function Menu() {
     const [searchInputsVisible, setSearchInputsVisible] = useState<any>(false);
     const [searchInput, setSearchInput] = useState<any>("");
     const [userDropdown, setUserDropDown] = useState<any>(false);
+    const history = useHistory();
     function handleSearchView(value: any) {
         setSearchInput(value);
         setTimeout(() => {
@@ -31,6 +34,19 @@ export function Menu() {
 
     function sendToClientArea() {
         window.open(`/utilizador`, `_self`);
+    }
+
+    function goLogout() {
+        api.post(`/api/logout`, {}, { headers: { Authorization: getToken() } })
+            .then((res) => {
+                console.log(res)
+                logout();
+                history.push("/");
+                history.go(1);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
     return (
         <>
@@ -85,10 +101,10 @@ export function Menu() {
             <Div className="bottom-nav">
                 <Div className="bottom-nav-container">
                     <ul className="bottom-nav-grid">
-                        <Div>
+                        <Div onclick={() => window.open(`/produtos`, `_self`)}>
                             <li>PRODUTOS</li>
                         </Div>
-                        <Div>
+                        <Div  onclick={() => window.open(`/eventos`, `_self`)}>
                             <li>EVENTOS</li>
                         </Div>
                         <Div>
@@ -97,7 +113,7 @@ export function Menu() {
                         <Div>
                             <li>EMPRESAS</li>
                         </Div>
-                        <Div className="noborder">
+                        <Div className="noborder"  onclick={() => window.open(`/contactos`, `_self`)}>
                             <li>CONTACTOS</li>
                         </Div>
                         <Div className="spacer user-bottom-nav-low">
@@ -113,13 +129,17 @@ export function Menu() {
                                     <li onClick={() => sendToClientArea()}>
                                         ÁREA CLIENTE
                                     </li>
-                                    <li>TERMINAR SESSÃO</li>
+                                    <li onClick={() => goLogout()}>
+                                        TERMINAR SESSÃO
+                                    </li>
                                 </nav>
                             )}
                         </Div>
                         <Div className="user-bottom-nav">
-                            <Div className="flex flex-row noborder dropdown-m"
-                            onclick={(e) => setUserDropDown(!userDropdown)}>
+                            <Div
+                                className="flex flex-row noborder dropdown-m"
+                                onclick={(e) => setUserDropDown(!userDropdown)}
+                            >
                                 <li>OLA AMÉRICO</li>
                                 <i className="las la-angle-down"></i>
                             </Div>

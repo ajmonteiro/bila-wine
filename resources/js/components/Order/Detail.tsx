@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import api from "../Data/Api";
 import { getToken } from "../Data/Auth";
-import { Div, Paragraph } from "../Layout/Layout";
+import { Button, Div, Paragraph } from "../Layout/Layout";
 import TopMenu from "../Layout/Menu";
 import {
     AddOneMonthFromUnix,
@@ -50,7 +50,7 @@ export default function OrderDetail() {
             setorder(res.data.order);
             setCreatedAt(res.data.order.created_at);
             setPrice(res.data.order.total_price);
-            settotal(res.data.order.total);
+            settotal(res.data.order.total.toFixed(2));
             setname(info.first_name + " " + info.last_name);
             setemail(info.email);
             setState(res.data.order.state);
@@ -69,114 +69,97 @@ export default function OrderDetail() {
             console.log(res);
         });
     }
+
+    async function setActive(id: any) {
+        let active = document.getElementById(id);
+        if (active?.style.display) {
+            if (active?.style.display == "none") {
+                active.style.display = "block";
+            } else {
+                active.style.display = "none";
+            }
+        }
+    }
     return (
         <>
             <TopMenu />
-            <Div className="mt-15">
-                <Div className="invoice-box">
-                    <table cellPadding={0} cellSpacing={0}>
-                        <tr className="top">
-                            <td colSpan={3}>
-                                <table>
-                                    <tr>
-                                        <td className="title">
-                                            <Paragraph text={"BILA WINE"} />
-                                        </td>
-                                        <td colSpan={2}>
-                                            Fatura #: {invoiceid}
-                                            <br />
-                                            Criada em:{" "}
-                                            {TimeConverterFromUnix(createdAt)}
-                                            <br />
-                                            Expira a:{" "}
-                                            {AddOneMonthFromUnix(createdAt)}
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-
-                        <tr className="information">
-                            <td colSpan={3}>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            {address}
-                                            <br />
-                                            {postalCode}
-                                        </td>
-
-                                        <td>
-                                            <br />
-                                            {name}
-                                            <br />
-                                            {email}
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-
-                        <tr className="heading">
-                            <td colSpan={3}>Método de pagamento</td>
-                        </tr>
-
-                        <tr className="details">
-                            <td>Stripe</td>
-                        </tr>
-
-                        <tr className="heading">
-                            <td>#</td>
-                            <td>Item</td>
-                            <td
-                                style={{
-                                    display: "flex",
-                                    flexGrow: 1,
-                                    justifyContent: "flex-end",
-                                    textAlign: "right",
-                                }}
-                            >
-                                Preço
-                            </td>
-                        </tr>
-                        {products?.map((item: any) => (
-                            <tr key={item.id}>
-                                <td>{item.id}</td>
-                                <td>{item.name}</td>
-                                <td
+            <Div className="order-view-pd">
+                <Div className="order-div-list">
+                    <Div className="order-view">
+                        <Div className="grid-top-order-view">
+                            <Div>
+                                <span className="text-4xl">BILAWINE</span>
+                            </Div>
+                            <Div className="second-div-grid-top-order flex flex-col text-right">
+                                <span>Fatura #{invoiceid}</span>
+                                <span>
+                                    Criada em:{" "}
+                                    {TimeConverterFromUnix(createdAt)}
+                                </span>
+                                <span>
+                                    Expira a: {AddOneMonthFromUnix(createdAt)}
+                                </span>
+                            </Div>
+                            <Div>
+                                <span>
+                                    Rua da Estreada, N6, Vila Seca
+                                    <br />
+                                    5000-022
+                                </span>
+                            </Div>
+                            <Div className="second-div-grid-top-order flex flex-col text-right">
+                                <span>
+                                    Américo Monteiro
+                                    <br />
+                                    americo.mnt@gmail.com
+                                </span>
+                            </Div>
+                        </Div>
+                        <Div className="order-method-payment">
+                            <span>Método de pagamento</span>
+                        </Div>
+                        <Div className="order-method-text">
+                            <span>Stripe</span>
+                        </Div>
+                        <Div className="order-table-products">
+                            <span>Produtos</span>
+                        </Div>
+                        {products?.map((item: any, key: any) => (
+                            <>
+                                <div
+                                    className="order-product-in-table"
+                                    onClick={() => setActive(item.id)}
+                                >
+                                    <span>{item.name}</span>
+                                    <i className="las la-angle-right"></i>
+                                </div>
+                                <div
+                                    id={`${item.id}`}
                                     style={{
-                                        display: "flex",
-                                        flexGrow: 1,
-                                        justifyContent: "flex-end",
-                                        textAlign: "right",
+                                        fontSize: "0.7rem",
+                                        width: "70%",
+                                        display: "none",
                                     }}
                                 >
-                                    {item.price + "€"}
-                                </td>
-                            </tr>
+                                    <span>{item.description}</span>
+                                    <span className="font-bold">
+                                        <br />€{item.price}
+                                    </span>
+                                </div>
+                            </>
                         ))}
-
-                        <tr className="total">
-                            <td></td>
-                            <td></td>
-
-                            <td
-                                style={{
-                                    display: "flex",
-                                    flexGrow: 1,
-                                    justifyContent: "flex-end",
-                                    textAlign: "right",
-                                }}
-                            >
-                                Total: {total + "€"}
-                            </td>
-                        </tr>
-                    </table>
-                    {state == 1 ? (
-                        <Paragraph text={"Pago"} />
-                    ) : (
-                        <Stripe price={total} />
-                    )}
+                        <Div className="order-product-in-table">
+                            <span>Total</span>
+                            <span>€{total}</span>
+                        </Div>
+                    </Div>
+                    <Div className="mt-3">
+                        {state == 1 ? (
+                            <Paragraph text={"Pago"} />
+                        ) : (
+                            <Stripe price={total} />
+                        )}
+                    </Div>
                 </Div>
             </Div>
         </>

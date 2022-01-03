@@ -7,10 +7,21 @@ import Navbar from '../Layout/Navbar/Navbar'
 
 export default function Events() {
     const [events, setEvents] = useState<any>();
+    const [visibleCategories, setVisibleCategories] = useState<any>(true);
+    const [visiblePrices, setVisiblePrices] = useState<any>(true);
+    const [categories, setCategories] = useState<any>();
 
     useEffect(() => {
-        getEvents()
+        getEvents();
+        getCategories();
     }, [])
+
+    function getCategories() {
+        api.get(`/api/categories`, { headers: { Authorization: `Bearer ${getToken()}`}
+        }).then((res) => {
+            setCategories(res.data.categories)
+        })
+    }
 
     function getEvents() {
         api.get(`/api/events`, { headers: { Authorization: `Bearer ${getToken()}`}
@@ -23,82 +34,105 @@ export default function Events() {
         <>
             <Navbar />
             <Content>
-                <Div className="products-hero-search">
-                    <Div className="products-wrapper">
-                        <Div className="products-search-grid">
-                            <Div>
-                                <select
-                                    name={""}
-                                    className="products-form-control"
-                                >
-                                    <option value={""}>Categoria</option>
-                                </select>
+            <Div className="products-page-wrapper">
+                    <Div className="products-page">
+                        <Div className="products-grid">
+                            <Div className="products-filter">
+                                <span className="filters-title">FILTROS</span>
+                                <Div className="filters-products">
+                                    <ul>
+                                        <li
+                                            className="list-title"
+                                            onClick={() =>
+                                                setVisibleCategories(
+                                                    !visibleCategories
+                                                )
+                                            }
+                                        >
+                                            {visibleCategories ? (
+                                                <i className="las la-angle-up"></i>
+                                            ) : (
+                                                <i className="las la-angle-right"></i>
+                                            )}
+                                            <span>Categoria</span>
+                                        </li>
+                                        {visibleCategories && (
+                                            <>
+                                                {categories?.map((item: any) => (
+                                                    <li key={item.id}>{item.name}</li>
+                                                ))}
+                                            </>
+                                        )}
+                                        <li
+                                            className="list-title"
+                                            onClick={() =>
+                                                setVisiblePrices(!visiblePrices)
+                                            }
+                                        >
+                                            {visiblePrices ? (
+                                                <i className="las la-angle-up"></i>
+                                            ) : (
+                                                <i className="las la-angle-right"></i>
+                                            )}
+                                            <span>Preços</span>
+                                        </li>
+                                        {visiblePrices && (
+                                            <>
+                                                <li>€50 - €100</li>
+                                                <li>€100 - €200</li>
+                                                <li>€200 - €500</li>
+                                                <li>€500 - €1000</li>
+                                            </>
+                                        )}
+                                    </ul>
+                                </Div>
                             </Div>
-                            <Div>
-                                <select
-                                    name={""}
-                                    className="products-form-control"
-                                ></select>
-                            </Div>
-                            <Div>
-                                <select
-                                    name={""}
-                                    className="products-form-control"
-                                ></select>
-                            </Div>
-                            <Div>
-                                <button className="products-btn products-btn-main products-btn-block">
-                                    Procurar
-                                </button>
-                            </Div>
-                        </Div>
-                    </Div>
-                </Div>
-                <Div className="products-main">
-                    <Div className="products-product-section">
-                        <Div className="products-wrapper">
-                            <Div className="products-product-header">
-                                <h2>
-                                    <span className="product-text-main">
-                                        Eve
-                                    </span>
-                                    ntos
-                                </h2>
-                            </Div>
-                            <Div className="products-wrapper-self">
-                                <Div className="products-container">
+                            <Div className="products-list-all">
+                                <Div className="products-filter-rev">
+                                    <select className="select-product-filter">
+                                        <option>Relevância</option>
+                                        <option>Preço ascendente</option>
+                                        <option>Preço descendente</option>
+                                    </select>
+                                </Div>
+                                <Div className="products-list">
                                     {events?.map((item: any) => (
-                                        <Div className="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
-                                            <Div className="overflow-x-hidden rounded-2xl relative">
-                                                <img
-                                                    className="h-40 rounded-2xl w-full object-cover"
-                                                    src={baseURL() + item.image}
-                                                />
-                                                <p className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        className="h-6 w-6 group-hover:opacity-50 opacity-70"
-                                                        fill="none"
-                                                        viewBox="0 0 24 24"
-                                                        stroke="black"
-                                                    >
-                                                        <path
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            stroke-width="1.5"
-                                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                                                        />
-                                                    </svg>
-                                                </p>
-                                            </Div>
-                                            <Div className="mt-4 pl-2 mb-2 flex justify-between ">
-                                                <Div>
-                                                    <p className="text-lg font-semibold text-gray-900 mb-0">
-                                                        {item.title}
-                                                    </p>
-                                                    <p className="text-md text-gray-800 mt-0 mb-0">
-                                                        {item.price + '€'}
-                                                    </p>
+                                        <Div
+                                            className="product-item"
+                                            onclick={() =>
+                                                window.open(
+                                                    `/produto/${item.id}`,
+                                                    `_self`
+                                                )
+                                            }
+                                            key={item.id}
+                                        >
+                                            <div
+                                                className="product-image"
+                                                style={{
+                                                    backgroundImage:
+                                                        `url(` +
+                                                        (baseURL() +
+                                                            item.image) +
+                                                        `)`,
+                                                    backgroundPosition:
+                                                        "center",
+                                                    backgroundSize: "cover",
+                                                    width: "100%",
+                                                    height: "200px",
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                }}
+                                            ></div>
+                                            <Div className="product-text">
+                                                <Div className="product-title">
+                                                    {item.title}
+                                                </Div>
+                                                <Div className="product-description">
+                                                    {item.description}
+                                                </Div>
+                                                <Div className="product-price">
+                                                    €{item.price}
                                                 </Div>
                                             </Div>
                                         </Div>

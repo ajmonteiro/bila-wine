@@ -16,7 +16,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Newsletter\NewsletterController;
 use App\Http\Controllers\Gift\GiftController;
 use App\Http\Controllers\Email\EmailController;
-
+use App\Http\Controllers\Banners\HomePageBannerController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -80,6 +80,10 @@ Route::group([
     Route::get('/products/paginate', [ProductController::class, 'all_paginate']);
     Route::get('/products', [ProductController::class, 'all']);
     Route::get('/product/{id}', [ProductController::class, 'getById']);
+
+    // Banners Homepage
+    Route::post('/banner', [HomePageBannerController::class, 'create']);
+    Route::get('/banners', [HomePageBannerController::class, 'getBanners']);
     // Categories
     Route::post('/category', [CategoryController::class, 'create']);
     Route::get('/categories', [CategoryController::class, 'all']);

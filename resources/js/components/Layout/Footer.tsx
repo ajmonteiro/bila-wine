@@ -4,10 +4,10 @@ import { Div } from "./Layout";
 export default function Footer() {
     return (
         <>
-            <Div className="w-full bg-red-600 p-2 flex mt-10 font-bold justify-center">
-                <h1 className="text-xl text-white">BILAWINE</h1>
-            </Div>
             <footer className="footer">
+                <Div className="w-full text-footer-d p-2 flex mb-3 font-bold justify-center">
+                    <h1 className="text-xl text-white">BILAWINE</h1>
+                </Div>
                 <Div className="footer-container">
                     <Div className="footer-row">
                         <Div className="footer-col">
@@ -52,9 +52,7 @@ export default function Footer() {
                             </ul>
                         </Div>
                         <Div className="footer-col">
-                            <h4 className="flex justify-center">
-                                LINKS ÚTEIS
-                            </h4>
+                            <h4 className="flex justify-center">LINKS ÚTEIS</h4>
                             <ul className="flex flex-col items-center">
                                 <li>
                                     <a href="#">watch</a>
@@ -71,9 +69,7 @@ export default function Footer() {
                             </ul>
                         </Div>
                         <Div className="footer-col">
-                            <h4 className="flex justify-center">
-                                OPINIÃO
-                            </h4>
+                            <h4 className="flex justify-center">OPINIÃO</h4>
                             <ul className="flex flex-col items-center">
                                 <li>
                                     <a href="#">watch</a>
@@ -91,11 +87,8 @@ export default function Footer() {
                         </Div>
                     </Div>
                     <hr className="w-full mt-10 text-black" />
-
                 </Div>
-
             </footer>
-
         </>
     );
 }

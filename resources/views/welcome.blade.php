@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{env('APP_NAME')}}</title>
+        <title>Bila Wine - O melhor dos vinhos</title>
 
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
@@ -19,6 +19,10 @@
         <link href="{{ asset('css/newsletter.css') }}" rel="stylesheet">
         <link href="{{ asset('css/userpage.css') }}" rel="stylesheet">
         <link href="{{ asset('css/carrinho.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/produtos.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/eventos.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/order.css') }}" rel="stylesheet">
 
         <style>
             body {

@@ -10,10 +10,21 @@ import { ToastSuccess } from "../Layout/Toast";
 
 export default function Products() {
     const [products, setProducts] = useState<any>();
+    const [visibleCategories, setVisibleCategories] = useState<any>(true);
+    const [visiblePrices, setVisiblePrices] = useState<any>(true);
+    const [categories, setCategories] = useState<any>();
 
     useEffect(() => {
         getProducts();
+        getCategories();
     }, []);
+
+    function getCategories() {
+        api.get(`/api/categories`, { headers: { Authorization: `Bearer ${getToken()}`}
+        }).then((res) => {
+            setCategories(res.data.categories)
+        })
+    }
 
     function getProducts() {
         api.get(`/api/products`, {
@@ -43,71 +54,105 @@ export default function Products() {
         <>
             <Navbar />
             <Content>
-                <Div className="products-hero-search">
-                    <Div className="products-wrapper">
-                        <Div className="products-search-grid">
-                            <Div>
-                                <select
-                                    name={""}
-                                    className="products-form-control"
-                                >
-                                    <option value={""}>Categoria</option>
-                                </select>
+                <Div className="products-page-wrapper">
+                    <Div className="products-page">
+                        <Div className="products-grid">
+                            <Div className="products-filter">
+                                <span className="filters-title">FILTROS</span>
+                                <Div className="filters-products">
+                                    <ul>
+                                        <li
+                                            className="list-title"
+                                            onClick={() =>
+                                                setVisibleCategories(
+                                                    !visibleCategories
+                                                )
+                                            }
+                                        >
+                                            {visibleCategories ? (
+                                                <i className="las la-angle-up"></i>
+                                            ) : (
+                                                <i className="las la-angle-right"></i>
+                                            )}
+                                            <span>Categoria</span>
+                                        </li>
+                                        {visibleCategories && (
+                                            <>
+                                                {categories?.map((item: any) => (
+                                                    <li key={item.id}>{item.name}</li>
+                                                ))}
+                                            </>
+                                        )}
+                                        <li
+                                            className="list-title"
+                                            onClick={() =>
+                                                setVisiblePrices(!visiblePrices)
+                                            }
+                                        >
+                                            {visiblePrices ? (
+                                                <i className="las la-angle-up"></i>
+                                            ) : (
+                                                <i className="las la-angle-right"></i>
+                                            )}
+                                            <span>Preços</span>
+                                        </li>
+                                        {visiblePrices && (
+                                            <>
+                                                <li>€50 - €100</li>
+                                                <li>€100 - €200</li>
+                                                <li>€200 - €500</li>
+                                                <li>€500 - €1000</li>
+                                            </>
+                                        )}
+                                    </ul>
+                                </Div>
                             </Div>
-                            <Div>
-                                <select
-                                    name={""}
-                                    className="products-form-control"
-                                ></select>
-                            </Div>
-                            <Div>
-                                <select
-                                    name={""}
-                                    className="products-form-control"
-                                ></select>
-                            </Div>
-                            <Div>
-                                <button className="products-btn products-btn-main products-btn-block">
-                                    Procurar
-                                </button>
-                            </Div>
-                        </Div>
-                    </Div>
-                </Div>
-                <Div className="products-main">
-                    <Div className="products-product-section">
-                        <Div className="products-wrapper">
-                            <Div className="products-product-header">
-                                <h2>
-                                    <span className="product-text-main">
-                                        Pro
-                                    </span>
-                                    dutos
-                                </h2>
-                            </Div>
-                            <Div className="products-wrapper-self">
-                                <Div className="products-container">
+                            <Div className="products-list-all">
+                                <Div className="products-filter-rev">
+                                    <select className="select-product-filter">
+                                        <option>Relevância</option>
+                                        <option>Preço ascendente</option>
+                                        <option>Preço descendente</option>
+                                    </select>
+                                </Div>
+                                <Div className="products-list">
                                     {products?.map((item: any) => (
-                                        <Div className="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
-                                            <Div className="overflow-x-hidden rounded-2xl relative">
-                                                <img
-                                                    className="h-40 rounded-2xl w-full object-cover"
-                                                    src={baseURL() + item.image}
-                                                />
-                                                <p className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group" onClick={(e: any) =>
-                                                handleAddToCart(e, item.id)
-                                            }>
-                                                   <CartIconV2 />
-                                                </p>
-                                            </Div>
-                                            <Div className="mt-4 pl-2 mb-2 flex justify-between ">
-                                                <Div>
-                                                    <p className="text-lg font-semibold text-gray-900 mb-0">
-                                                        {item.name}
-                                                    </p>
-                                                    <p className="text-md text-gray-800 mt-0 mb-0">
-                                                        {item.price + '€'}
-                                                    </p>
+                                        <Div
+                                            className="product-item"
+                                            onclick={() =>
+                                                window.open(
+                                                    `/produto/${item.id}`,
+                                                    `_self`
+                                                )
+                                            }
+                                            key={item.id}
+                                        >
+                                            <div
+                                                className="product-image"
+                                                style={{
+                                                    backgroundImage:
+                                                        `url(` +
+                                                        (baseURL() +
+                                                            item.image) +
+                                                        `)`,
+                                                    backgroundPosition:
+                                                        "center",
+                                                    backgroundSize: "cover",
+                                                    width: "100%",
+                                                    height: "200px",
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                }}
+                                            ></div>
+                                            <Div className="product-text">
+                                                <Div className="product-title">
+                                                    {item.name}
+                                                </Div>
+                                                <Div className="product-description">
+                                                    {item.description}
+                                                </Div>
+                                                <Div className="product-price">
+                                                    €{item.price}
                                                 </Div>
                                             </Div>
                                         </Div>

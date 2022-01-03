@@ -105,7 +105,10 @@ export function CartPage(props: any) {
                         ))}
                     </Div>
                     <Div className="flex justify-end mt-2">
-                        <Button text={"AVANÇAR"} onclick={() => props.visible('billing')}/>
+                        <Button
+                            text={"AVANÇAR"}
+                            onclick={() => props.visible("billing")}
+                        />
                     </Div>
                 </Div>
             </Div>
@@ -117,6 +120,7 @@ export function Billing(props: any) {
     const [products, setProducts] = useState<any>();
     const [totalItems, setTotalItems] = useState<any>();
     const [total, settotal] = useState<any>();
+    const [showProductInfo, setShowProductInfo] = useState<any>(false);
 
     // billing address info
     const [firstName, setFirstName] = useState<any>();
@@ -142,7 +146,7 @@ export function Billing(props: any) {
             console.log(res);
             setProducts(res.data.cart);
             setTotalItems(res.data.cart.length);
-            settotal(res.data.total);
+            settotal(res.data.total.toFixed(2));
         });
     }
 
@@ -176,200 +180,135 @@ export function Billing(props: any) {
         });
     }
 
+    async function chooseActive(id: any) {
+        let active = document.getElementById(id);
+        if (active?.style.display) {
+            if (active?.style.display == "none") {
+                active.style.display = "flex";
+            } else {
+                active.style.display = "none";
+            }
+        }
+    }
     return (
         <>
-            <Div className="container p-12 mx-auto">
-                <Div className="flex flex-col w-full px-0 mx-auto md:flex-row">
-                    <Div className="flex flex-col md:w-full">
-                        <h2 className="mb-4 font-bold md:text-xl text-heading ">
-                            Endereço de envio
-                        </h2>
-                        <Div className="">
-                            <Div className="space-x-0 lg:flex lg:space-x-4">
-                                <Div className="w-full lg:w-1/2">
-                                    <label
-                                        htmlFor="firstName"
-                                        className="block mb-3 text-sm font-semibold text-gray-500"
-                                    >
-                                        Primeiro Nome
-                                    </label>
-                                    <Input
-                                        type="text"
-                                        placeholder={"Primeiro Nome"}
-                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
-                                        value={firstName}
-                                        onChange={(e) => setFirstName(e)}
-                                    />
-                                </Div>
-                                <Div className="w-full lg:w-1/2 ">
-                                    <label
-                                        htmlFor="firstName"
-                                        className="block mb-3 text-sm font-semibold text-gray-500"
-                                    >
-                                        Último Nome
-                                    </label>
-                                    <Input
-                                        type="text"
-                                        placeholder={"Último Nome"}
-                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
-                                        value={lastName}
-                                        onChange={(e) => setlastName(e)}
-                                    />
-                                </Div>
-                            </Div>
-                            <Div className="mt-4">
-                                <Div className="w-full">
-                                    <label
-                                        htmlFor="Email"
-                                        className="block mb-3 text-sm font-semibold text-gray-500"
-                                    >
-                                        E-mail
-                                    </label>
-                                    <Input
-                                        type="text"
-                                        placeholder={"E-mail"}
-                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
-                                        value={email}
-                                        onChange={(e) => setEmail(e)}
-                                    />
-                                </Div>
-                            </Div>
-                            <Div className="mt-4">
-                                <Div className="w-full">
-                                    <label
-                                        htmlFor="Address"
-                                        className="block mb-3 text-sm font-semibold text-gray-500"
-                                    >
-                                        Endereço
-                                    </label>
-                                    <textarea
-                                        className="w-full px-4 py-3 text-xs border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
-                                        name="Address"
-                                        placeholder="Address"
-                                        onChange={(e) =>
-                                            setAddress(e.target.value)
-                                        }
-                                    ></textarea>
-                                </Div>
-                            </Div>
-                            <Div className="space-x-0 lg:flex lg:space-x-4">
-                                <Div className="w-full lg:w-1/2">
-                                    <label
-                                        htmlFor="city"
-                                        className="block mb-3 text-sm font-semibold text-gray-500"
-                                    >
-                                        Cidade
-                                    </label>
-                                    <Input
-                                        type="text"
-                                        placeholder={"Cidade"}
-                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
-                                        value={city}
-                                        onChange={(e) => setCity(e)}
-                                    />
-                                </Div>
-                                <Div className="w-full lg:w-1/2 ">
-                                    <label
-                                        htmlFor="postcode"
-                                        className="block mb-3 text-sm font-semibold text-gray-500"
-                                    >
-                                        Código postal
-                                    </label>
-                                    <Input
-                                        type="text"
-                                        placeholder={"Código postal"}
-                                        className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
-                                        value={postalCode}
-                                        onChange={(e) => setPostalCode(e)}
-                                    />
-                                </Div>
-                            </Div>
-                            <Div className="flex items-center mt-4">
-                                <label className="flex items-center text-sm group text-heading">
-                                    <input
-                                        type="checkbox"
-                                        className="w-5 h-5 border border-gray-300 rounded focus:outline-none focus:ring-1"
-                                        value={saved}
-                                        onChange={(e) =>
-                                            isSaved(e.target.value)
-                                        }
-                                    />
-                                    <span className="ml-2">
-                                        Guardar a informação
-                                    </span>
-                                </label>
-                            </Div>
-                            <Div className="relative pt-3 xl:pt-6">
-                                <label
-                                    htmlFor="note"
-                                    className="block mb-3 text-sm font-semibold text-gray-500"
-                                >
-                                    {" "}
-                                    Notas (Opcional)
-                                </label>
-                                <textarea
-                                    name="note"
-                                    className="flex items-center w-full px-4 py-3 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-600"
-                                    placeholder="Notas"
-                                    onChange={(e) => setNotes(e.target.value)}
-                                ></textarea>
-                            </Div>
-                            <Div className="mt-4">
-                                <Button
-                                    text={"Processar"}
-                                    onclick={() => handleOrder()}
-                                    className="w-full px-6 py-2 text-blue-200 bg-blue-600 hover:bg-blue-900"
+            {total == 0 ? window.open(`/`, `_self`) :
+            <Div className="cart-wrapper-info">
+                <Div className="cart-container-info">
+                    <Div className="cart-grid-info">
+                        <Div className="left-side-grid-cart">
+                            <Div className="input-group">
+                                <input
+                                    type="text"
+                                    placeholder="Primeiro Nome"
+                                    value={firstName}
+                                    onChange={(e) =>
+                                        setFirstName(e.target.value)
+                                    }
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Último Nome"
+                                    value={lastName}
+                                    onChange={(e) =>
+                                        setlastName(e.target.value)
+                                    }
                                 />
                             </Div>
-                        </Div>
-                    </Div>
-                    <Div className="flex flex-col w-full ml-0 lg:ml-12 lg:w-2/5">
-                        <Div className="pt-12 md:pt-0 2xl:ps-4">
-                            <h2 className="text-xl font-bold">Sumário</h2>
-                            <Div className="mt-8">
-                                <Div className="flex flex-col space-y-4">
-                                    {products?.map((item: any) => (
-                                        <Div className="flex space-x-4">
-                                            <Div>
-                                                <img
-                                                    src={baseURL() + item.image}
-                                                    className="w-60"
-                                                />
-                                            </Div>
-
-                                            <Div>
-                                                <h2 className="text-xl font-bold">
-                                                    {item.name}
-                                                </h2>
-                                                <span className="text-red-600">
-                                                    Preço
-                                                </span>{" "}
-                                                {item.price + "€"}
-                                            </Div>
-                                            <Div
-                                                className="cursor-pointer"
-                                                onclick={(e: any) =>
-                                                    handleDelete(e, item.id)
-                                                }
-                                            >
-                                                <DeleteIcon />
-                                            </Div>
-                                        </Div>
-                                    ))}
-                                </Div>
+                            <Div className="input-group">
+                                <input
+                                    type="text"
+                                    placeholder="E-mail"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </Div>
+                            <Div className="input-group">
+                                <input
+                                    type="text"
+                                    placeholder="Endereço"
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
+                                />
+                            </Div>
+                            <Div className="input-group">
+                                <input
+                                    type="text"
+                                    placeholder="Cidade"
+                                    value={city}
+                                    onChange={(e) => setCity(e.target.value)}
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Código-postal"
+                                    value={postalCode}
+                                    onChange={(e) =>
+                                        setPostalCode(e.target.value)
+                                    }
+                                />
+                            </Div>
+                            <Div className="input-group">
+                                <input
+                                    type="text"
+                                    placeholder="Notas (opcional)"
+                                    value={notes}
+                                    onChange={(e) => setNotes(e.target.value)}
+                                />
+                            </Div>
+                            <Div className="flex justify-end mr-3 mb-3">
+                                <Button text="CONTINUAR" onclick={() => handleOrder()} />
                             </Div>
                         </Div>
-                        <Div className="flex p-4 mt-4">
-                            <h2 className="text-xl font-bold">
-                                ITEMS {totalItems}
+                        <Div className="right-side-grid-cart mt-4">
+                            <h2 className="text-xl font-bold mb-4 products-list-text">
+                                Produtos
                             </h2>
-                        </Div>
-                        <Div className="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                            Total<span className="ml-2">{total}</span>
+                            <Div className="cart-products-show-list">
+                                {products?.map((item: any) => (
+                                    <>
+                                        <div
+                                            className="product-show-list"
+                                            onClick={() => {
+                                                chooseActive(item.id);
+                                            }}
+                                        >
+                                            {item.name}
+                                            <i className="las la-angle-right"></i>
+                                        </div>
+                                        <div
+                                            className="product-info-list-cart"
+                                            id={`${item.id}`}
+                                            style={{
+                                                display: "none",
+                                                flexDirection: "column",
+                                            }}
+                                        >
+                                            <span
+                                                style={{ fontSize: "0.8rem" }}
+                                            >
+                                                {item.description}
+                                            </span>
+                                            <span
+                                                style={{ fontSize: "0.8rem" }}
+                                                className="font-bold"
+                                            >
+                                                €{item.price}
+                                            </span>
+                                            <DeleteIcon onclick={(e) => handleDelete(e, item.id)}/>
+                                        </div>
+                                    </>
+                                ))}
+                            </Div>
+                            <Div className="m-3 flex justify-end">
+                                <span>
+                                    Total:{" "}
+                                    <span className="font-bold">€{total}</span>
+                                </span>
+                            </Div>
                         </Div>
                     </Div>
                 </Div>
-            </Div>
+            </Div>}
         </>
     );
 }

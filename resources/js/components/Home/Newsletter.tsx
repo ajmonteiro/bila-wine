@@ -14,41 +14,35 @@ export default function Newsletter() {
         api.post(`/api/newsletter`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            ToastSuccess('Obrigado por subscrever', 'top-center');
+            ToastSuccess("Obrigado por subscrever", "top-center");
         });
     }
 
     return (
         <>
-            <Div className="w-full z-0 px-6">
-                <Div className="relative bg-red-600 text-white flex items-center justify-center pt-12 sm:pt-12 pb-12 sm:pb-12 md:pb-12 lg:pb-12 xl:pb-12">
-                    <Div className="newsletter-div">
-                        <Div className="left-side-newsletter">
-                            <h1 className="text-3xl">
-                                ASSINE A NOSSA NEWSLETTER
-                            </h1>
-                            <p>Fique a par de todas as nossas novidades!</p>
+            <Div className="newsletter">
+                <Div className="newsletter-div">
+                    <Div className="newsletter-grid">
+                        <Div className="newsletter-div-fi">
+                            <span>
+                                Subscreva a nossa newsletter e fique a par de
+                                tudo
+                            </span>
                         </Div>
-                        <Div className="flex newsletter-form text-black">
-                            <Div className="relative conjunto-newsletter">
-                                <input
-                                    type="text"
-                                    className="h-14 w-96 pl-10 pr-20 z-0 focus:shadow focus:outline-none"
-                                    placeholder="Introduza o seu email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                                <Div className="absolute  top-2 right-2">
-                                    <button className="h-10 w-24 text-white bg-red-600 hover:bg-red-700" onClick={() => submitNewsletter()}>
-                                        Subscrever
-                                    </button>
-                                </Div>
-                            </Div>
+                        <Div>
+                            <input
+                                style={{
+                                    color: 'black'
+                                }}
+                                type="text"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <button className="newsletter-button">Subscrever</button>
                         </Div>
                     </Div>
                 </Div>
             </Div>
-          
         </>
     );
 }
