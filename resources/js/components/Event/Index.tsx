@@ -5,43 +5,43 @@ import { getToken } from "../Data/Auth";
 import { Button, Div, Paragraph, Title } from "../Layout/Layout";
 import TopMenu from "../Layout/Menu";
 
-export default function ProductId() {
-    const [product, setproduct] = useState<any>();
+export default function EventId() {
+    const [event, setevent] = useState<any>();
     const [image, setimage] = useState<string>();
     const [description, setdescription] = useState<any>();
     const [big_description, setbigdescription] = useState<any>();
     const [title, settitle] = useState<any>();
     const [price, setprice] = useState<any>();
-    const [productid, setproductid] = useState<any>();
+    const [eventid, seteventid] = useState<any>();
     const { id } = params();
 
     useEffect(() => {
-        getProduct();
+        getevent();
     }, []);
 
     function params(): { id: any } {
         return useParams();
     }
 
-    function getProduct() {
-        api.get(`/api/product/${id}`, {
+    function getevent() {
+        api.get(`/api/event/${id}`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            setproduct(res.data);
-            setproductid(res.data.product.id);
-            setimage(res.data.product.image);
-            setdescription(res.data.product.description);
-            settitle(res.data.product.name);
-            setprice(res.data.product.price);
-            setbigdescription(res.data.product.big_description);
+            console.log(res)
+            setevent(res.data);
+            seteventid(res.data.event.id);
+            setimage(res.data.event.image);
+            setdescription(res.data.event.description);
+            settitle(res.data.event.title);
+            setprice(res.data.event.price);
+            setbigdescription(res.data.event.big_description);
         });
     }
 
     function addToCart(e: any, id: any) {
         const form = new FormData();
         form.append(`id_product`, id);
-        form.append(`type`, `product`);
-        
+        form.append(`type`, `event`);
         api.post(`/api/cart`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {

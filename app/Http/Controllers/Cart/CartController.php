@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cart;
-
+use DB;
 class CartController extends Controller
 {
     /**
@@ -16,12 +16,14 @@ class CartController extends Controller
     public function add(Request $request) {
         $validator = Validator::make($request->all(), [
             'id_product' => 'required',
+            'type' => 'required'
         ]);
 
         if($validator) {
             $cart = new Cart();
             $cart->id_product = (int)$request->id_product;
             $cart->id_user = Auth()->user()->id;
+            $cart->type = $request->type;
 
             $cart->save();
 
@@ -39,29 +41,30 @@ class CartController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function getCartFromUser() {
-        $cart = Cart::where('id_user', Auth()->user()->id)
-        ->join('products', 'products.id', '=', 'cart.id_product')
-        ->join('categories', 'categories.id', '=', 'products.id_category')
-        ->select([
-            'cart.id as id',
-            'cart.id_product as id_product',
-            'id_category as id_category',
-            'products.description as description',
-            'products.name as name',
-            'products.image as image',
-            'products.price as price',
-            'categories.name as category_name'
-        ])
-        ->get();
+        $cartItems = Cart::where('id_user', Auth()->user()->id)->get();
 
+        $products = [];
+        $events = [];
+        $i = 0;
+        $j = 0;
         $total = 0;
 
-        foreach($cart as $c) {
-            $total += $c->price;
+        foreach($cartItems as $item) {
+            if($item->type == 'product') {
+                $products[$i] = DB::table('products')->where('id', $item->id_product)->get()[0];
+                $total += $products[$i]->price;
+                $i++;
+            } else {
+                $events[$j] = DB::table('events')->where('id', $item->id_product)->get()[0];
+                $total += $events[$j]->price;
+                $j++;
+            }
         }
 
         return response()->json([
-            'cart' => $cart,
+            'products' => $products,
+            'events' => $events,
+            'cart' => $cartItems,
             'total' => $total
         ], 200);
     }

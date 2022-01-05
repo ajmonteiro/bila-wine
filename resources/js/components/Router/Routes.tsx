@@ -21,6 +21,7 @@ import Gifts from "../Gifts/Index";
 import Contacts from "../Contacts/Index";
 import User from "../User/Index";
 import Faqs from "../Faqs/Index";
+import EventId from "../Event/Index";
 
 export default function Routes() {
     const [hasAdminRole, setHasAdminRole] = useState<any>();
@@ -54,6 +55,7 @@ export default function Routes() {
                     <Route exact path="/chat" component={Chat} />
                     <Route exact path="/carrinho" component={Cart} />
                     <Route exact path="/produto/:id" component={ProductId} />
+                    <Route exact path="/evento/:id" component={EventId} />
                     <Route exact path="/order/:id" component={OrderDetail} />
                     <Route exact path="/order/success/:id" component={SuccessPay} />
                     <Route exact path="/produtos" component={Products} />

@@ -22,6 +22,7 @@ export default function Products() {
     function handleAddToCart(e: any, id: any) {
         const form = new FormData();
         form.append("id_product", id);
+        form.append(`type`, `product`);
 
         api.post(`/api/cart`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },

@@ -26,23 +26,52 @@ class OrderController extends Controller
             'saved' => $request->saved
         ]);
 
-        $products = Cart::where('id_user', Auth()->user()->id)->pluck('id_product');
+        $products = Cart::where('id_user', Auth()->user()->id)->get();
+
+        
         $product_array = $products;
         $i = 0;
         $product = [];
+        $events = [];
         $total = 0;
 
         foreach($product_array as $p) {
-            $product[$i] = Product::where('id', $p)->get()[0];
-            $final_array[$i] = [
-                'name' => $product[$i]->name,
-                'description' => $product[$i]->description,
-                'price' => $product[$i]->price,
-                'quantity' => 1
-            ];
-            $total += $product[$i]->price;
+            if($p->type == 'product') {
+                $product[$i] = Product::where('id', $p->id_product)->get()[0];
+                $total += $product[$i]->price;
+                $final_array[$i] = [
+                    'name' => $product[$i]->name,
+                    'description' => $product[$i]->description,
+                    'price' => $product[$i]->price,
+                    'quantity' => 1
+                ];
+            } else {
+                $events[$i] = DB::table('events')->where('id', $p->id_product)->get()[0];
+                $final_array[$i] = [
+                    'name' => $events[$i]->title,
+                    'description' => $events[$i]->description,
+                    'price' => $events[$i]->price,
+                    'quantity' => 1
+                ];
+                $total += $events[$i]->price;
+            }
             $i++;
+
         }
+
+        $product_info = [];
+        $k = 0;
+
+        foreach($final_array as $product) {
+            return $product;
+            $product_info[$i] = json_encode([
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'quantity' => $product->quantity
+            ]);
+        }
+        return $product_info;
 
         $order = new Order;
         $order->id_user = Auth()->user()->id;

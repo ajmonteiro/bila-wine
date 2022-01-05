@@ -101,7 +101,7 @@ export default function Events() {
                                             className="product-item"
                                             onclick={() =>
                                                 window.open(
-                                                    `/produto/${item.id}`,
+                                                    `/evento/${item.id}`,
                                                     `_self`
                                                 )
                                             }

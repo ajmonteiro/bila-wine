@@ -39,6 +39,7 @@ export default function Cart() {
 export function CartPage(props: any) {
     const [totalItems, setTotalItems] = useState<any>();
     const [products, setProducts] = useState<any>();
+    const [events, setEvents] = useState<any>();
     const [total, settotal] = useState<number>();
 
     useEffect(() => {
@@ -53,7 +54,8 @@ export function CartPage(props: any) {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
             console.log(res);
-            setProducts(res.data.cart);
+            setProducts(res.data.products);
+            setEvents(res.data.events);
             setTotalItems(res.data.cart.length);
             settotal(res.data.total);
         });
@@ -103,6 +105,36 @@ export function CartPage(props: any) {
                                 </Div>
                             </>
                         ))}
+                        {events?.map((item: any) => (
+                            <>
+                                <Div className="cart-grid-div">
+                                    <Div key={item.id}>
+                                        <Div>
+                                            <img src={baseURL() + item.image} />
+                                        </Div>
+                                        <Div className="content">
+                                            <span>{item.title}</span>
+                                            <p>{item.description}</p>
+                                        </Div>
+                                    </Div>
+                                    <Div
+                                        onclick={(e) =>
+                                            handleDelete(e, item.id)
+                                        }
+                                    >
+                                        <i
+                                            className="las la-trash"
+                                            style={{
+                                                cursor: "pointer",
+                                            }}
+                                        ></i>
+                                    </Div>
+                                    <Div className="price">
+                                        <span>€{item.price}</span>
+                                    </Div>
+                                </Div>
+                            </>
+                        ))}
                     </Div>
                     <Div className="flex justify-end mt-2">
                         <Button
@@ -118,6 +150,7 @@ export function CartPage(props: any) {
 
 export function Billing(props: any) {
     const [products, setProducts] = useState<any>();
+    const [events, setEvents] = useState<any>();
     const [totalItems, setTotalItems] = useState<any>();
     const [total, settotal] = useState<any>();
     const [showProductInfo, setShowProductInfo] = useState<any>(false);
@@ -143,8 +176,8 @@ export function Billing(props: any) {
         api.get(`/api/cart`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            console.log(res);
-            setProducts(res.data.cart);
+            setProducts(res.data.products);
+            setEvents(res.data.events)
             setTotalItems(res.data.cart.length);
             settotal(res.data.total.toFixed(2));
         });
@@ -173,10 +206,11 @@ export function Billing(props: any) {
         api.post(`/api/order`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            api.delete(`/api/cart`, {
-                headers: { Authorization: `Bearer ${getToken()}` },
-            }).then((res) => {});
-            window.open(`/order/${res.data.order}`);
+            console.log(res)
+            // api.delete(`/api/cart`, {
+            //     headers: { Authorization: `Bearer ${getToken()}` },
+            // }).then((res) => {});
+            // window.open(`/order/${res.data.order}`);
         });
     }
 
@@ -192,7 +226,6 @@ export function Billing(props: any) {
     }
     return (
         <>
-            {total == 0 ? window.open(`/`, `_self`) :
             <Div className="cart-wrapper-info">
                 <Div className="cart-container-info">
                     <Div className="cart-grid-info">
@@ -298,6 +331,40 @@ export function Billing(props: any) {
                                         </div>
                                     </>
                                 ))}
+                                 {events?.map((item: any) => (
+                                    <>
+                                        <div
+                                            className="product-show-list"
+                                            onClick={() => {
+                                                chooseActive(item.id+'event');
+                                            }}
+                                        >
+                                            {item.title}
+                                            <i className="las la-angle-right"></i>
+                                        </div>
+                                        <div
+                                            className="product-info-list-cart"
+                                            id={`${item.id}event`}
+                                            style={{
+                                                display: "none",
+                                                flexDirection: "column",
+                                            }}
+                                        >
+                                            <span
+                                                style={{ fontSize: "0.8rem" }}
+                                            >
+                                                {item.description}
+                                            </span>
+                                            <span
+                                                style={{ fontSize: "0.8rem" }}
+                                                className="font-bold"
+                                            >
+                                                €{item.price}
+                                            </span>
+                                            <DeleteIcon onclick={(e) => handleDelete(e, item.id)}/>
+                                        </div>
+                                    </>
+                                ))}
                             </Div>
                             <Div className="m-3 flex justify-end">
                                 <span>
@@ -308,7 +375,7 @@ export function Billing(props: any) {
                         </Div>
                     </Div>
                 </Div>
-            </Div>}
+            </Div>
         </>
     );
 }

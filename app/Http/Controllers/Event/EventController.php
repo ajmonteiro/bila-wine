@@ -69,7 +69,7 @@ class EventController extends Controller
     }
 
     public function getById($id) {
-        $event = Event::where('id', $id)->get();
+        $event = Event::where('id', $id)->get()[0];
         
         if(!$event) {
             return response()->json([
