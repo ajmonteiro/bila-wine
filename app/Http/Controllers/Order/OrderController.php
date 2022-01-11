@@ -58,27 +58,27 @@ class OrderController extends Controller
             $i++;
 
         }
-
-        $product_info = [];
+        $count = count($final_array);
+        $product_info = '';
         $k = 0;
-
         foreach($final_array as $product) {
-            return $product;
-            $product_info[$i] = json_encode([
-                'name' => $product->name,
-                'description' => $product->description,
-                'price' => $product->price,
-                'quantity' => $product->quantity
-            ]);
+            $dada = $k + 1;
+            $virg = $count == $k + 1 ? false : ",";
+            $d = '"';
+            $name = $product['name'];
+            $description = $product['description'];
+            $price = $product['price'];
+            $quantity = $product['quantity'];
+            $product_info .= "${d}$dada${d}: { ${d}name${d}: ${d}${name}${d}, ${d}description${d}: ${d}${description}${d}, ${d}price${d}: ${d}${price}${d}, ${d}quantity${d}: ${d}${quantity}${d}}$virg";
+            $k++;
         }
-        return $product_info;
 
         $order = new Order;
         $order->id_user = Auth()->user()->id;
         $order->id_invoice = rand(0, 10000000);
         $order->id_secret = Str::random(40);
         $order->info = $info;
-        $order->products = $product_array;
+        $order->products = '{'.$product_info.'}';
         $order->state = 0;
         $order->total_price = floatval($total);
         
@@ -97,20 +97,7 @@ class OrderController extends Controller
      */
     public function getOrderById($id) {
         $order = Order::where('id_secret', $id)->first();
-        $products = json_decode($order->products);
-        $all_products = [];
-        $i = 0;
-        $total = 0;
-        foreach($products as $product) {
-            $p = Product::where('id', $product)->get()[0];
-            $total += $p->price;
-            $all_products[$i] = $p;
-            
-            $i++;
-        }
 
-        $order->all_products = $all_products;
-        $order->total = $total;
         return response()->json([
             'order' => $order
         ], 200);

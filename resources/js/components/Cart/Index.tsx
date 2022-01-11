@@ -207,10 +207,10 @@ export function Billing(props: any) {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
             console.log(res)
-            // api.delete(`/api/cart`, {
-            //     headers: { Authorization: `Bearer ${getToken()}` },
-            // }).then((res) => {});
-            // window.open(`/order/${res.data.order}`);
+            api.delete(`/api/cart`, {
+                headers: { Authorization: `Bearer ${getToken()}` },
+            }).then((res) => {});
+            window.open(`/order/${res.data.order}`);
         });
     }
 

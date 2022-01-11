@@ -41,12 +41,13 @@ export default function OrderDetail() {
         api.get(`/api/order/${id}`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            if (!res.data.order) {
-                window.open(`/`, `_self`);
-            }
-            let info = JSON.parse(res.data.order.info);
+            console.log(res)
+            // if (!res.data.order) {
+            //     window.open(`/`, `_self`);
+            // }
+            console.log(JSON.parse(res.data.order.info));
+            setProducts(objectToArray(JSON.parse(res.data.order.products)))
             getInfo(info);
-            setProducts(res.data.order.all_products);
             setorder(res.data.order);
             setCreatedAt(res.data.order.created_at);
             setPrice(res.data.order.total_price);
@@ -59,6 +60,22 @@ export default function OrderDetail() {
             setAddress(info.address);
         });
     }
+
+    useEffect(() => {
+        console.log(products)
+        let tot = 0;
+        products?.map((item: any) => (tot = tot + parseFloat(item.price)).toFixed(2))
+        settotal(tot.toFixed(2))
+    }, [products])
+
+    const objectToArray = (obj: any) => {
+        const keys = Object.keys(obj);
+        const res = [];
+        for(let i = 0; i < keys.length; i++){
+           res.push([obj[keys[i]]][0]);
+        };
+        return res;
+     };
 
     function payInvoice(e: any) {
         const form = new FormData();
