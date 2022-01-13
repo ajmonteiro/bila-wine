@@ -87,7 +87,7 @@ export function Card(props: CardProps) {
         <>
             <div className="max-w-sm rounded overflow-hidden shadow-lg m-5">
                 <img
-                    className="w-full"
+                    className="w-full h-56"
                     src={props.path}
                     alt="Sunset in the mountains"
                 />

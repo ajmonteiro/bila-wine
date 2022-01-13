@@ -45,7 +45,6 @@ export default function ProductId() {
         api.post(`/api/cart`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            console.log(res);
         });
     }
 

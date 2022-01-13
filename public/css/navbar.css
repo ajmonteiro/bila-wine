@@ -41,6 +41,7 @@
 .top-nav-grid .carrinho {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 .top-nav-grid span {
     font-weight: bold;

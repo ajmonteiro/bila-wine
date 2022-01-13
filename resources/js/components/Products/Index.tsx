@@ -42,7 +42,6 @@ export default function Products() {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
             .then((res) => {
-                console.log(res);
                 ToastSuccess("Adicionado ao carrinho", "bottom-right");
             })
             .catch((err) => {

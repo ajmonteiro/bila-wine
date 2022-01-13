@@ -5,9 +5,6 @@ export default function Footer() {
     return (
         <>
             <footer className="footer">
-                <Div className="w-full text-footer-d p-2 flex mb-3 font-bold justify-center">
-                    <h1 className="text-xl text-white">BILAWINE</h1>
-                </Div>
                 <Div className="footer-container">
                     <Div className="footer-row">
                         <Div className="footer-col">

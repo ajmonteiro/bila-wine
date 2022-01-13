@@ -7,5 +7,5 @@ export const loginlocal = (token: string) => {
 }
 
 export const logout = () => {
-    localStorage.clear()    
+    localStorage.clear()
 }

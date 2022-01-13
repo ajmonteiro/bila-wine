@@ -46,13 +46,13 @@ export default function Banner(props: BannerProps) {
                             >
                                 <Div className="w-11/12 sm:w-2/3">
                                     <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center text-white font-bold leading-tight">
-                                        {props.title}
+                                        {item.title}
                                     </h1>
                                 </Div>
                                 <hr className="m-5 w-64 text-center" />
                                 <Div className="w-11/12 sm:w-2/3 mb-5 sm:mb-10">
                                     <p className="text-center text-white font-bold leading-tight">
-                                        {props.text}
+                                        {item.subtitle}
                                     </p>
                                 </Div>
                             </div>

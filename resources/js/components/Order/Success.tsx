@@ -1,13 +1,41 @@
-import React from "react";
-import { Div, Title } from "../Layout/Layout";
+import React, { useState, useEffect } from "react";
+import { Button, Div, Title } from "../Layout/Layout";
 import TopMenu from "../Layout/Menu";
+import api from "../Data/Api";
+import { useParams } from "react-router-dom";
+import { getToken } from "../Data/Auth";
 
 export default function SuccessPay() {
+    const { id } = params();
+
+    function params(): { id: any } {
+        return useParams();
+    }
+    useEffect(() => {
+        const form = new FormData
+        form.append('id', id)
+
+        api.post(`/api/order/state`, form, {
+            headers: { Authorization: `Bearer ${getToken()}` },
+        }).then((res) => {
+
+        });
+    }, []);
+
+    function goBackToHome() {
+        window.open(`/`, `_self`)
+    }
     return (
         <>
             <TopMenu />
-            <Div className="flex justify-center items-center h-3/5">
-                <Title title={"Pago com sucesso"} className="text-4xl" />
+            <Div className="flex items-center justify-center">
+            <Div className="paid-with-success">
+                <Div className="flex flex-col justify-center items-center text-center">
+                    <Title title={"Pago com sucesso!"} className="text-4xl" />
+                    <p className="mt-5 mb-5">Enviamos-lhe um e-mail com a sua encomenda que foi agora paga. Muito obrigado pela sua escolha!</p>
+                    <Button text="Voltar para a página inicial" onclick={() => goBackToHome()} />
+                </Div>
+            </Div>
             </Div>
         </>
     );

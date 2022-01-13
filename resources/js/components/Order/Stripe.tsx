@@ -16,9 +16,8 @@ export default function Stripe(props: StripeProps) {
         return useParams();
     }
     async function payStripe(e: any) {
-        const API_KEY = process.env.MIX_STRIPE_KEY
         e.preventDefault();
-        const stripePromise = await loadStripe(`${API_KEY}`);
+        const stripePromise = await loadStripe(`pk_test_51JzpIVGcdbf6fNPGqE5OiArWf9yVh2B0dxhg4HiL4U79O0gLzFjBdetMFjtGXy3FawrlAvuGuvW9J9YehLaYI0l300yVhstZrs`);
         const form = new FormData();
 
         form.append(`id_secret`, id);
@@ -35,12 +34,11 @@ export default function Stripe(props: StripeProps) {
                 stripePromise?.redirectToCheckout({
                     sessionId: session.id,
                 }).then(() => {
-                    api.get(`/api/order/state/${id}`, { headers: { Authorization: `Bearer ${getToken()}`}
+                    api.put(`/api/order/state/${id}`, { headers: { Authorization: `Bearer ${getToken()}`}
                 }).then((res) => {
                     console.log(res)
                 })
                 })
-                
             })
             .catch((err) => {
                 console.log(err);

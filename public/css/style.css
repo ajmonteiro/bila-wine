@@ -462,3 +462,12 @@ button {
         width: 100%;
     }
 }
+
+.paid-with-success {
+    padding: 1.4rem;
+    width: 70%;
+    margin: 10vh auto;
+    background-color: #fff;
+    -webkit-box-shadow: 0 0 5px hsl(0deg 0% 70% / 50%);
+    box-shadow: 0 0 5px hsl(0deg 0% 70% / 50%);
+}

@@ -71,7 +71,10 @@ export default function Login(props: VisibleProps) {
                                 />
                                 <input
                                     type="password"
-                                    className="w-full h-12 border border-red-800 rounded px-3"
+                                    className="w-full h-12 border rounded px-3"
+                                    style={{
+                                        borderColor: '#a45459'
+                                    }}
                                     placeholder="Password"
                                     value={password}
                                     onChange={(e: any) =>
@@ -82,7 +85,10 @@ export default function Login(props: VisibleProps) {
                                 <div className="">
                                     <a
                                         href="#!"
-                                        className="font-medium text-red-700 hover:bg-red-300 rounded-full p-2"
+                                        className="font-mediumhover:bg-red-300 rounded-full p-2"
+                                        style={{
+                                            color: '#a45459'
+                                        }}
                                     >
                                         Esqueceu-se da palavra-passe?
                                     </a>
@@ -90,18 +96,24 @@ export default function Login(props: VisibleProps) {
 
                                 <button
                                     onClick={(e) => login(e)}
-                                    className="text-center w-full bg-red-700 rounded-full text-white py-3 font-medium"
+                                    className="text-center w-full rounded-full text-white py-3 font-medium"
+                                    style={{
+                                        backgroundColor: '#a45459'
+                                    }}
                                 >
                                     Login
                                 </button>
                             </form>
                         </div>
 
-                        <p>
+                        <p onClick={(e) => props.visible('register')}>
                             Novo utilizador?
                             <a
                                 href="#!"
-                                className="text-red-700 font-medium ml-2"
+                                className="font-medium ml-2"
+                                style={{
+                                    color: '#a45459'
+                                }}
                             >
                                 Registe-se
                             </a>{" "}

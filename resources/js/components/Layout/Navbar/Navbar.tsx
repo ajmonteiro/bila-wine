@@ -20,10 +20,14 @@ export function Menu() {
     function goPage() {
         window.open(`/`, `_self`);
     }
+
     const [visible, setVisible] = useState<any>(false);
     const [searchInputsVisible, setSearchInputsVisible] = useState<any>(false);
     const [searchInput, setSearchInput] = useState<any>("");
     const [userDropdown, setUserDropDown] = useState<any>(false);
+    const [isAdmin, setIsAdmin] = useState<any>(1);
+    const [username, setUsername] = useState();
+
     const history = useHistory();
     function handleSearchView(value: any) {
         setSearchInput(value);
@@ -36,10 +40,20 @@ export function Menu() {
         window.open(`/utilizador`, `_self`);
     }
 
+    useEffect(() => {
+        getUsername();
+    }, []);
+
+    function getUsername() {
+        api.get(`/api/username`, {
+            headers: { Authorization: `Bearer ${getToken()}`},
+        }).then((res) => {
+            setUsername(res.data.username)
+        });
+    }
     function goLogout() {
-        api.post(`/api/logout`, {}, { headers: { Authorization: getToken() } })
+        api.post(`/api/logout`, {}, { headers: { Authorization: `Bearer ${getToken()}` } })
             .then((res) => {
-                console.log(res)
                 logout();
                 history.push("/");
                 history.go(1);
@@ -56,7 +70,9 @@ export function Menu() {
                         className="bila-wine-top cursor-pointer"
                         onclick={() => goPage()}
                     >
-                        <span>BILAWINE</span>
+                        <span>
+                            <img src="/static/logo.png" height="20px" alt="" />
+                        </span>
                     </Div>
                     <Div className="search-input cursor-pointer">
                         <input
@@ -104,7 +120,7 @@ export function Menu() {
                         <Div onclick={() => window.open(`/produtos`, `_self`)}>
                             <li>PRODUTOS</li>
                         </Div>
-                        <Div  onclick={() => window.open(`/eventos`, `_self`)}>
+                        <Div onclick={() => window.open(`/eventos`, `_self`)}>
                             <li>EVENTOS</li>
                         </Div>
                         <Div>
@@ -113,7 +129,10 @@ export function Menu() {
                         <Div>
                             <li>EMPRESAS</li>
                         </Div>
-                        <Div className="noborder"  onclick={() => window.open(`/contactos`, `_self`)}>
+                        <Div
+                            className="noborder"
+                            onclick={() => window.open(`/contactos`, `_self`)}
+                        >
                             <li>CONTACTOS</li>
                         </Div>
                         <Div className="spacer user-bottom-nav-low">
@@ -121,14 +140,26 @@ export function Menu() {
                                 className="flex flex-row noborder dropdown-m"
                                 onclick={(e) => setUserDropDown(!userDropdown)}
                             >
-                                <li>OLA AMÉRICO</li>
+                                <li>
+                                    <span className="uppercase">OLÁ {username}</span>
+                                </li>
                                 <i className="las la-angle-down"></i>
                             </Div>
+
                             {userDropdown && (
                                 <nav className="noborder dropdown-content">
                                     <li onClick={() => sendToClientArea()}>
                                         ÁREA CLIENTE
                                     </li>
+                                    {isAdmin == 1 && (
+                                        <li
+                                            onClick={() =>
+                                                window.open(`/admin`, `_self`)
+                                            }
+                                        >
+                                            ADMIN SESSÃO
+                                        </li>
+                                    )}
                                     <li onClick={() => goLogout()}>
                                         TERMINAR SESSÃO
                                     </li>
@@ -140,7 +171,9 @@ export function Menu() {
                                 className="flex flex-row noborder dropdown-m"
                                 onclick={(e) => setUserDropDown(!userDropdown)}
                             >
-                                <li>OLA AMÉRICO</li>
+                                <li className="text-uppercase">
+                                    OLÁ {username}
+                                </li>
                                 <i className="las la-angle-down"></i>
                             </Div>
                             {userDropdown && (
@@ -148,7 +181,18 @@ export function Menu() {
                                     <li onClick={() => sendToClientArea()}>
                                         ÁREA CLIENTE
                                     </li>
-                                    <li>TERMINAR SESSÃO</li>
+                                    {isAdmin == 1 && (
+                                        <li
+                                            onClick={() =>
+                                                window.open(`/admin`, `_self`)
+                                            }
+                                        >
+                                            DASHBOARD ADMINISTRADOR
+                                        </li>
+                                    )}
+                                    <li onClick={() => goLogout()}>
+                                        TERMINAR SESSÃO
+                                    </li>
                                 </nav>
                             )}
                         </Div>

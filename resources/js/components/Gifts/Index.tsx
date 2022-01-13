@@ -15,7 +15,6 @@ export default function Gifts() {
     function getGifts() {
         api.get(`/api/gifts`, { headers: { Authorization: `Bearer ${getToken()}`}
         }).then((res) => {
-            console.log(res)
             setGifts(res.data.gifts)
         })
     }

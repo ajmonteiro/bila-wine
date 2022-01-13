@@ -41,12 +41,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/login/check', [AuthController::class, 'checkLogin']);
+
+
 Route::group([
     'middleware'=>['auth:sanctum'],
 ],function(){
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/authuser', [AuthController::class, 'checkLogin']);
     Route::get('/role', [AuthController::class, 'role']);
+    Route::get('/username', [AuthController::class, 'getUsername']);
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'getDashboardInfo']);
@@ -59,6 +62,7 @@ Route::group([
     Route::delete('/location/{id}', [LocationController::class, 'delete']);
     Route::get('/location/{id}', [LocationController::class, 'getById']);
     Route::put('/location/{id}', [LocationController::class, 'update']);
+
 
     // Cellars
     Route::post('/cellar', [CellarController::class, 'create']);
@@ -106,7 +110,7 @@ Route::group([
     Route::post('/order', [OrderController::class, 'create']);
     Route::get('/order/{id}', [OrderController::class, 'getOrderById']);
     Route::post('/pay', [OrderController::class, 'payInvoice']);
-    Route::get('/order/state/{id}', [OrderController::class, 'updateState']);
+    Route::post('/order/state', [OrderController::class, 'updateState']);
 
     // Email interaction
     Route::post('contact_us', [EmailController::class, 'contactUs']);

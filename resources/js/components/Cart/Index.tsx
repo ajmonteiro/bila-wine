@@ -53,7 +53,6 @@ export function CartPage(props: any) {
         api.get(`/api/cart`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            console.log(res);
             setProducts(res.data.products);
             setEvents(res.data.events);
             setTotalItems(res.data.cart.length);
@@ -74,74 +73,94 @@ export function CartPage(props: any) {
             <Div className="cart-page">
                 <Div className="cart-container">
                     <span className="text-xl font-bold">O meu carrinho</span>
-                    <Div className="cart-grid">
-                        {products?.map((item: any) => (
-                            <>
-                                <Div className="cart-grid-div">
-                                    <Div key={item.id}>
-                                        <Div>
-                                            <img src={baseURL() + item.image} />
+                    {total != 0 ? (
+                        <>
+                            <Div className="cart-grid">
+                                {products?.map((item: any) => (
+                                    <>
+                                        <Div className="cart-grid-div">
+                                            <Div key={item.id}>
+                                                <Div>
+                                                    <img
+                                                        src={
+                                                            baseURL() +
+                                                            item.image
+                                                        }
+                                                    />
+                                                </Div>
+                                                <Div className="content">
+                                                    <span>{item.name}</span>
+                                                    <p>{item.description}</p>
+                                                </Div>
+                                            </Div>
+                                            <Div
+                                                onclick={(e) =>
+                                                    handleDelete(e, item.id)
+                                                }
+                                            >
+                                                <i
+                                                    className="las la-trash"
+                                                    style={{
+                                                        cursor: "pointer",
+                                                    }}
+                                                ></i>
+                                            </Div>
+                                            <Div className="price">
+                                                <span>€{item.price}</span>
+                                            </Div>
                                         </Div>
-                                        <Div className="content">
-                                            <span>{item.name}</span>
-                                            <p>{item.description}</p>
+                                    </>
+                                ))}
+                                {events?.map((item: any) => (
+                                    <>
+                                        <Div className="cart-grid-div">
+                                            <Div key={item.id}>
+                                                <Div>
+                                                    <img
+                                                        src={
+                                                            baseURL() +
+                                                            item.image
+                                                        }
+                                                    />
+                                                </Div>
+                                                <Div className="content">
+                                                    <span>{item.title}</span>
+                                                    <p>{item.description}</p>
+                                                </Div>
+                                            </Div>
+                                            <Div
+                                                onclick={(e) =>
+                                                    handleDelete(e, item.id)
+                                                }
+                                            >
+                                                <i
+                                                    className="las la-trash"
+                                                    style={{
+                                                        cursor: "pointer",
+                                                    }}
+                                                ></i>
+                                            </Div>
+                                            <Div className="price">
+                                                <span>€{item.price}</span>
+                                            </Div>
                                         </Div>
-                                    </Div>
-                                    <Div
-                                        onclick={(e) =>
-                                            handleDelete(e, item.id)
-                                        }
-                                    >
-                                        <i
-                                            className="las la-trash"
-                                            style={{
-                                                cursor: "pointer",
-                                            }}
-                                        ></i>
-                                    </Div>
-                                    <Div className="price">
-                                        <span>€{item.price}</span>
-                                    </Div>
-                                </Div>
-                            </>
-                        ))}
-                        {events?.map((item: any) => (
-                            <>
-                                <Div className="cart-grid-div">
-                                    <Div key={item.id}>
-                                        <Div>
-                                            <img src={baseURL() + item.image} />
-                                        </Div>
-                                        <Div className="content">
-                                            <span>{item.title}</span>
-                                            <p>{item.description}</p>
-                                        </Div>
-                                    </Div>
-                                    <Div
-                                        onclick={(e) =>
-                                            handleDelete(e, item.id)
-                                        }
-                                    >
-                                        <i
-                                            className="las la-trash"
-                                            style={{
-                                                cursor: "pointer",
-                                            }}
-                                        ></i>
-                                    </Div>
-                                    <Div className="price">
-                                        <span>€{item.price}</span>
-                                    </Div>
-                                </Div>
-                            </>
-                        ))}
-                    </Div>
-                    <Div className="flex justify-end mt-2">
-                        <Button
-                            text={"AVANÇAR"}
-                            onclick={() => props.visible("billing")}
-                        />
-                    </Div>
+                                    </>
+                                ))}{" "}
+                            </Div>
+                            <Div className="flex justify-end mt-2">
+                                <Button
+                                    text={"AVANÇAR"}
+                                    onclick={() => props.visible("billing")}
+                                />
+                            </Div>
+                        </>
+                    ) : (
+                        <Div className="mt-10">
+                            <h1 className="text-4xl">
+                                NÃO EXISTE ITEMS NO CARRINHO
+                            </h1>
+                        </Div>
+                    )}
                 </Div>
             </Div>
         </>
@@ -177,7 +196,7 @@ export function Billing(props: any) {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
             setProducts(res.data.products);
-            setEvents(res.data.events)
+            setEvents(res.data.events);
             setTotalItems(res.data.cart.length);
             settotal(res.data.total.toFixed(2));
         });
@@ -206,7 +225,6 @@ export function Billing(props: any) {
         api.post(`/api/order`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            console.log(res)
             api.delete(`/api/cart`, {
                 headers: { Authorization: `Bearer ${getToken()}` },
             }).then((res) => {});
@@ -289,7 +307,10 @@ export function Billing(props: any) {
                                 />
                             </Div>
                             <Div className="flex justify-end mr-3 mb-3">
-                                <Button text="CONTINUAR" onclick={() => handleOrder()} />
+                                <Button
+                                    text="CONTINUAR"
+                                    onclick={() => handleOrder()}
+                                />
                             </Div>
                         </Div>
                         <Div className="right-side-grid-cart mt-4">
@@ -327,16 +348,20 @@ export function Billing(props: any) {
                                             >
                                                 €{item.price}
                                             </span>
-                                            <DeleteIcon onclick={(e) => handleDelete(e, item.id)}/>
+                                            <DeleteIcon
+                                                onclick={(e) =>
+                                                    handleDelete(e, item.id)
+                                                }
+                                            />
                                         </div>
                                     </>
                                 ))}
-                                 {events?.map((item: any) => (
+                                {events?.map((item: any) => (
                                     <>
                                         <div
                                             className="product-show-list"
                                             onClick={() => {
-                                                chooseActive(item.id+'event');
+                                                chooseActive(item.id + "event");
                                             }}
                                         >
                                             {item.title}
@@ -361,7 +386,11 @@ export function Billing(props: any) {
                                             >
                                                 €{item.price}
                                             </span>
-                                            <DeleteIcon onclick={(e) => handleDelete(e, item.id)}/>
+                                            <DeleteIcon
+                                                onclick={(e) =>
+                                                    handleDelete(e, item.id)
+                                                }
+                                            />
                                         </div>
                                     </>
                                 ))}

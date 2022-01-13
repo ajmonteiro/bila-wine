@@ -103,8 +103,8 @@ class OrderController extends Controller
         ], 200);
     }
 
-    public function updateState($id) {
-        $order = Order::where('id_secret', $id)->update([
+    public function updateState(Request $request) {
+        $order = Order::where('id_secret', $request->id)->update([
             'state' => '1'
         ]);
 

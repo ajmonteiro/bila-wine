@@ -37,5 +37,4 @@ class RegisterController extends Controller
             'user' => $user->id
         ], 200);
     }
-
 }

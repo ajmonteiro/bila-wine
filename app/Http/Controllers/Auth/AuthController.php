@@ -73,4 +73,10 @@ class AuthController extends Controller
             'role' => $role
         ], 200);
     }
+
+    public function getUsername() {
+        return response()->json([
+            'username' => Auth::user()->name
+        ], 200);
+    }
 }

@@ -48,7 +48,6 @@ export default function Adegas() {
         api.get(`/api/locations`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            console.log(res);
             setLocation(res.data.locations);
             setLocationId(res.data.locations[0].id);
         });

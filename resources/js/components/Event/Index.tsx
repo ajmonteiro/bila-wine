@@ -27,7 +27,6 @@ export default function EventId() {
         api.get(`/api/event/${id}`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            console.log(res)
             setevent(res.data);
             seteventid(res.data.event.id);
             setimage(res.data.event.image);
@@ -45,7 +44,6 @@ export default function EventId() {
         api.post(`/api/cart`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            console.log(res);
         });
     }
 
