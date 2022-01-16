@@ -112,4 +112,21 @@ class OrderController extends Controller
             'order' => $order
         ], 200);
     }
+
+    public function getLastOrderByUser() {
+        $orders = DB::table('orders')->where('id_user', Auth()->user()->id)->get();
+        $order = json_decode(json_encode($orders), true);
+
+        return response()->json([
+            'order' => array_pop($order)
+        ], 200);
+    }
+
+    public function getAllOrdersFromUser() {
+        $orders = Order::where('id_user', Auth()->user()->id)->get();
+
+        return response()->json([
+            'orders' => $orders
+        ], 200);
+    }
 }

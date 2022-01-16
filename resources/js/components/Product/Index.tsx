@@ -41,11 +41,24 @@ export default function ProductId() {
         const form = new FormData();
         form.append(`id_product`, id);
         form.append(`type`, `product`);
-        
         api.post(`/api/cart`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
-        }).then((res) => {
-        });
+        }).then((res) => {});
+    }
+
+    function addToFavorites() {
+        const form = new FormData();
+        form.append(`id`, id);
+
+        api.post(`/api/productFav`, form, {
+            headers: { Authorization: `Bearer ${getToken()}` },
+        })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     return (
@@ -73,7 +86,19 @@ export default function ProductId() {
                                 </span>
                             </Div>
                             <Div className="produto-add-cart flex justify-between items-center">
-                                <span className="font-bold text-2xl" style={{ color: '#a45459'}}>€{price}</span>
+                                <span
+                                    className="font-bold text-2xl"
+                                    style={{ color: "#a45459" }}
+                                >
+                                    €{price}
+                                    <i
+                                        className="lab la-gratipay"
+                                        style={{
+                                            cursor: "pointer",
+                                        }}
+                                        onClick={() => addToFavorites()}
+                                    ></i>
+                                </span>
                                 <Button
                                     text="ADICIONAR AO CARRINHO"
                                     onclick={(e) => addToCart(e, id)}

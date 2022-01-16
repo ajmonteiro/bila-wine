@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Favorite;
 use Illuminate\Support\Facades\Validator;
 use DB;
 
@@ -76,6 +77,19 @@ class ProductController extends Controller
 
         return response()->json([
             'product' => $product
+        ], 200);
+    }
+
+    public function addProductToFavorites(Request $request) {
+        $favorite = new Favorite();
+
+        $favorite->id_user = Auth()->user()->id;
+        $favorite->id_product = $request->id;
+
+        $favorite->save();
+
+        return response()->json([
+            'favorite' => $favorite->id
         ], 200);
     }
 }

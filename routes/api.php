@@ -50,6 +50,7 @@ Route::group([
     Route::get('/authuser', [AuthController::class, 'checkLogin']);
     Route::get('/role', [AuthController::class, 'role']);
     Route::get('/username', [AuthController::class, 'getUsername']);
+    Route::get('/isadmin', [AuthController::class, 'userIsAdmin']);
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'getDashboardInfo']);
@@ -63,6 +64,7 @@ Route::group([
     Route::get('/location/{id}', [LocationController::class, 'getById']);
     Route::put('/location/{id}', [LocationController::class, 'update']);
 
+    Route::post('/infofromuser', [AuthController::class, 'userInfoChange']);
 
     // Cellars
     Route::post('/cellar', [CellarController::class, 'create']);
@@ -84,6 +86,7 @@ Route::group([
     Route::get('/products/paginate', [ProductController::class, 'all_paginate']);
     Route::get('/products', [ProductController::class, 'all']);
     Route::get('/product/{id}', [ProductController::class, 'getById']);
+    Route::post('/productFav', [ProductController::class, 'addProductToFavorites']);
 
     // Banners Homepage
     Route::post('/banner', [HomePageBannerController::class, 'create']);
@@ -111,7 +114,10 @@ Route::group([
     Route::get('/order/{id}', [OrderController::class, 'getOrderById']);
     Route::post('/pay', [OrderController::class, 'payInvoice']);
     Route::post('/order/state', [OrderController::class, 'updateState']);
+    Route::get('/lastorder', [OrderController::class, 'getLastOrderByUser']);
+    Route::get('/orders', [OrderController::class, 'getAllOrdersFromUser']);
 
+    // Favorites
     // Email interaction
     Route::post('contact_us', [EmailController::class, 'contactUs']);
 

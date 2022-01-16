@@ -42,6 +42,7 @@ export function Menu() {
 
     useEffect(() => {
         getUsername();
+        isUserAdmin();
     }, []);
 
     function getUsername() {
@@ -62,6 +63,15 @@ export function Menu() {
                 console.log(err);
             });
     }
+
+    function isUserAdmin() {
+        api.get(`/api/isadmin`, { headers: { Authorization: `Bearer ${getToken()}` } })
+        .then((res) => {
+            setIsAdmin(res.data.admin)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
     return (
         <>
             <Div className="top-nav">
@@ -71,7 +81,7 @@ export function Menu() {
                         onclick={() => goPage()}
                     >
                         <span>
-                            <img src="/static/logo.png" height="20px" alt="" />
+                            BILAWINE
                         </span>
                     </Div>
                     <Div className="search-input cursor-pointer">
@@ -157,7 +167,7 @@ export function Menu() {
                                                 window.open(`/admin`, `_self`)
                                             }
                                         >
-                                            ADMIN SESSÃO
+                                            DASHBOARD
                                         </li>
                                     )}
                                     <li onClick={() => goLogout()}>
@@ -187,7 +197,7 @@ export function Menu() {
                                                 window.open(`/admin`, `_self`)
                                             }
                                         >
-                                            DASHBOARD ADMINISTRADOR
+                                            DASHBOARD
                                         </li>
                                     )}
                                     <li onClick={() => goLogout()}>

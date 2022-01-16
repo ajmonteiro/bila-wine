@@ -1,9 +1,33 @@
 import React, { useState, useEffect } from "react";
+import api from "../Data/Api";
+import { getToken } from "../Data/Auth";
+import { TimeConverterFromUnix } from "../Data/Utils/DataConverters";
 import { Button, Div } from "../Layout/Layout";
 
 export default function LastOrder() {
+    const [order, setOrder] = useState<any>();
+    const [invoice, setInvoice] = useState<any>();
+    const [createdAt, setCreatedAt] = useState<any>();
+    const [price, setPrice] = useState<any>();
+
+    useEffect(() => {
+        getLastOrder();
+    }, []);
+
+    function getLastOrder() {
+        api.get(`/api/lastorder`, { headers: { Authorization: `Bearer ${getToken()}`}
+        }).then((res) => {
+            console.log(res)
+            setOrder(res.data.order)
+            setInvoice(res.data.order.id_invoice)
+            setCreatedAt(res.data.order.created_at)
+            setPrice(res.data.order.total_price)
+        }).catch((err) => console.log(err))
+    }
+
     return (
         <>
+        {order &&
             <Div>
                 <Div className="flex align-baseline">
                     <span className="las la-dolly text-2xl"></span>
@@ -12,11 +36,11 @@ export default function LastOrder() {
                 <Div className="last-order">
                     <Div className="flex justify-between div-up mt-5">
                         <Div>
-                            <p>Encomenda Nº: <b>313123</b></p>
-                            <p>Data de compra: <b>313123</b></p>
+                            <p>Encomenda Nº: <b>{invoice}</b></p>
+                            <p>Data de compra: <b>{TimeConverterFromUnix(createdAt)}</b></p>
                         </Div>
                         <Div>
-                            <p>Valor: <b>€39.99</b></p>
+                            <p>Valor: <b>€{price}</b></p>
                         </Div>
                     </Div>
                     <Div className="user-details-b">
@@ -34,6 +58,7 @@ export default function LastOrder() {
                     </Div>
                 </Div>
             </Div>
+            }
         </>
     );
 }

@@ -79,4 +79,21 @@ class AuthController extends Controller
             'username' => Auth::user()->name
         ], 200);
     }
+
+    public function userIsAdmin() {
+        $isAdmin = DB::table('user_role')->where('id_user', Auth::user()->id)->pluck('id_role')[0];
+        $admin = 0;
+
+        if($isAdmin == '2') {
+            $admin = 1;
+        }
+
+        return response()->json([
+            'admin' => $admin
+        ], 200);
+    }
+
+    public function userInfoChange(Request $request) {
+        return $request;
+    }
 }
