@@ -1,68 +1,64 @@
-import React, { useState, useEffect } from 'react'
-import api, { baseURL } from '../Data/Api'
-import { getToken } from '../Data/Auth'
-import { Content, Div } from '../Layout/Layout'
-import TopMenu from '../Layout/Menu'
-import Navbar from '../Layout/Navbar/Navbar'
+import React, { useState, useEffect } from "react";
+import api, { baseURL } from "../Data/Api";
+import { getToken } from "../Data/Auth";
+import { Content, Div } from "../Layout/Layout";
+import TopMenu from "../Layout/Menu";
+import Navbar from "../Layout/Navbar/Navbar";
 
 export default function Events() {
     const [events, setEvents] = useState<any>();
-    const [visibleCategories, setVisibleCategories] = useState<any>(true);
     const [visiblePrices, setVisiblePrices] = useState<any>(true);
     const [categories, setCategories] = useState<any>();
+    const [visiblePersonNumber, setVisiblePersonNumber] = useState<any>(true);
 
     useEffect(() => {
         getEvents();
-        getCategories();
-    }, [])
-
-    function getCategories() {
-        api.get(`/api/categories`, { headers: { Authorization: `Bearer ${getToken()}`}
-        }).then((res) => {
-            setCategories(res.data.categories)
-        })
-    }
+    }, []);
 
     function getEvents() {
-        api.get(`/api/events`, { headers: { Authorization: `Bearer ${getToken()}`}
+        api.get(`/api/events`, {
+            headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            console.log(res)
-            setEvents(res.data.events)
-        })
+            console.log(res);
+            setEvents(res.data.events);
+        });
+    }
+
+    function getEventsInPriceRange(
+        e: React.MouseEvent<HTMLLIElement, MouseEvent>,
+        nr1: any,
+        nr2: any
+    ) {
+        e.preventDefault();
+        api.get(`/api/events/range/${nr1}/${nr2}`, {
+            headers: { Authorization: `Bearer ${getToken()}` },
+        }).then((res) => {
+            setEvents(res.data.events);
+        });
+    }
+
+    function getEventsFromPersonNumber(
+        e: React.MouseEvent<HTMLLIElement, MouseEvent>,
+        personNumber: any
+    ) {
+        e.preventDefault();
+        api.get(`/api/events/personNumber/${personNumber}`, {
+            headers: { Authorization: `Bearer ${getToken()}` },
+        }).then((res) => {
+            setEvents(res.data.events);
+        });
     }
     return (
         <>
             <Navbar />
             <Content>
-            <Div className="products-page-wrapper">
+                <Div className="products-page-wrapper">
                     <Div className="products-page">
                         <Div className="products-grid">
                             <Div className="products-filter">
                                 <span className="filters-title">FILTROS</span>
                                 <Div className="filters-products">
                                     <ul>
-                                        <li
-                                            className="list-title"
-                                            onClick={() =>
-                                                setVisibleCategories(
-                                                    !visibleCategories
-                                                )
-                                            }
-                                        >
-                                            {visibleCategories ? (
-                                                <i className="las la-angle-up"></i>
-                                            ) : (
-                                                <i className="las la-angle-right"></i>
-                                            )}
-                                            <span>Categoria</span>
-                                        </li>
-                                        {visibleCategories && (
-                                            <>
-                                                {categories?.map((item: any) => (
-                                                    <li key={item.id}>{item.name}</li>
-                                                ))}
-                                            </>
-                                        )}
                                         <li
                                             className="list-title"
                                             onClick={() =>
@@ -78,10 +74,137 @@ export default function Events() {
                                         </li>
                                         {visiblePrices && (
                                             <>
-                                                <li>€50 - €100</li>
-                                                <li>€100 - €200</li>
-                                                <li>€200 - €500</li>
-                                                <li>€500 - €1000</li>
+                                                <li onClick={() => getEvents()}>
+                                                    Todos
+                                                </li>
+                                                <li
+                                                    onClick={(e) =>
+                                                        getEventsInPriceRange(
+                                                            e,
+                                                            "50",
+                                                            "100"
+                                                        )
+                                                    }
+                                                >
+                                                    €50 - €100
+                                                </li>
+                                                <li
+                                                    onClick={(e) =>
+                                                        getEventsInPriceRange(
+                                                            e,
+                                                            100,
+                                                            200
+                                                        )
+                                                    }
+                                                >
+                                                    €100 - €200
+                                                </li>
+                                                <li
+                                                    onClick={(e) =>
+                                                        getEventsInPriceRange(
+                                                            e,
+                                                            200,
+                                                            500
+                                                        )
+                                                    }
+                                                >
+                                                    €200 - €500
+                                                </li>
+                                                <li
+                                                    onClick={(e) =>
+                                                        getEventsInPriceRange(
+                                                            e,
+                                                            500,
+                                                            1000
+                                                        )
+                                                    }
+                                                >
+                                                    €500 - €1000
+                                                </li>
+                                            </>
+                                        )}
+                                        <li
+                                            className="list-title"
+                                            onClick={() =>
+                                                setVisiblePersonNumber(
+                                                    !visiblePersonNumber
+                                                )
+                                            }
+                                        >
+                                            {visiblePersonNumber ? (
+                                                <i className="las la-angle-up"></i>
+                                            ) : (
+                                                <i className="las la-angle-right"></i>
+                                            )}
+                                            <span>Número de pessoas</span>
+                                        </li>
+                                        {visiblePersonNumber && (
+                                            <>
+                                                <li
+                                                    onClick={(e) => getEvents()}
+                                                >
+                                                    Todos
+                                                </li>
+                                                <li
+                                                    onClick={(e) =>
+                                                        getEventsFromPersonNumber(
+                                                            e,
+                                                            2
+                                                        )
+                                                    }
+                                                >
+                                                    2 pessoas
+                                                </li>
+                                                <li
+                                                    onClick={(e) =>
+                                                        getEventsFromPersonNumber(
+                                                            e,
+                                                            3
+                                                        )
+                                                    }
+                                                >
+                                                    3 pessoas
+                                                </li>
+                                                <li
+                                                    onClick={(e) =>
+                                                        getEventsFromPersonNumber(
+                                                            e,
+                                                            4
+                                                        )
+                                                    }
+                                                >
+                                                    4 pessoas
+                                                </li>
+                                                <li
+                                                    onClick={(e) =>
+                                                        getEventsFromPersonNumber(
+                                                            e,
+                                                            5
+                                                        )
+                                                    }
+                                                >
+                                                    5 pessoas
+                                                </li>
+                                                <li
+                                                    onClick={(e) =>
+                                                        getEventsFromPersonNumber(
+                                                            e,
+                                                            6
+                                                        )
+                                                    }
+                                                >
+                                                    6 pessoas
+                                                </li>
+                                                <li
+                                                    onClick={(e) =>
+                                                        getEventsFromPersonNumber(
+                                                            e,
+                                                            7
+                                                        )
+                                                    }
+                                                >
+                                                    7 pessoas
+                                                </li>
                                             </>
                                         )}
                                     </ul>
@@ -144,5 +267,5 @@ export default function Events() {
                 </Div>
             </Content>
         </>
-    )
+    );
 }

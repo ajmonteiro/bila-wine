@@ -94,6 +94,13 @@ class AuthController extends Controller
     }
 
     public function userInfoChange(Request $request) {
-        return $request;
+        $user = User::where('id', Auth::user()->id)->update([
+            'name' => $request->username,
+            'email' => $request->email
+        ]);
+
+        return response()->json([
+            'success' => 1
+        ], 200);
     }
 }

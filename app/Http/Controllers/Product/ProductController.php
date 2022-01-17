@@ -92,4 +92,46 @@ class ProductController extends Controller
             'favorite' => $favorite->id
         ], 200);
     }
+
+    /**
+     *
+     * @param nr1 - lower number
+     * @param nr2 - higher number
+     *
+     * @return array products
+     */
+    public function getProductsInPriceRange($nr1, $nr2) {
+        $products = Product::whereBetween("price", [(int)$nr1, (int)$nr2])->get();
+
+        return response()->json([
+            'products' => $products
+        ], 200);
+    }
+
+    /**
+     *
+     * @param id id_category
+     * @return array products
+     *
+     */
+    public function getProductsFromCategory($id) {
+        $products = Product::where('id_category', $id)->get();
+
+        return response()->json([
+            'products' => $products
+        ], 200);
+    }
+
+    public function getFavoritesFromUser() {
+        $favorites = Favorite::where('id_user', Auth()->user()->id)
+        ->join('products', 'products.id', '=', 'favorites.id_product')
+        ->select([
+            'products.name as name',
+            'favorites.id as id'
+        ])->get();
+
+        return response()->json([
+            'favorites' => $favorites
+        ], 200);
+    }
 }

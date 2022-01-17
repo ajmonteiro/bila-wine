@@ -4,6 +4,7 @@ import api, { baseURL } from "../Data/Api";
 import { getToken } from "../Data/Auth";
 import { Button, Div, Paragraph, Title } from "../Layout/Layout";
 import TopMenu from "../Layout/Menu";
+import { ToastSuccess } from "../Layout/Toast";
 
 export default function ProductId() {
     const [product, setproduct] = useState<any>();
@@ -43,7 +44,9 @@ export default function ProductId() {
         form.append(`type`, `product`);
         api.post(`/api/cart`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
-        }).then((res) => {});
+        }).then((res) => {
+            ToastSuccess('Adicionado com sucesso')
+        });
     }
 
     function addToFavorites() {
@@ -55,6 +58,7 @@ export default function ProductId() {
         })
             .then((res) => {
                 console.log(res);
+                ToastSuccess('Adicionado aos favoritos');
             })
             .catch((err) => {
                 console.log(err);

@@ -4,6 +4,7 @@ import api, { baseURL } from "../Data/Api";
 import { getToken } from "../Data/Auth";
 import { Button, Div, Paragraph, Title } from "../Layout/Layout";
 import TopMenu from "../Layout/Menu";
+import { ToastSuccess } from "../Layout/Toast";
 
 export default function EventId() {
     const [event, setevent] = useState<any>();
@@ -44,6 +45,7 @@ export default function EventId() {
         api.post(`/api/cart`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
+            ToastSuccess("Adicionado com sucesso");
         });
     }
 
@@ -72,7 +74,12 @@ export default function EventId() {
                                 </span>
                             </Div>
                             <Div className="produto-add-cart flex justify-between items-center">
-                                <span className="font-bold text-2xl" style={{ color: '#a45459'}}>€{price}</span>
+                                <span
+                                    className="font-bold text-2xl"
+                                    style={{ color: "#a45459" }}
+                                >
+                                    €{price}
+                                </span>
                                 <Button
                                     text="ADICIONAR AO CARRINHO"
                                     onclick={(e) => addToCart(e, id)}

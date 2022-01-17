@@ -17,6 +17,7 @@ use App\Http\Controllers\Newsletter\NewsletterController;
 use App\Http\Controllers\Gift\GiftController;
 use App\Http\Controllers\Email\EmailController;
 use App\Http\Controllers\Banners\HomePageBannerController;
+use App\Http\Controllers\PdfController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -51,6 +52,7 @@ Route::group([
     Route::get('/role', [AuthController::class, 'role']);
     Route::get('/username', [AuthController::class, 'getUsername']);
     Route::get('/isadmin', [AuthController::class, 'userIsAdmin']);
+    Route::post('/user/update', [AuthController::class, 'userInfoChange']);
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'getDashboardInfo']);
@@ -64,7 +66,6 @@ Route::group([
     Route::get('/location/{id}', [LocationController::class, 'getById']);
     Route::put('/location/{id}', [LocationController::class, 'update']);
 
-    Route::post('/infofromuser', [AuthController::class, 'userInfoChange']);
 
     // Cellars
     Route::post('/cellar', [CellarController::class, 'create']);
@@ -80,6 +81,8 @@ Route::group([
     Route::get('/events/paginate', [EventController::class, 'all_paginate']);
     Route::get('/event/{id}', [EventController::class, 'getById']);
     Route::put('/event/{id}', [EventController::class, 'update']);
+    Route::get('/events/range/{nr1}/{nr2}', [EventController::class, 'getEventsInPriceRange']);
+    Route::get('/events/personNumber/{nr}', [EventController::class, 'getEventsFromPersonNumber']);
 
     // Products
     Route::post('/product', [ProductController::class, 'create']);
@@ -87,6 +90,12 @@ Route::group([
     Route::get('/products', [ProductController::class, 'all']);
     Route::get('/product/{id}', [ProductController::class, 'getById']);
     Route::post('/productFav', [ProductController::class, 'addProductToFavorites']);
+    Route::get('/products/range/{nr1}/{nr2}', [ProductController::class, 'getProductsInPriceRange']);
+    /**
+     * @param id - id_category
+     */
+    Route::get('/products/{id}', [ProductController::class, 'getProductsFromCategory']);
+
 
     // Banners Homepage
     Route::post('/banner', [HomePageBannerController::class, 'create']);
@@ -118,6 +127,8 @@ Route::group([
     Route::get('/orders', [OrderController::class, 'getAllOrdersFromUser']);
 
     // Favorites
+    Route::get('/favorites', [ProductController::class, 'getFavoritesFromUser']);
+
     // Email interaction
     Route::post('contact_us', [EmailController::class, 'contactUs']);
 
@@ -125,4 +136,5 @@ Route::group([
     Route::post('/stripe', [StripeController::class, 'pay']);
     Route::get('/getstripe', [StripeController::class, 'getReceipt']);
 
+    Route::get('/generate/{id}', [PdfController::class, 'generate']);
 });

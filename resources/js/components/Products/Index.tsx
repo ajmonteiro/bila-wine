@@ -49,6 +49,23 @@ export default function Products() {
             });
     }
 
+    function getProductsInPriceRange(e: React.MouseEvent<HTMLLIElement, MouseEvent>, nr1: any, nr2: any) {
+        e.preventDefault();
+        api.get(`/api/products/range/${nr1}/${nr2}`, { headers: { Authorization: `Bearer ${getToken()}`}
+        }).then((res) => {
+            setProducts(res.data.products);
+        })
+    }
+
+    function getProductsByCategory(e: React.MouseEvent<HTMLLIElement, MouseEvent>, id: any) {
+        e.preventDefault();
+
+        api.get(`/api/products/${id}`, { headers: { Authorization: `Bearer ${getToken()}`}
+        }).then((res) => {
+            setProducts(res.data.products);
+        })
+    }
+
     return (
         <>
             <Navbar />
@@ -78,7 +95,7 @@ export default function Products() {
                                         {visibleCategories && (
                                             <>
                                                 {categories?.map((item: any) => (
-                                                    <li key={item.id}>{item.name}</li>
+                                                    <li key={item.id} onClick={(e) => getProductsByCategory(e, item.id)}>{item.name}</li>
                                                 ))}
                                             </>
                                         )}
@@ -97,10 +114,11 @@ export default function Products() {
                                         </li>
                                         {visiblePrices && (
                                             <>
-                                                <li>€50 - €100</li>
-                                                <li>€100 - €200</li>
-                                                <li>€200 - €500</li>
-                                                <li>€500 - €1000</li>
+                                                <li onClick={() => getProducts()}>Todos</li>
+                                                <li onClick={(e) => getProductsInPriceRange(e, "50", "100")}>€50 - €100</li>
+                                                <li onClick={(e) => getProductsInPriceRange(e, 100, 200)}>€100 - €200</li>
+                                                <li onClick={(e) => getProductsInPriceRange(e, 200, 500)}>€200 - €500</li>
+                                                <li onClick={(e) => getProductsInPriceRange(e, 500, 1000)}>€500 - €1000</li>
                                             </>
                                         )}
                                     </ul>
@@ -109,7 +127,7 @@ export default function Products() {
                             <Div className="products-list-all">
                                 <Div className="products-filter-rev">
                                     <select className="select-product-filter">
-                                        <option>Relevância</option>
+                                        <option onClick={() => getProducts()}>Relevância</option>
                                         <option>Preço ascendente</option>
                                         <option>Preço descendente</option>
                                     </select>

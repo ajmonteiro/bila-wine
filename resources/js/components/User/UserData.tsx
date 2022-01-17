@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "../Data/Api";
 import { getToken } from "../Data/Auth";
 import { Button, Div } from "../Layout/Layout";
+import { ToastSuccess } from "../Layout/Toast";
 
 export default function UserData() {
     const [username, setUsername] = useState<any>();
@@ -22,10 +23,10 @@ export default function UserData() {
         const form = new FormData();
         form.append("username", username);
         form.append("email", email);
-        api.post(`/api/infofromuser`, {
+        api.post(`/api/user/update`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            console.log(res);
+            ToastSuccess()
         });
     }
     return (

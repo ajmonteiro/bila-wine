@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from "../Data/Api";
+import api, { baseURL } from "../Data/Api";
 import { getToken } from "../Data/Auth";
 import { TimeConverterFromUnix } from "../Data/Utils/DataConverters";
 import { Button, Div } from "../Layout/Layout";
@@ -16,6 +16,20 @@ export default function UserOrders() {
             })
             .catch((err) => console.log(err.response));
     }, []);
+
+    function downloadOrderFile(e: any, id: any) {
+        e.preventDefault();
+        api.get(`/api/generate/${id}`, { headers: { Authorization: `Bearer ${getToken()}`}
+        })
+        .then((res) => {
+            console.log(res)
+            const link = document.createElement("a");
+            link.href = baseURL() + '/' + res.data.link;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        })
+    }
     return (
         <>
             <Div>
@@ -43,6 +57,7 @@ export default function UserOrders() {
                                 </Div>
                             </Div>
                             <Div className="user-details-b">
+                                <Button text="DOWNLOAD" onclick={(e) => downloadOrderFile(e, item.id)} />
                                 <Button text="VER DETALHES" />
                             </Div>
                         </Div>

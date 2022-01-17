@@ -31,6 +31,7 @@ export default function Banner(props: BannerProps) {
                         perMove: 1,
                         arrows: false,
                         pagination: false,
+                        rewindSpeed: 2,
                     }}
                 >
                     {banners?.map((item: any) => (

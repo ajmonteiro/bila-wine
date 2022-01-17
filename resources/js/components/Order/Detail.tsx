@@ -31,11 +31,12 @@ export default function OrderDetail() {
     }, []);
 
     function getInfo(info: any) {
-        setinfo(info);
+        setinfo(JSON.parse(info));
     }
     function params(): { id: any } {
         return useParams();
     }
+
 
     function getOrderDetails() {
         api.get(`/api/order/${id}`, {
@@ -45,17 +46,13 @@ export default function OrderDetail() {
             //     window.open(`/`, `_self`);
             // }
             setProducts(objectToArray(JSON.parse(res.data.order.products)));
-            getInfo(info);
+            getInfo(res.data.order.info);
             setorder(res.data.order);
             setCreatedAt(res.data.order.created_at);
             setPrice(res.data.order.total_price);
-            settotal(res.data.order.total.toFixed(2));
-            setname(info.first_name + " " + info.last_name);
-            setemail(info.email);
+            settotal(res.data.order.total_price.toFixed(2));
             setState(res.data.order.state);
             setinvoiceid(res.data.order.id_invoice);
-            setPostalCode(info.postal_code);
-            setAddress(info.address);
         });
     }
 
@@ -81,8 +78,7 @@ export default function OrderDetail() {
         form.append(`id_order`, id);
         api.post(`/api/pay`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
-        }).then((res) => {
-        });
+        }).then((res) => {});
     }
 
     async function setActive(id: any) {
@@ -95,6 +91,7 @@ export default function OrderDetail() {
             }
         }
     }
+
     return (
         <>
             <TopMenu />
@@ -117,16 +114,16 @@ export default function OrderDetail() {
                             </Div>
                             <Div>
                                 <span>
-                                    Rua da Estreada, N6, Vila Seca
+                                    {info?.address}
                                     <br />
-                                    5000-022
+                                    {info?.postal_code}
                                 </span>
                             </Div>
                             <Div className="second-div-grid-top-order flex flex-col text-right">
                                 <span>
-                                    Américo Monteiro
+                                    {info?.first_name}{" "}{info?.last_name}
                                     <br />
-                                    americo.mnt@gmail.com
+                                    {info?.email}
                                 </span>
                             </Div>
                         </Div>
@@ -144,6 +141,7 @@ export default function OrderDetail() {
                                 <div
                                     className="order-product-in-table"
                                     onClick={() => setActive(item.id)}
+                                    key={item.id}
                                 >
                                     <span>{item.name}</span>
                                     <i className="las la-angle-right"></i>
@@ -155,6 +153,7 @@ export default function OrderDetail() {
                                         width: "70%",
                                         display: "none",
                                     }}
+                                    key={item.id}
                                 >
                                     <span>{item.description}</span>
                                     <span className="font-bold">

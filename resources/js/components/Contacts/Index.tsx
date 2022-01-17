@@ -37,7 +37,7 @@ export default function Contacts() {
                                     width="400"
                                     height="400"
                                     id="gmap_canvas"
-                                    src="https://maps.google.com/maps?q=Rua%20da%20Estreada,%20N6,%20Vila%20seca&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48059.70956670404!2d-8.657058889814364!3d41.16220223938957!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2465abc4e153c1%3A0xa648d95640b114bc!2sPorto!5e0!3m2!1spt-PT!2spt!4v1642418702580!5m2!1spt-PT!2spt"
                                     frameBorder="0"
                                     scrolling="no"
                                     marginHeight={0}

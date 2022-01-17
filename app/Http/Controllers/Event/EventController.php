@@ -70,7 +70,7 @@ class EventController extends Controller
 
     public function getById($id) {
         $event = Event::where('id', $id)->get()[0];
-        
+
         if(!$event) {
             return response()->json([
                 'event' => 'This event does not exist'
@@ -79,6 +79,29 @@ class EventController extends Controller
 
         return response()->json([
             'event' => $event
+        ], 200);
+    }
+
+    /**
+     *
+     * @param nr1 - lower number
+     * @param nr2 - higher number
+     *
+     * @return array events
+     */
+    public function getEventsInPriceRange($nr1, $nr2) {
+        $events = Event::whereBetween("price", [(int)$nr1, (int)$nr2])->get();
+
+        return response()->json([
+            'events' => $events
+        ], 200);
+    }
+
+    public function getEventsFromPersonNumber($nr) {
+        $events = Event::where("person_number", $nr)->get();
+
+        return response()->json([
+            'events' => $events
         ], 200);
     }
 }
