@@ -38,7 +38,7 @@ export default function Newsletter() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
-                            <button className="newsletter-button">Subscrever</button>
+                            <button className="newsletter-button" onClick={() => submitNewsletter()}>Subscrever</button>
                         </Div>
                     </Div>
                 </Div>

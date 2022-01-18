@@ -17,12 +17,14 @@ import {
     Title,
     Button,
 } from "../../Layout/Layout";
+import ButtonGoBack from "./ButtonGoBack";
 import Dashboard from "./Dashboard";
 
 export default function DashboardLayout() {
     return (
         <>
-        <Dashboard />
+            <Dashboard />
+            <ButtonGoBack />
         </>
     );
 }

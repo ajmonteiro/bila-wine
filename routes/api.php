@@ -114,6 +114,7 @@ Route::group([
 
     // Newsletter
     Route::post('/newsletter', [NewsletterController::class, 'create']);
+    Route::post('/sendNewsletter', [NewsletterController::class, 'sendNewsletter']);
 
     // Gift
     Route::post('/gift', [GiftController::class, 'create']);

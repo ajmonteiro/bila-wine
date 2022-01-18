@@ -13,12 +13,15 @@ interface BannerProps {
 export default function Banner(props: BannerProps) {
     const [banners, setbanners] = useState<any>();
 
-    useEffect(() => {
+    function getBanners() {
         api.get(`/api/banners`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
             setbanners(res.data.banners);
-        });
+        })
+    }
+    useEffect(() => {
+        getBanners();
     }, []);
     return (
         <>

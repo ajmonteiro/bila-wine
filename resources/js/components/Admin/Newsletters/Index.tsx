@@ -19,27 +19,18 @@ import { ToastError, ToastSuccess } from "../../Layout/Toast";
 import DashboardLayout from "../Layout/DashboardLayout";
 
 export default function Newsletters() {
+    const [text, setText] = useState<any>();
 
-    // const [newsletters, setnewsletters] = useState<any>();
-    // const [name, setName] = useState<any>();
 
-    // function getNewsletter(page = 1) {
-    //     api.get(`/api/newsletters/paginate?page=${page}`, {
-    //         headers: { Authorization: `Bearer ${getToken()}` },
-    //     }).then((res) => {
-    //         setnewsletters(res.data.newsletters);
-    //     });
-    // }
+    function sendNewsletter(e: any) {
+        const form = new FormData
+        form.append(`text`, text)
 
-    // useEffect(() => {
-    //     getNewsletter();
-    // }, []);
-
-    function sendNewsletter() {
-
+        api.post(`/api/sendNewsletter`, form, { headers: { Authorization: `Bearer ${getToken()}`}
+        }).then((res) => {
+            console.log(res)
+        })
     }
-
-    function create(e: any) {}
 
     return (
         <>
@@ -53,43 +44,25 @@ export default function Newsletters() {
                                 </h2>
                             </Div>
                             <Div className="card-body">
-                        <div
-                            style={{
-                                border: "1px solid black",
-                                padding: "2px",
-                                minHeight: "400px",
-                            }}
-                        >
-                        </div>
-                        <button onClick={() => sendNewsletter()}>Enviar</button>
-                    </Div>
-                    </Div>
-                    </Div>
-                    <Div className="users">
-                        <Div className="card">
-                            <Div className="card-header">
-                                <h2 className="text-2xl">Categorias</h2>
-                            </Div>
-                            <Div className="card-body">
-                                <Div className="customer">
-                                    <Div className="info">
-                                        <table className="table-responsive w-full">
-                                            <thead>
-                                                <tr>
-                                                    <td>#</td>
-                                                    <td>Nome</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                               
-                                            </tbody>
-                                        </table>
-                                    </Div>
-                                </Div>
+                                <div>
+                                    <textarea
+                                        className="rounded-lg border-transparent flex-1 m-3 appearance-none
+                            border border-gray-300 w-full py-2 px-4 bg-white
+                            text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none
+                            focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                                        value={text}
+                                        onChange={(e) =>
+                                            setText(e.target.value)
+                                        }
+                                    ></textarea>
+                                </div>
+                                <button onClick={(e) => sendNewsletter(e)}>
+                                    Enviar
+                                </button>
                             </Div>
                         </Div>
                     </Div>
-                    </Div>
+                </Div>
             </main>
         </>
     );
