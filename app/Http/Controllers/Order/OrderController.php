@@ -11,6 +11,7 @@ use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Invoice;
 use DB;
+use Mail;
 
 class OrderController extends Controller
 {
@@ -81,7 +82,7 @@ class OrderController extends Controller
         $order->products = '{'.$product_info.'}';
         $order->state = 0;
         $order->total_price = floatval($total);
-        
+
         $order->save();
 
         return response()->json([
@@ -90,10 +91,10 @@ class OrderController extends Controller
     }
 
     /**
-     * 
+     *
      * @param id order_id
      * @return array
-     * 
+     *
      */
     public function getOrderById($id) {
         $order = Order::where('id_secret', $id)->first();
@@ -104,9 +105,31 @@ class OrderController extends Controller
     }
 
     public function updateState(Request $request) {
+        $invoice = Order::where('id_secret', $request->id)->get()[0];
         $order = Order::where('id_secret', $request->id)->update([
             'state' => '1'
         ]);
+
+        $products = json_decode($invoice->products, true);
+        $info = json_decode($invoice->info, true);
+
+        $inv = $invoice->id_invoice;
+        $subject = "BILAWINE - COMPRA #$inv";
+        $to_name = Auth()->user()->name;
+        $to_email = "americo.mnt@gmail.com";
+
+        $data = [
+            'body' => "Obrigado pela sua compra!",
+            'subject' => "BILAWINE - COMPRA #$inv",
+            'order' => $invoice,
+            'products' => $products,
+            'info' => $info
+        ];
+
+        Mail::send('order.email',$data, function($message) use ($to_name,$to_email,$subject){
+            $message->to($to_email,$to_name)->subject($subject);
+            $message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+        });
 
         return response()->json([
             'order' => $order

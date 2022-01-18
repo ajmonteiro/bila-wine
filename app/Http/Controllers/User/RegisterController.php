@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -31,6 +32,21 @@ class RegisterController extends Controller
             $user->image = "/storage/${image_path}";
 
             $user->save();
+
+            $userid = $user->id;
+            $to_email = $request->email;
+            $to_name = $request->name;
+            $subject = "BILAWINE - UTILIZADOR $userid";
+            $data = [
+                'body' => "Obrigado por se registar!",
+                'subject' => "BILAWINE - UTILIZADOR $userid",
+                'verify' => env('APP_URL').'ativar/email/'.$userid
+            ];
+
+            Mail::send('register.email',$data, function($message) use ($to_name,$to_email,$subject){
+                $message->to($to_email,$to_name)->subject($subject);
+                $message->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'));
+            });
         }
 
         return response()->json([

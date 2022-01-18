@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use DB;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -81,10 +82,16 @@ class AuthController extends Controller
     }
 
     public function userIsAdmin() {
-        $isAdmin = DB::table('user_role')->where('id_user', Auth::user()->id)->pluck('id_role')[0];
+        $isAdmin = DB::table('user_role')->where('id_user', Auth::user()->id)->pluck('id_role');
+        if($isAdmin->isEmpty()) {
+            return response()->json([
+                'admin' => 0
+            ], 200);
+        }
+
         $admin = 0;
 
-        if($isAdmin == '2') {
+        if($role == '2') {
             $admin = 1;
         }
 
@@ -97,6 +104,16 @@ class AuthController extends Controller
         $user = User::where('id', Auth::user()->id)->update([
             'name' => $request->username,
             'email' => $request->email
+        ]);
+
+        return response()->json([
+            'success' => 1
+        ], 200);
+    }
+
+    public function userCheckEmail($id) {
+        $user = User::where('id', $id)->update([
+            'email_verified_at' => Carbon::now()
         ]);
 
         return response()->json([

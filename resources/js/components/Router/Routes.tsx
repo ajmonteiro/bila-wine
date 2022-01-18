@@ -22,6 +22,7 @@ import Contacts from "../Contacts/Index";
 import User from "../User/Index";
 import Faqs from "../Faqs/Index";
 import EventId from "../Event/Index";
+import ActivateEmail from "../Email/ActivateEmail";
 
 export default function Routes() {
     const [hasAdminRole, setHasAdminRole] = useState<any>();
@@ -64,6 +65,7 @@ export default function Routes() {
                     <Route exact path="/contactos" component={Contacts} />
                     <Route exact path="/utilizador" component={User} />
                     <Route exact path="/faqs" component={Faqs} />
+                    <Route exact path="/ativar/email/:id" component={ActivateEmail} />
 
                     <Route path="*" exact={true} component={NotFound} />
                 </Switch>

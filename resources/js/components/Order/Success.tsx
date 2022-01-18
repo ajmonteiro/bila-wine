@@ -18,7 +18,7 @@ export default function SuccessPay() {
         api.post(`/api/order/state`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-
+            console.log(res)
         });
     }, []);
 
