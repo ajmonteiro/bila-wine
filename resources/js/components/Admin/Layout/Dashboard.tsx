@@ -106,7 +106,7 @@ export default function Dashboard() {
                                 <span>Categorias</span>
                             </Div>
                         </li>
-                        <li>
+                        {/* <li>
                             <Div
                                 id="4"
                                 className="list-item cursor-pointer"
@@ -117,8 +117,8 @@ export default function Dashboard() {
                                 <span className="las la-barcode"></span>
                                 <span>Adegas</span>
                             </Div>
-                        </li>
-                        <li>
+                        </li> */}
+                        {/* <li>
                             <Div
                                 id="5"
                                 className="list-item cursor-pointer"
@@ -129,7 +129,7 @@ export default function Dashboard() {
                                 <span className="las la-map"></span>
                                 <span>Localizações</span>
                             </Div>
-                        </li>
+                        </li> */}
                         <li>
                             <Div
                                 id="6"
@@ -154,7 +154,7 @@ export default function Dashboard() {
                                 <span>Newsletter</span>
                             </Div>
                         </li>
-                        <li>
+                        {/* <li>
                             <Div
                                 id="8"
                                 className="list-item cursor-pointer"
@@ -165,7 +165,7 @@ export default function Dashboard() {
                                 <span className="las la-gift"></span>
                                 <span>Presentes</span>
                             </Div>
-                        </li>
+                        </li> */}
                         <li>
                             <Div
                                 id="9"

@@ -116,7 +116,7 @@ class OrderController extends Controller
         $inv = $invoice->id_invoice;
         $subject = "BILAWINE - COMPRA #$inv";
         $to_name = Auth()->user()->name;
-        $to_email = "americo.mnt@gmail.com";
+        $to_email = $info["email"];
 
         $data = [
             'body' => "Obrigado pela sua compra!",
@@ -150,6 +150,14 @@ class OrderController extends Controller
 
         return response()->json([
             'orders' => $orders
+        ], 200);
+    }
+
+    public function checkState($id) {
+        $order = Order::where('id_secret', $id)->pluck('state')[0];
+
+        return response()->json([
+            'order' => $order
         ], 200);
     }
 }

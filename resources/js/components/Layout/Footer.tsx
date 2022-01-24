@@ -31,10 +31,10 @@ export default function Footer() {
                             <h4
                                 className="flex justify-center cursor-pointer"
                                 onClick={() =>
-                                    window.open(`/sobre-bilawine`, `_self`)
+                                    window.open(`/mapa-do-site`, `_self`)
                                 }
                             >
-                                LINKS ÚTEIS
+                                MAPA DO SITE
                             </h4>
                         </Div>
                         <Div className="footer-col">

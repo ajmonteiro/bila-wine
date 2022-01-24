@@ -451,6 +451,9 @@ td .status {
 }
 
 @media only screen and (max-width: 560px) {
+    .user-wrapper {
+        display: none;
+    }
     .cards {
         grid-template-columns: repeat(1, 1fr);
     }

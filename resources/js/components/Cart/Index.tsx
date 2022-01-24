@@ -157,7 +157,7 @@ export function CartPage(props: any) {
                     ) : (
                         <Div className="mt-10">
                             <h1 className="text-4xl">
-                                NÃO EXISTE ITEMS NO CARRINHO
+                                NÃO EXISTEM ITEMS NO CARRINHO
                             </h1>
                         </Div>
                     )}

@@ -28,7 +28,7 @@ class StripeController extends Controller
             'quantity' => 1,
           ]],
           'mode' => 'payment',
-          'success_url' => env("APP_URL").'order/success/' . $request->id_secret .'/',
+          'success_url' => env("APP_URL").'/order/success/' . $request->id_secret .'/',
           'cancel_url' => env("APP_URL").'/order/error/'. $request->id_order,
 
         ]);

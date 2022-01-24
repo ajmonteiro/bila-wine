@@ -22,7 +22,7 @@ export default function Favorites() {
                 </Div>
                 <Div className="favorites-grid">
                     {favorites?.map((item: { id: number, name: string }) => (
-                        <Div key={item.id}>
+                        <Div key={item.id} onclick={() => window.open(`/produto/${item.id}`)}>
                             {item.name}
                         </Div>
                     ))}

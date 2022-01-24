@@ -6,7 +6,6 @@ import Index from "../Auth/Index";
 import Login from "../Auth/Login";
 import Register from "../Auth/Register";
 import Cart from "../Cart/Index";
-import Chat from "../Chat/Chat";
 import NotFound from "../Layout/NotFound";
 import OrderDetail from "../Order/Detail";
 import SuccessPay from "../Order/Success";
@@ -24,6 +23,7 @@ import Faqs from "../Faqs/Index";
 import EventId from "../Event/Index";
 import ActivateEmail from "../Email/ActivateEmail";
 import About from "../About/Index";
+import SiteMap from "../SiteMap/Index";
 
 export default function Routes() {
     const [hasAdminRole, setHasAdminRole] = useState<any>();
@@ -55,7 +55,6 @@ export default function Routes() {
                         {(hasAdminRole && hasAdminRole == 'Admin') && <DashboardLayout />}
                     </Route>
                     <Route exact path="/sobre-bilawine" component={About} />
-                    <Route exact path="/chat" component={Chat} />
                     <Route exact path="/carrinho" component={Cart} />
                     <Route exact path="/produto/:id" component={ProductId} />
                     <Route exact path="/evento/:id" component={EventId} />
@@ -67,6 +66,7 @@ export default function Routes() {
                     <Route exact path="/contactos" component={Contacts} />
                     <Route exact path="/utilizador" component={User} />
                     <Route exact path="/faqs" component={Faqs} />
+                    <Route exact path="/mapa-do-site" component={SiteMap} />
                     <Route exact path="/ativar/email/:id" component={ActivateEmail} />
 
                     <Route path="*" exact={true} component={NotFound} />

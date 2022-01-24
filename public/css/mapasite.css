@@ -1,0 +1,43 @@
+.mapa-do-site {
+    width: 100vw;
+}
+
+.mapa-div {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    -webkit-box-shadow: 0 0 5px hsl(0deg 0% 70% / 50%);
+    box-shadow: 0 0 5px hsl(0deg 0% 70% / 50%);
+    padding: 1.2rem;
+}
+
+.mapa-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.mapa-grid div {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.mapa-grid div ul {
+    margin-top: 1.5rem;
+    list-style: circle;
+}
+
+.mapa-grid div ul li {
+    margin: 0.6rem;
+    cursor: pointer;
+}
+
+.mapa-grid div ul li:hover {
+    transition: 0.5s ease all;
+    margin-left: 1rem;
+}
+.mapa-grid div h1 {
+    font-size: 1.1rem;
+    font-weight: bold;
+}

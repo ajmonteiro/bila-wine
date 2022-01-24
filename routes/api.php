@@ -125,6 +125,7 @@ Route::group([
     Route::get('/order/{id}', [OrderController::class, 'getOrderById']);
     Route::post('/pay', [OrderController::class, 'payInvoice']);
     Route::post('/order/state', [OrderController::class, 'updateState']);
+    Route::get('/checkstate/{id}', [OrderController::class, 'checkState']);
     Route::get('/lastorder', [OrderController::class, 'getLastOrderByUser']);
     Route::get('/orders', [OrderController::class, 'getAllOrdersFromUser']);
 

@@ -440,7 +440,7 @@ button {
     transition: .3s;
 }
 
-.faqs-grid div {
+.faqs-grid .faq-div {
     background-color: #F8F8F9;
     border-bottom: 1px solid #ddd;
     padding: 20px 30px;
@@ -450,7 +450,7 @@ button {
 }
 
 .faqs-grid div span {
-    font-size: 1.3rem;
+    font-size: 0.9rem;
     font-weight: 600;
 }
 

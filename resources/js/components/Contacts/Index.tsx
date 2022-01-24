@@ -113,7 +113,6 @@ export function ContactForm() {
                         placeholder="Mensagem"
                     ></textarea>
                 </Div>
-                <Div></Div>
                 <Button text={"Submeter"} onclick={(e) => handleSubmit(e)}></Button>
             </Div>
         </>

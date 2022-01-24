@@ -24,6 +24,7 @@
         <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
         <link href="{{ asset('css/order.css') }}" rel="stylesheet">
         <link href="{{ asset('css/aboutbilawine.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/mapasite.css') }}" rel="stylesheet">
 
         <style>
             body {
