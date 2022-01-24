@@ -1,0 +1,95 @@
+.about-bilawine-wrapper {
+    width: 100vw;
+}
+
+.about-bilawine-div {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    -webkit-box-shadow: 0 0 5px hsl(0deg 0% 70% / 50%);
+    box-shadow: 0 0 5px hsl(0deg 0% 70% / 50%);
+}
+
+.about-bilawine-content {
+    margin: 30px;
+    padding: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+    .about-bilawine-div {
+        width: 90%;
+    }
+}
+
+.ul-for-contacts li::before {
+    content: "\2022";
+    color: #a45459;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+.contacts-grid-bilawine {
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+.contacts-flex-bi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contacts-contacts-pt .contacts-c-pt {
+    border-left: 4px solid #a45459;
+    -webkit-box-shadow: 0 0 5px hsl(0deg 0% 70% / 50%);
+    box-shadow: 0 0 5px hsl(0deg 0% 70% / 50%);
+    text-align: center;
+    padding: 2rem;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.contacts-contacts-pt .contacts-c-pt span {
+    color: #a45459;
+    font-weight: bold;
+}
+
+.contact-form-grid {
+    display: grid;
+    grid-template-columns: 40%;
+}
+
+.userdata-div button {
+    width: 30%;
+    margin-left: 1.5rem;
+}
+.userdata-div div textarea {
+    border: 1px solid black;
+    padding: 10px 20px;
+    outline: none;
+}
+
+.userdata-div div textarea:focus {
+    box-shadow: 2px 1px 1px black;
+}
+
+@media screen and (max-width: 860px) {
+    .contacts-grid-bilawine {
+        grid-template-columns: 1fr;
+    }
+
+    .contacts-contacts-pt .contacts-c-pt {
+        margin-top: 1.5rem;
+    }
+
+    .userdata-div button {
+        display: flex;
+        justify-self: center;
+        align-items: center;
+        text-align: center;
+    }
+}

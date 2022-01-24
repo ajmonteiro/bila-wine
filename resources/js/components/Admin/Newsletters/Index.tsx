@@ -28,7 +28,7 @@ export default function Newsletters() {
 
         api.post(`/api/sendNewsletter`, form, { headers: { Authorization: `Bearer ${getToken()}`}
         }).then((res) => {
-            console.log(res)
+            ToastSuccess
         })
     }
 
@@ -44,7 +44,7 @@ export default function Newsletters() {
                                 </h2>
                             </Div>
                             <Div className="card-body">
-                                <div>
+                                <div className="flex justify-center">
                                     <textarea
                                         className="rounded-lg border-transparent flex-1 m-3 appearance-none
                             border border-gray-300 w-full py-2 px-4 bg-white

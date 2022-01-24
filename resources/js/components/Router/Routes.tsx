@@ -23,6 +23,7 @@ import User from "../User/Index";
 import Faqs from "../Faqs/Index";
 import EventId from "../Event/Index";
 import ActivateEmail from "../Email/ActivateEmail";
+import About from "../About/Index";
 
 export default function Routes() {
     const [hasAdminRole, setHasAdminRole] = useState<any>();
@@ -53,6 +54,7 @@ export default function Routes() {
                         )}
                         {(hasAdminRole && hasAdminRole == 'Admin') && <DashboardLayout />}
                     </Route>
+                    <Route exact path="/sobre-bilawine" component={About} />
                     <Route exact path="/chat" component={Chat} />
                     <Route exact path="/carrinho" component={Cart} />
                     <Route exact path="/produto/:id" component={ProductId} />

@@ -47,13 +47,17 @@ export function Menu() {
 
     function getUsername() {
         api.get(`/api/username`, {
-            headers: { Authorization: `Bearer ${getToken()}`},
+            headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            setUsername(res.data.username)
+            setUsername(res.data.username);
         });
     }
     function goLogout() {
-        api.post(`/api/logout`, {}, { headers: { Authorization: `Bearer ${getToken()}` } })
+        api.post(
+            `/api/logout`,
+            {},
+            { headers: { Authorization: `Bearer ${getToken()}` } }
+        )
             .then((res) => {
                 logout();
                 history.push("/");
@@ -65,13 +69,16 @@ export function Menu() {
     }
 
     function isUserAdmin() {
-        api.get(`/api/isadmin`, { headers: { Authorization: `Bearer ${getToken()}` } })
-        .then((res) => {
-            setIsAdmin(res.data.admin)
-            console.log(res)
-        }).catch((err) => {
-            console.log(err)
+        api.get(`/api/isadmin`, {
+            headers: { Authorization: `Bearer ${getToken()}` },
         })
+            .then((res) => {
+                setIsAdmin(res.data.admin);
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
     return (
         <>
@@ -81,9 +88,7 @@ export function Menu() {
                         className="bila-wine-top cursor-pointer"
                         onclick={() => goPage()}
                     >
-                        <span>
-                            BILAWINE
-                        </span>
+                        <span>BILAWINE</span>
                     </Div>
                     <Div className="search-input cursor-pointer">
                         <input
@@ -134,11 +139,12 @@ export function Menu() {
                         <Div onclick={() => window.open(`/eventos`, `_self`)}>
                             <li>EVENTOS</li>
                         </Div>
-                        <Div>
-                            <li>PRESENTES</li>
-                        </Div>
-                        <Div>
-                            <li>EMPRESAS</li>
+                        <Div
+                            onclick={() =>
+                                window.open(`/sobre-bilawine`, `_self`)
+                            }
+                        >
+                            <li>SOBRE</li>
                         </Div>
                         <Div
                             className="noborder"
@@ -146,13 +152,17 @@ export function Menu() {
                         >
                             <li>CONTACTOS</li>
                         </Div>
+
+                        <Div></Div>
                         <Div className="spacer user-bottom-nav-low">
                             <Div
                                 className="flex flex-row noborder dropdown-m"
                                 onclick={(e) => setUserDropDown(!userDropdown)}
                             >
                                 <li>
-                                    <span className="uppercase">OLÁ {username}</span>
+                                    <span className="uppercase">
+                                        OLÁ {username}
+                                    </span>
                                 </li>
                                 <i className="las la-angle-down"></i>
                             </Div>

@@ -23,6 +23,7 @@
         <link href="{{ asset('css/eventos.css') }}" rel="stylesheet">
         <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
         <link href="{{ asset('css/order.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/aboutbilawine.css') }}" rel="stylesheet">
 
         <style>
             body {

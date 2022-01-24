@@ -58,7 +58,13 @@ export default function Dashboard() {
             <Div className="sidebar">
                 <Div className="sidebar-brand">
                     <h1 className="text-3xl">
-                        <span className="lab la-accusoft"></span>
+                        <span>
+                            {" "}
+                            <img
+                                src={baseURL() + "/static/assinatura.png"}
+                                width={"30px"}
+                            />
+                        </span>
                         <span>BILAWINE</span>
                     </h1>
                 </Div>
@@ -156,7 +162,7 @@ export default function Dashboard() {
                                     changeActive(e), setvisible("gift");
                                 }}
                             >
-                                <span className="las la-newspaper"></span>
+                                <span className="las la-gift"></span>
                                 <span>Presentes</span>
                             </Div>
                         </li>
@@ -168,8 +174,17 @@ export default function Dashboard() {
                                     changeActive(e), setvisible("banners");
                                 }}
                             >
-                                <span className="las la-newspaper"></span>
+                                <span className="las la-images"></span>
                                 <span>Banners</span>
+                            </Div>
+                        </li>
+                        <li>
+                            <Div
+                                className="list-item cursor-pointer"
+                                onclick={(e: any) => window.open(`/`, `_self`)}
+                            >
+                                <span className="las la-undo"></span>
+                                <span className="font-bold">Voltar</span>
                             </Div>
                         </li>
                     </ul>

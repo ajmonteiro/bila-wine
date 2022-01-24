@@ -8,79 +8,44 @@ export default function Footer() {
                 <Div className="footer-container">
                     <Div className="footer-row">
                         <Div className="footer-col">
-                            <h4 className="flex justify-center">
-                                APOIO AO CLIENTE
+                            <h4
+                                className="flex justify-center cursor-pointer"
+                                onClick={() =>
+                                    window.open(`/contactos`, `_self`)
+                                }
+                            >
+                                CONTACTOS
                             </h4>
-                            <ul className="flex flex-col items-center">
-                                <li>
-                                    <a href="#">about us</a>
-                                </li>
-                                <li>
-                                    <a href="#">our services</a>
-                                </li>
-                                <li>
-                                    <a href="#">privacy policy</a>
-                                </li>
-                                <li>
-                                    <a href="#">affiliate program</a>
-                                </li>
-                            </ul>
                         </Div>
                         <Div className="footer-col">
-                            <h4 className="flex justify-center">
+                            <h4
+                                className="flex justify-center cursor-pointer"
+                                onClick={() =>
+                                    window.open(`/sobre-bilawine`, `_self`)
+                                }
+                            >
                                 SOBRE BILAWINE
                             </h4>
-                            <ul className="flex flex-col items-center">
-                                <li>
-                                    <a href="#">FAQ</a>
-                                </li>
-                                <li>
-                                    <a href="#">shipping</a>
-                                </li>
-                                <li>
-                                    <a href="#">returns</a>
-                                </li>
-                                <li>
-                                    <a href="#">order status</a>
-                                </li>
-                                <li>
-                                    <a href="#">payment options</a>
-                                </li>
-                            </ul>
                         </Div>
                         <Div className="footer-col">
-                            <h4 className="flex justify-center">LINKS ÚTEIS</h4>
-                            <ul className="flex flex-col items-center">
-                                <li>
-                                    <a href="#">watch</a>
-                                </li>
-                                <li>
-                                    <a href="#">bag</a>
-                                </li>
-                                <li>
-                                    <a href="#">shoes</a>
-                                </li>
-                                <li>
-                                    <a href="#">dress</a>
-                                </li>
-                            </ul>
+                            <h4
+                                className="flex justify-center cursor-pointer"
+                                onClick={() =>
+                                    window.open(`/sobre-bilawine`, `_self`)
+                                }
+                            >
+                                LINKS ÚTEIS
+                            </h4>
                         </Div>
                         <Div className="footer-col">
-                            <h4 className="flex justify-center">OPINIÃO</h4>
-                            <ul className="flex flex-col items-center">
-                                <li>
-                                    <a href="#">watch</a>
-                                </li>
-                                <li>
-                                    <a href="#">bag</a>
-                                </li>
-                                <li>
-                                    <a href="#">shoes</a>
-                                </li>
-                                <li>
-                                    <a href="#">dress</a>
-                                </li>
-                            </ul>
+                            <h4
+                                className="flex justify-center cursor-pointer"
+                                onClick={() =>
+                                    window.open(`/sobre-bilawine`, `_self`)
+                                }
+                            >
+                                OPINIÃO
+                            </h4>
                         </Div>
                     </Div>
                     <hr className="w-full mt-10 text-black" />
