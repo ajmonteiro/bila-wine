@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TopMenu from "../Layout/Menu";
-import { Button, Div, Input, Title } from "../Layout/Layout";
+import { Button, ButtonForm, Div, Input, Title } from "../Layout/Layout";
 import api, { baseURL } from "../Data/Api";
 import { getToken } from "../Data/Auth";
 import { ToastSuccess } from "../Layout/Toast";
@@ -113,7 +113,9 @@ export function ContactForm() {
                         placeholder="Mensagem"
                     ></textarea>
                 </Div>
-                <Button text={"Submeter"} onclick={(e) => handleSubmit(e)}></Button>
+                <Div className="flex justify-start">
+                    <ButtonForm text="Submeter" onclick={(e) => handleSubmit(e)} />
+                </Div>
             </Div>
         </>
     );

@@ -1,26 +1,30 @@
 import React, { useState } from "react";
 import { baseURL } from "../Data/Api";
-// import Pagination from "react-js-pagination";
-// require("bootstrap/less/bootstrap.less");
-// interface PaginationProps {
-//     // totalItems: 5
-//     onChange: () => any
-//     activePage: number
-// }
 
-// export function Paginate(props: PaginationProps) {
-//     return (
-//         <>
-//             <Pagination
-//                 totalItemsCount={5}
-//                 activePage={props.activePage}
-//                 onChange={() => props.onChange}
-//                 itemClass="page-item"
-//                 linkClass="page-link"
-//             />
-//         </>
-//     )
-// }
+interface ButtonFormProps {
+    className?: string,
+    text?: string,
+    onclick?: (e: any) => void
+}
+
+export function ButtonForm(props: ButtonFormProps) {
+    return (
+        <>
+            <button className={props.className} style={{
+                backgroundColor: "#a45459",
+                display: "flex",
+                justifyContent: "center",
+                padding: "10px 30px",
+                margin: "0px auto",
+                alignItems: "center",
+                textAlign: "center",
+                color: "white",
+                flexWrap: "nowrap",
+                width: "100%"
+            }} onClick={props.onclick}>{props.text}</button>
+        </>
+    )
+}
 
 interface AdminMenuItemProps {
     text: string;

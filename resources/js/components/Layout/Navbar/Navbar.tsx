@@ -27,7 +27,7 @@ export function Menu() {
     const [userDropdown, setUserDropDown] = useState<any>(false);
     const [isAdmin, setIsAdmin] = useState<any>(1);
     const [username, setUsername] = useState();
-
+    const [visibleMobile, setVisibleMobile] = useState<any>(false);
     const history = useHistory();
     function handleSearchView(value: any) {
         setSearchInput(value);
@@ -80,6 +80,14 @@ export function Menu() {
                 console.log(err);
             });
     }
+
+    useEffect(() => {
+        if(window.innerWidth < 500) {
+            setVisibleMobile(false);
+        } else {
+            setVisibleMobile(true);
+        }
+    }, [window.innerWidth])
     return (
         <>
             <Div className="top-nav">
@@ -133,6 +141,19 @@ export function Menu() {
             <Div className="bottom-nav">
                 <Div className="bottom-nav-container">
                     <ul className="bottom-nav-grid">
+                        <div
+                            className="hiddenMenuMobile"
+                            onClick={() => setVisibleMobile(!visibleMobile)}
+                            style={{
+                                display: "none",
+                            }}
+                        >
+                            <li className=" moveToLeft">
+                                <i className="las la-stream text-2xl"></i>
+                            </li>
+                        </div>
+                        {visibleMobile &&
+                        <>
                         <Div onclick={() => window.open(`/produtos`, `_self`)}>
                             <li>PRODUTOS</li>
                         </Div>
@@ -146,11 +167,7 @@ export function Menu() {
                         >
                             <li>SOBRE</li>
                         </Div>
-                        <Div
-                            onclick={() =>
-                                window.open(`/faqs`, `_self`)
-                            }
-                        >
+                        <Div onclick={() => window.open(`/faqs`, `_self`)}>
                             <li>FAQS</li>
                         </Div>
                         <Div
@@ -222,7 +239,7 @@ export function Menu() {
                                     </li>
                                 </nav>
                             )}
-                        </Div>
+                        </Div></>}
                     </ul>
                 </Div>
             </Div>

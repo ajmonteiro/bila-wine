@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import api from "../Data/Api";
-import { Button, Div, Form, Input, Paragraph, Title } from "../Layout/Layout";
+import { Button, ButtonForm, Div, Form, Input, Paragraph, Title } from "../Layout/Layout";
 import { loginlocal } from "../Data/Auth";
 import { getToken } from "../Data/Auth";
 import { ToastError } from "../Layout/Toast";
@@ -94,15 +94,7 @@ export default function Login(props: VisibleProps) {
                                     </a>
                                 </div>
 
-                                <button
-                                    onClick={(e) => login(e)}
-                                    className="text-center w-full rounded-full text-white py-3 font-medium"
-                                    style={{
-                                        backgroundColor: '#a45459'
-                                    }}
-                                >
-                                    Login
-                                </button>
+                                <ButtonForm className="mt-10" text="Login" onclick={(e) => login(e)} />
                             </form>
                         </div>
 

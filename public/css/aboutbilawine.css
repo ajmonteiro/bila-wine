@@ -6,6 +6,8 @@
     width: 70%;
     margin: 0 auto;
     background-color: white;
+    -webkit-box-shadow: 0 0 5px hsl(0deg 0% 70% / 50%);
+    box-shadow: 0 0 5px hsl(0deg 0% 70% / 50%);
 }
 
 .about-bilawine-content {

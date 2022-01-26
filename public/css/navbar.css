@@ -205,6 +205,11 @@
 }
 
 @media screen and (max-width: 500px) {
+
+    .hiddenMenuMobile {
+        display: flex!important;
+    }
+
     .bottom-nav-grid {
         display: flex;
         flex-direction: column;

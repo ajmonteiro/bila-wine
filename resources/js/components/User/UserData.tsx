@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../Data/Api";
 import { getToken } from "../Data/Auth";
-import { Button, Div } from "../Layout/Layout";
+import { Button, ButtonForm, Div } from "../Layout/Layout";
 import { ToastSuccess } from "../Layout/Toast";
 
 export default function UserData() {
@@ -53,7 +53,7 @@ export default function UserData() {
                         />
                     </Div>
                     <Div>
-                        <Button
+                        <ButtonForm
                             text="GUARDAR ALTERAÇÕES"
                             onclick={() => updateUserInfo()}
                         />

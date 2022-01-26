@@ -48,7 +48,6 @@ export default function Footer() {
                             </h4>
                         </Div>
                     </Div>
-                    <hr className="w-full mt-10 text-black" />
                 </Div>
             </footer>
         </>

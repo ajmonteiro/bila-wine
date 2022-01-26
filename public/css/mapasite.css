@@ -35,7 +35,7 @@
 
 .mapa-grid div ul li:hover {
     transition: 0.5s ease all;
-    margin-left: 1rem;
+    color: #a45459;
 }
 .mapa-grid div h1 {
     font-size: 1.1rem;
