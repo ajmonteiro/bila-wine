@@ -76,7 +76,6 @@ export default function LastOrder() {
                             </Div>
                             <Div className="user-details-b">
                                 <Button text="DOWNLOAD" onclick={(e) => downloadOrderFile(e, id)} />
-                                <Button text="VER DETALHES" />
                             </Div>
                         </Div>
                     </>

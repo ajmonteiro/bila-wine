@@ -127,7 +127,7 @@ class ProductController extends Controller
         ->join('products', 'products.id', '=', 'favorites.id_product')
         ->select([
             'products.name as name',
-            'favorites.id as id'
+            'products.id as id'
         ])->get();
 
         return response()->json([

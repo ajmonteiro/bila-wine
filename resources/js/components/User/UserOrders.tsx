@@ -58,7 +58,6 @@ export default function UserOrders() {
                             </Div>
                             <Div className="user-details-b">
                                 <Button text="DOWNLOAD" onclick={(e) => downloadOrderFile(e, item.id)} />
-                                <Button text="VER DETALHES" />
                             </Div>
                         </Div>
                     ))}

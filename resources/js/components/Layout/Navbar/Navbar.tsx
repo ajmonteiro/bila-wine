@@ -147,13 +147,19 @@ export function Menu() {
                             <li>SOBRE</li>
                         </Div>
                         <Div
+                            onclick={() =>
+                                window.open(`/faqs`, `_self`)
+                            }
+                        >
+                            <li>FAQS</li>
+                        </Div>
+                        <Div
                             className="noborder"
                             onclick={() => window.open(`/contactos`, `_self`)}
                         >
                             <li>CONTACTOS</li>
                         </Div>
 
-                        <Div></Div>
                         <Div className="spacer user-bottom-nav-low">
                             <Div
                                 className="flex flex-row noborder dropdown-m"
