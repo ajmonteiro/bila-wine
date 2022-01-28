@@ -41,3 +41,18 @@
     font-size: 1.1rem;
     font-weight: bold;
 }
+
+@media screen and (max-width: 850px) {
+    .mapa-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .mapa-grid div ul li {
+        list-style: none;
+    }
+
+    .mapa-grid div ul {
+        margin-top: 0.2rem;
+    }
+}

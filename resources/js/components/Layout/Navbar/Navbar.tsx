@@ -74,7 +74,6 @@ export function Menu() {
         })
             .then((res) => {
                 setIsAdmin(res.data.admin);
-                console.log(res);
             })
             .catch((err) => {
                 console.log(err);
@@ -82,15 +81,16 @@ export function Menu() {
     }
 
     useEffect(() => {
-        if(window.innerWidth < 500) {
+        if (window.innerWidth < 500) {
             setVisibleMobile(false);
         } else {
             setVisibleMobile(true);
         }
-    }, [window.innerWidth])
+    }, [window.innerWidth]);
+
     return (
         <>
-            <Div className="top-nav">
+            <div className="top-nav">
                 <Div className="top-nav-grid">
                     <Div
                         className="bila-wine-top cursor-pointer"
@@ -113,10 +113,16 @@ export function Menu() {
                         <CartIcon onclick={() => goCart()} />
                     </Div>
                 </Div>
-            </Div>
+            </div>
             {searchInputsVisible && searchInput != "" && (
-                <Div className="search-results">
-                    <Div className="list-search">
+                <div
+                    className="search-results"
+                    style={{
+                        zIndex: 23131,
+                        position: "fixed",
+                    }}
+                >
+                    <div className="list-search">
                         <ul>
                             <li>
                                 <span>Search result 1</span>
@@ -135,8 +141,8 @@ export function Menu() {
                                 <i className="las la-angle-right"></i>
                             </li>
                         </ul>
-                    </Div>
-                </Div>
+                    </div>
+                </div>
             )}
             <Div className="bottom-nav">
                 <Div className="bottom-nav-container">
@@ -152,94 +158,128 @@ export function Menu() {
                                 <i className="las la-stream text-2xl"></i>
                             </li>
                         </div>
-                        {visibleMobile &&
-                        <>
-                        <Div onclick={() => window.open(`/produtos`, `_self`)}>
-                            <li>PRODUTOS</li>
-                        </Div>
-                        <Div onclick={() => window.open(`/eventos`, `_self`)}>
-                            <li>EVENTOS</li>
-                        </Div>
-                        <Div
-                            onclick={() =>
-                                window.open(`/sobre-bilawine`, `_self`)
-                            }
-                        >
-                            <li>SOBRE</li>
-                        </Div>
-                        <Div onclick={() => window.open(`/faqs`, `_self`)}>
-                            <li>FAQS</li>
-                        </Div>
-                        <Div
-                            className="noborder"
-                            onclick={() => window.open(`/contactos`, `_self`)}
-                        >
-                            <li>CONTACTOS</li>
-                        </Div>
+                        {visibleMobile && (
+                            <>
+                                <Div
+                                    onclick={() =>
+                                        window.open(`/produtos`, `_self`)
+                                    }
+                                >
+                                    <li>PRODUTOS</li>
+                                </Div>
+                                <Div
+                                    onclick={() =>
+                                        window.open(`/eventos`, `_self`)
+                                    }
+                                >
+                                    <li>EVENTOS</li>
+                                </Div>
+                                <Div
+                                    onclick={() =>
+                                        window.open(`/sobre-bilawine`, `_self`)
+                                    }
+                                >
+                                    <li>SOBRE</li>
+                                </Div>
+                                <Div
+                                    onclick={() =>
+                                        window.open(`/faqs`, `_self`)
+                                    }
+                                >
+                                    <li>FAQS</li>
+                                </Div>
+                                <Div
+                                    className="noborder"
+                                    onclick={() =>
+                                        window.open(`/contactos`, `_self`)
+                                    }
+                                >
+                                    <li>CONTACTOS</li>
+                                </Div>
 
-                        <Div className="spacer user-bottom-nav-low">
-                            <Div
-                                className="flex flex-row noborder dropdown-m"
-                                onclick={(e) => setUserDropDown(!userDropdown)}
-                            >
-                                <li>
-                                    <span className="uppercase">
-                                        OLÁ {username}
-                                    </span>
-                                </li>
-                                <i className="las la-angle-down"></i>
-                            </Div>
+                                <Div className="spacer user-bottom-nav-low">
+                                    <Div
+                                        className="flex flex-row noborder dropdown-m"
+                                        onclick={(e) =>
+                                            setUserDropDown(!userDropdown)
+                                        }
+                                    >
+                                        <li>
+                                            <span className="uppercase">
+                                                OLÁ {username}
+                                            </span>
+                                        </li>
+                                        <i className="las la-angle-down"></i>
+                                    </Div>
 
-                            {userDropdown && (
-                                <nav className="noborder dropdown-content">
-                                    <li onClick={() => sendToClientArea()}>
-                                        ÁREA CLIENTE
-                                    </li>
-                                    {isAdmin == 1 && (
-                                        <li
-                                            onClick={() =>
-                                                window.open(`/admin`, `_self`)
-                                            }
-                                        >
-                                            DASHBOARD
-                                        </li>
+                                    {userDropdown && (
+                                        <nav className="noborder dropdown-content">
+                                            <li
+                                                onClick={() =>
+                                                    sendToClientArea()
+                                                }
+                                            >
+                                                ÁREA CLIENTE
+                                            </li>
+                                            {isAdmin == 1 && (
+                                                <li
+                                                    onClick={() =>
+                                                        window.open(
+                                                            `/admin`,
+                                                            `_self`
+                                                        )
+                                                    }
+                                                >
+                                                    DASHBOARD
+                                                </li>
+                                            )}
+                                            <li onClick={() => goLogout()}>
+                                                TERMINAR SESSÃO
+                                            </li>
+                                        </nav>
                                     )}
-                                    <li onClick={() => goLogout()}>
-                                        TERMINAR SESSÃO
-                                    </li>
-                                </nav>
-                            )}
-                        </Div>
-                        <Div className="user-bottom-nav">
-                            <Div
-                                className="flex flex-row noborder dropdown-m"
-                                onclick={(e) => setUserDropDown(!userDropdown)}
-                            >
-                                <li className="text-uppercase">
-                                    OLÁ {username}
-                                </li>
-                                <i className="las la-angle-down"></i>
-                            </Div>
-                            {userDropdown && (
-                                <nav className="noborder dropdown-content">
-                                    <li onClick={() => sendToClientArea()}>
-                                        ÁREA CLIENTE
-                                    </li>
-                                    {isAdmin == 1 && (
-                                        <li
-                                            onClick={() =>
-                                                window.open(`/admin`, `_self`)
-                                            }
-                                        >
-                                            DASHBOARD
+                                </Div>
+                                <Div className="user-bottom-nav">
+                                    <Div
+                                        className="flex flex-row noborder dropdown-m"
+                                        onclick={(e) =>
+                                            setUserDropDown(!userDropdown)
+                                        }
+                                    >
+                                        <li className="text-uppercase">
+                                            OLÁ {username}
                                         </li>
+                                        <i className="las la-angle-down"></i>
+                                    </Div>
+                                    {userDropdown && (
+                                        <nav className="noborder dropdown-content">
+                                            <li
+                                                onClick={() =>
+                                                    sendToClientArea()
+                                                }
+                                            >
+                                                ÁREA CLIENTE
+                                            </li>
+                                            {isAdmin == 1 && (
+                                                <li
+                                                    onClick={() =>
+                                                        window.open(
+                                                            `/admin`,
+                                                            `_self`
+                                                        )
+                                                    }
+                                                >
+                                                    DASHBOARD
+                                                </li>
+                                            )}
+                                            <li onClick={() => goLogout()}>
+                                                TERMINAR SESSÃO
+                                            </li>
+                                        </nav>
                                     )}
-                                    <li onClick={() => goLogout()}>
-                                        TERMINAR SESSÃO
-                                    </li>
-                                </nav>
-                            )}
-                        </Div></>}
+                                </Div>
+                            </>
+                        )}
                     </ul>
                 </Div>
             </Div>

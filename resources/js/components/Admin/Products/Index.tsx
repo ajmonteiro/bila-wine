@@ -49,7 +49,6 @@ export default function Products() {
         api.get(`/api/categories`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            console.log(res);
             setcategories(res.data.categories);
             setidcategory(res.data.categories[0].id);
         });

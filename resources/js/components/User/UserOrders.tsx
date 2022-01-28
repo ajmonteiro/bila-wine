@@ -22,7 +22,6 @@ export default function UserOrders() {
         api.get(`/api/generate/${id}`, { headers: { Authorization: `Bearer ${getToken()}`}
         })
         .then((res) => {
-            console.log(res)
             const link = document.createElement("a");
             link.href = baseURL() + '/' + res.data.link;
             document.body.appendChild(link);

@@ -36,7 +36,6 @@ export default function Stripe(props: StripeProps) {
                 }).then(() => {
                     api.put(`/api/order/state/${id}`, { headers: { Authorization: `Bearer ${getToken()}`}
                 }).then((res) => {
-                    console.log(res)
                 })
                 })
             })

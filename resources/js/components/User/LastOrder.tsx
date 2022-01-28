@@ -20,7 +20,6 @@ export default function LastOrder() {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
             .then((res) => {
-                console.log(res);
                 setOrder(res.data.order);
                 setInvoice(res.data.order.id_invoice);
                 setCreatedAt(res.data.order.created_at);
@@ -35,7 +34,6 @@ export default function LastOrder() {
         api.get(`/api/generate/${id}`, { headers: { Authorization: `Bearer ${getToken()}`}
         })
         .then((res) => {
-            console.log(res)
             const link = document.createElement("a");
             link.href = baseURL() + '/' + res.data.link;
             document.body.appendChild(link);

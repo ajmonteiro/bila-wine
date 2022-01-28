@@ -54,7 +54,8 @@ Route::group([
     Route::get('/username', [AuthController::class, 'getUsername']);
     Route::get('/isadmin', [AuthController::class, 'userIsAdmin']);
     Route::post('/user/update', [AuthController::class, 'userInfoChange']);
-
+    Route::post('/changePassword', [AuthController::class, 'changePassword']);
+    
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'getDashboardInfo']);
     Route::get('/recentusers', [DashboardController::class, 'getRecentUsers']);

@@ -93,3 +93,9 @@
         text-align: center;
     }
 }
+
+@media screen and (max-width: 550px) {
+    .about-bilawine-content {
+        text-align: center;
+    }
+}

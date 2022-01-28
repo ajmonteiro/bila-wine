@@ -16,7 +16,6 @@ export default function SiteMap() {
         })
             .then((res) => {
                 setIsAdmin(res.data.admin);
-                console.log(res);
             })
             .catch((err) => {
                 console.log(err);

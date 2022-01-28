@@ -8,7 +8,7 @@ export const ToastSuccess = (message: string = 'Successo', position: any = 'bott
 })
 
 export const ToastError = (message:string = 'Algo correu mal') => cogoToast.error(`${message}`, {
-    position: 'top-center',
+    position: 'bottom-right',
     heading: 'Erro',
     hideAfter: 2
 })

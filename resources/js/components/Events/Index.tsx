@@ -19,7 +19,6 @@ export default function Events() {
         api.get(`/api/events`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            console.log(res);
             setEvents(res.data.events);
         });
     }

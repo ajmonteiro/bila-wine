@@ -20,10 +20,9 @@ export default function SuccessPay() {
         api.get(`/api/checkstate/${id}`, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            console.log(res);
             if(res.data.order == 0) {
                 changeStateFromOrder();
-            setLoad(true);
+                setLoad(true);
             } else {
                 window.open(`/`, `_self`)
             }
@@ -38,7 +37,6 @@ export default function SuccessPay() {
         api.post(`/api/order/state`, form, {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
-            console.log(res);
         })
     }
 

@@ -57,7 +57,6 @@ export default function ProductId() {
             headers: { Authorization: `Bearer ${getToken()}` },
         })
             .then((res) => {
-                console.log(res);
                 ToastSuccess('Adicionado aos favoritos');
             })
             .catch((err) => {
@@ -86,7 +85,7 @@ export default function ProductId() {
                             <Div className="flex flex-col">
                                 <h2 className="text-2xl font-bold">{title}</h2>
                                 <span style={{ fontSize: "0.8rem" }}>
-                                    {description}
+                                    {big_description}
                                 </span>
                             </Div>
                             <Div className="produto-add-cart flex justify-between items-center">

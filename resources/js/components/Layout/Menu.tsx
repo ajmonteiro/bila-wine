@@ -24,7 +24,7 @@ export default function TopMenu() {
             headers: { Authorization: `Bearer ${getToken()}` },
         }).then((res) => {
             logout();
-            history.push("/auth", console.log(res));
+            history.push("/auth");
         });
     }
     return (

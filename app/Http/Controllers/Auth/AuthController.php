@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use DB;
 use Carbon\Carbon;
+use Hash;
 
 class AuthController extends Controller
 {
@@ -119,5 +121,43 @@ class AuthController extends Controller
         return response()->json([
             'success' => 1
         ], 200);
+    }
+
+    public function changePassword(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'actualPassword' => 'required',
+            'newPassword' => 'required',
+            'repeatPassword' => 'required'
+        ]);
+
+        if($validator) {
+            $pwd = User::where('id', Auth()->user()->id)->pluck('password')[0];
+            $checkPwd = Hash::check($request->actualPassword, $pwd, []);
+
+            if($checkPwd == 1) {
+                if($request->newPassword == $request->repeatPassword) {
+                    $user = User::where('id', Auth()->user()->id)->update([
+                        'password' => bcrypt($request->newPassword)
+                    ]);
+
+                    return response()->json([
+                        'message' => 'Palavra-passe alterada com sucesso'
+                    ], 200);
+                }
+            } else {
+                return response()->json([
+                    'message' => 'A palavra-passe atual está incorreta'
+                ], 406);
+            }
+        } else {
+            return response()->json([
+                'message' => 'Verifique os campos'
+            ], 406);
+        }
+    }
+
+    protected function passwordCorrect($suppliedPassword)
+    {
+        return Hash::check($suppliedPassword, $pwd, []);
     }
 }
