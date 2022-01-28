@@ -5,7 +5,6 @@ import Events from './Events'
 export default function LookingFor() {
     return (
         <>
-
             <Events />
         </>
     )

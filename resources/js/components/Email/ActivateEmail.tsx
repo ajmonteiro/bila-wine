@@ -12,7 +12,7 @@ export default function ActivateEmail() {
         return useParams();
     }
     useEffect(() => {
-        api.get(`/api/email/user/${id}`).then((res) => console.log(res));
+        api.get(`/api/email/user/${id}`).then((res) => {});
     }, []);
 
     return (
