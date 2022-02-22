@@ -25,7 +25,7 @@ export const ToastLoading = (message:string = 'A carregar...') => cogoToast.load
     hideAfter: 2
 }) 
 
-export const ToastWarniing = (message:string = 'Warning') => cogoToast.warn(`${message}`, {
+export const ToastWarning = (message:string = 'Warning') => cogoToast.warn(`${message}`, {
     position: 'top-center',
     heading: 'Warning',
     hideAfter: 2
